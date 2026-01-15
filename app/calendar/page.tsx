@@ -45,6 +45,7 @@ export default function ContentCalendarPage() {
     // Result state
     const [calendarItems, setCalendarItems] = useState<any[]>([])
     const [selectedItem, setSelectedItem] = useState<any>(null)
+    const [showMobileSidebar, setShowMobileSidebar] = useState(false)
 
     useEffect(() => {
         const checkUser = async () => {
@@ -87,6 +88,7 @@ export default function ContentCalendarPage() {
     const handleGenerate = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
+        setShowMobileSidebar(false)
         try {
             const result = await generateCalendarContent(topic, days, tone, platform, language, framework, startDate)
             if (result.items && result.items.length > 0) {
@@ -158,79 +160,101 @@ export default function ContentCalendarPage() {
     }
 
     return (
-        <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-primary/20">
+        <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-primary/30">
             <Header />
 
+            {/* Mobile Sidebar Toggle */}
+            <div className="md:hidden fixed bottom-6 right-6 z-[60]">
+                <button
+                    onClick={() => setShowMobileSidebar(!showMobileSidebar)}
+                    className="h-14 w-14 rounded-full bg-primary text-white shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all"
+                >
+                    {showMobileSidebar ? <X className="h-6 w-6" /> : <Wand2 className="h-6 w-6" />}
+                </button>
+            </div>
+
             <div className="flex-1 flex flex-col md:flex-row h-[calc(100vh-64px)] overflow-hidden">
-                {/* Sidebar Configuration */}
-                <aside className="w-full md:w-80 border-r border-white/5 bg-background/30 backdrop-blur-xl p-6 overflow-y-auto shrink-0 transition-all custom-scrollbar z-10 relative">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <CalendarIcon className="h-5 w-5 text-primary" />
+                {/* Sidebar - Command Center */}
+                <aside className={`${showMobileSidebar ? 'fixed inset-0 z-50 bg-background/95 backdrop-blur-xl p-8 pt-20' : 'hidden md:block w-[360px]'
+                    } border-r border-white/5 bg-background p-8 overflow-y-auto shrink-0 transition-all custom-scrollbar z-10 relative`}>
+
+                    {/* Mobile Close Button (Alternative to the FAB) */}
+                    {showMobileSidebar && (
+                        <button
+                            onClick={() => setShowMobileSidebar(false)}
+                            className="absolute top-6 right-6 h-10 w-10 flex items-center justify-center text-muted-foreground"
+                        >
+                            <X className="h-6 w-6" />
+                        </button>
+                    )}
+
+                    <div className="flex items-center gap-4 mb-10">
+                        <div className="h-12 w-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shadow-lg shadow-primary/5">
+                            <CalendarIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h2 className="text-lg font-outfit font-bold">Plan Content</h2>
-                            <p className="text-xs text-muted-foreground">AI Strategy Generator</p>
+                            <h2 className="text-xl font-bold font-outfit tracking-tight">Strategy</h2>
+                            <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black">Plan Content Loop</p>
                         </div>
                     </div>
 
-                    <form onSubmit={handleGenerate} className="space-y-6 pb-20">
+                    <form onSubmit={handleGenerate} className="space-y-8 pb-32">
                         {/* Days Selection */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
-                                <Clock className="h-3 w-3" /> Duration
+                        <div className="space-y-4">
+                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center justify-between">
+                                Horizon
+                                <span className="h-1 w-1 rounded-full bg-primary animate-pulse"></span>
                             </label>
-                            <div className="grid grid-cols-3 gap-2">
+                            <div className="grid grid-cols-3 gap-3">
                                 {[7, 15, 30].map((d) => (
                                     <button
                                         key={d}
                                         type="button"
                                         onClick={() => setDays(d)}
-                                        className={`py-2 px-1 rounded-xl text-xs font-bold transition-all border ${days === d
-                                            ? 'bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20'
-                                            : 'bg-muted/50 text-muted-foreground border-transparent hover:bg-muted hover:text-foreground'
+                                        className={`py-3 px-1 rounded-xl text-[10px] font-black tracking-widest transition-all border-2 ${days === d
+                                            ? 'bg-primary/10 text-primary border-primary shadow-xl shadow-primary/10'
+                                            : 'bg-white/5 text-muted-foreground border-transparent hover:bg-white/10'
                                             }`}
                                     >
-                                        {d} Days
+                                        {d} DAYS
                                     </button>
                                 ))}
                             </div>
                         </div>
 
-
                         {/* Start Date */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
-                                <CalendarIcon className="h-3 w-3" /> Start Date
-                            </label>
-                            <input
-                                type="date"
-                                value={startDate}
-                                onChange={(e) => setStartDate(e.target.value)}
-                                className="w-full px-4 py-3 bg-muted/30 border border-white/5 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground [color-scheme:dark]"
-                            />
+                        <div className="space-y-4">
+                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Deployment Start</label>
+                            <div className="relative">
+                                <input
+                                    type="date"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    className="w-full h-12 px-5 bg-white/5 border border-white/5 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all text-foreground [color-scheme:dark]"
+                                />
+                            </div>
                         </div>
 
                         {/* Platform */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Platform</label>
-                            <div className="grid grid-cols-2 gap-2">
+                        <div className="space-y-4">
+                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Platform Vector</label>
+                            <div className="grid grid-cols-2 gap-3">
                                 {[
-                                    { name: 'LinkedIn', icon: Linkedin },
-                                    { name: 'YouTube', icon: MonitorPlay },
-                                    { name: 'TikTok', icon: Sparkles },
-                                    { name: 'Instagram', icon: Instagram }
+                                    { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-500' },
+                                    { name: 'YouTube', icon: MonitorPlay, color: 'text-red-500' },
+                                    { name: 'TikTok', icon: Sparkles, color: 'text-pink-500' },
+                                    { name: 'Instagram', icon: Instagram, color: 'text-purple-500' }
                                 ].map((p) => (
                                     <button
                                         key={p.name}
                                         type="button"
                                         onClick={() => setPlatform(p.name)}
-                                        className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-2 border ${platform === p.name
-                                            ? 'bg-primary/10 text-primary border-primary/50 shadow-sm'
-                                            : 'bg-muted/30 text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground'
+                                        className={`p-4 rounded-2xl text-[10px] font-black uppercase tracking-tight transition-all duration-300 flex flex-col items-center gap-2 border-2 ${platform === p.name
+                                            ? 'bg-primary/10 text-primary border-primary shadow-lg shadow-primary/10'
+                                            : 'bg-white/5 border-transparent text-muted-foreground hover:bg-white/10'
                                             }`}
                                     >
-                                        <p.icon className="h-4 w-4" />
+                                        <p.icon className={`h-5 w-5 ${platform === p.name ? 'text-primary' : p.color}`} />
                                         {p.name}
                                     </button>
                                 ))}
@@ -238,69 +262,52 @@ export default function ContentCalendarPage() {
                         </div>
 
                         {/* Topic */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Topic / Goal</label>
+                        <div className="space-y-4">
+                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Central Theme</label>
                             <textarea
                                 value={topic}
                                 onChange={(e) => setTopic(e.target.value)}
                                 placeholder="E.g. Daily productivity tips for remote workers..."
                                 required
-                                className="w-full px-4 py-3 bg-muted/30 border border-white/5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 h-28 resize-none font-medium placeholder:text-muted-foreground/50 transition-all focus:bg-background"
+                                className="w-full px-5 py-4 bg-white/5 border border-white/5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 h-32 resize-none font-medium placeholder:text-muted-foreground/30 transition-all shadow-inner"
                             />
                         </div>
 
-                        {/* Tone */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Tone</label>
-                            <div className="relative">
+                        {/* Advanced Rows */}
+                        <div className="grid grid-cols-1 gap-6">
+                            <div className="space-y-3">
+                                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Target Aesthetic</label>
                                 <select
                                     value={tone}
                                     onChange={(e) => setTone(e.target.value)}
-                                    className="w-full px-4 py-3 bg-muted/30 border border-white/5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none font-medium cursor-pointer hover:bg-muted/50 transition-colors text-foreground"
+                                    className="w-full h-12 px-5 bg-white/5 border border-white/5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 appearance-none font-bold cursor-pointer hover:bg-white/10 transition-colors text-foreground"
                                 >
-                                    <option>Professional</option>
-                                    <option>Friendly</option>
-                                    <option>Witty</option>
-                                    <option>Persuasive</option>
-                                    <option>Edgy</option>
+                                    <option className="bg-background">Professional</option>
+                                    <option className="bg-background">Friendly</option>
+                                    <option className="bg-background">Witty</option>
+                                    <option className="bg-background">Persuasive</option>
+                                    <option className="bg-background">Edgy</option>
                                 </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                    <ChevronRight className="h-4 w-4 text-muted-foreground rotate-90" />
-                                </div>
                             </div>
-                        </div>
 
-                        {/* Advanced Options (Language & Framework) */}
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
-                                    <Languages className="h-3 w-3" /> Language
-                                </label>
+                            <div className="grid grid-cols-2 gap-4">
                                 <select
                                     value={language}
                                     onChange={(e) => setLanguage(e.target.value)}
-                                    className="w-full px-3 py-2 bg-muted/30 border border-white/5 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-primary/50 font-medium"
+                                    className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-[10px] focus:outline-none font-bold"
                                 >
-                                    <option>English</option>
-                                    <option>Tamil</option>
-                                    <option>Hindi</option>
-                                    <option>Spanish</option>
-                                    <option>French</option>
-                                    <option>German</option>
+                                    <option className="bg-background">English</option>
+                                    <option className="bg-background">Tamil</option>
+                                    <option className="bg-background">Hindi</option>
                                 </select>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
-                                    <Layers className="h-3 w-3" /> Framework
-                                </label>
                                 <select
                                     value={framework}
                                     onChange={(e) => setFramework(e.target.value)}
-                                    className="w-full px-3 py-2 bg-muted/30 border border-white/5 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-primary/50 font-medium"
+                                    className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-[10px] focus:outline-none font-bold"
                                 >
-                                    <option value="None">None</option>
-                                    <option value="AIDA">AIDA</option>
-                                    <option value="PAS">PAS</option>
+                                    <option value="None" className="bg-background">No Framework</option>
+                                    <option value="AIDA" className="bg-background">AIDA</option>
+                                    <option value="PAS" className="bg-background">PAS</option>
                                 </select>
                             </div>
                         </div>
@@ -308,102 +315,107 @@ export default function ContentCalendarPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-4 bg-gradient-to-r from-primary to-purple-600 text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-70 group"
+                            className={`w-full py-5 relative overflow-hidden bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all shadow-xl active:scale-[0.98] ${loading ? 'animate-pulse opacity-90' : 'shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1'}`}
                         >
-                            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <>
-                                <Wand2 className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-                                Generate Calendar
-                            </>}
+                            <div className="flex items-center justify-center gap-3 relative z-10">
+                                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <>
+                                    <Wand2 className="h-5 w-5" />
+                                    <span className="text-xs">Compile System</span>
+                                </>}
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer"></div>
                         </button>
                     </form>
                 </aside>
 
                 {/* Main Content Area */}
-                <main className="flex-1 p-6 md:p-10 overflow-auto relative custom-scrollbar bg-black/5 dark:bg-black/20">
-
+                <main className="flex-1 p-10 overflow-auto relative custom-scrollbar bg-[#FAF9F6] dark:bg-[#0D0D0E]">
                     {calendarItems.length === 0 ? (
-                        <div className="h-full flex flex-col items-center justify-center text-center animate-in fade-in zoom-in-95 duration-700">
-                            <div className="relative mb-8">
-                                <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
-                                <div className="h-24 w-24 bg-background/50 backdrop-blur-xl rounded-3xl flex items-center justify-center ring-1 ring-white/10 relative z-10 glass-card">
-                                    <CalendarIcon className="h-10 w-10 text-primary" />
+                        <div className="h-full flex flex-col items-center justify-center text-center animate-in fade-in zoom-in-95 duration-1000 max-w-2xl mx-auto">
+                            <div className="relative mb-10">
+                                <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full animate-pulse"></div>
+                                <div className="h-32 w-32 bg-background border border-white/10 rounded-[2.5rem] flex items-center justify-center shadow-2xl relative z-10 glass-card">
+                                    <CalendarIcon className="h-12 w-12 text-primary animate-bounce-slow" />
                                 </div>
                             </div>
-                            <h2 className="text-4xl font-outfit font-bold mb-4 tracking-tight">Your Content Journey Starts Here</h2>
-                            <p className="text-muted-foreground max-w-md mx-auto leading-relaxed text-lg">
-                                Use the AI tool on the left to generate your {days}-day content strategy.
+                            <h2 className="text-5xl font-outfit font-black mb-6 tracking-tight">Strategy Blueprint</h2>
+                            <p className="text-muted-foreground leading-relaxed text-xl max-w-lg mx-auto">
+                                Define your vision on the left to architect a high-converting {days}-day content ecosystem.
                             </p>
+                            <div className="mt-12 flex gap-10 opacity-20 filter grayscale">
+                                <Linkedin className="h-6 w-6" />
+                                <MonitorPlay className="h-6 w-6" />
+                                <Sparkles className="h-6 w-6" />
+                                <Instagram className="h-6 w-6" />
+                            </div>
                         </div>
                     ) : (
-                        <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6 glass-card p-6 rounded-2xl sticky top-0 z-20 backdrop-blur-xl border border-white/10">
-                                <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-xs font-bold px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">STRATEGY</span>
-                                        <span className="text-xs text-muted-foreground">{days} Days</span>
+                        <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-12 pb-32">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8 sticky top-0 z-20 bg-background/80 backdrop-blur-3xl p-8 rounded-[2.5rem] border border-black/[0.03] dark:border-white/5 shadow-premium">
+                                <div className="max-w-xl">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <span className="text-[10px] font-black px-3 py-1 rounded-full bg-primary text-white tracking-[0.2em] uppercase">Tactical Map</span>
+                                        <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{days} Days Output</span>
                                     </div>
-                                    <h2 className="text-2xl font-bold font-outfit truncate max-w-md">
+                                    <h2 className="text-3xl font-bold font-outfit tracking-tight leading-tight truncate">
                                         {topic}
                                     </h2>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="hidden md:flex flex-col items-end mr-4">
-                                        <span className="text-xs font-bold">{calendarItems.length} Posts</span>
-                                        <span className="text-[10px] text-muted-foreground">{platform} • {language}</span>
-                                    </div>
-                                    <button
-                                        onClick={handleSaveAll}
-                                        disabled={saving}
-                                        className="flex items-center gap-2 px-6 py-3 bg-foreground text-background hover:bg-foreground/90 rounded-xl font-bold transition-all shadow-lg hover:scale-105 active:scale-95 disabled:opacity-50 disabled:scale-100"
-                                    >
-                                        {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
-                                        <span>Save All to Workshop</span>
-                                    </button>
-                                </div>
+                                <button
+                                    onClick={handleSaveAll}
+                                    disabled={saving}
+                                    className="h-14 px-10 bg-foreground text-background dark:bg-white dark:text-black rounded-2xl font-black text-sm uppercase tracking-widest transition-all hover:scale-[1.05] shadow-2xl active:scale-95 disabled:opacity-50"
+                                >
+                                    {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+                                    <span className="ml-3">Deploy All Posts</span>
+                                </button>
                             </div>
 
-                            <div className={`grid gap-4 ${days === 30 ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-7' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
+                            <div className={`grid gap-6 ${days === 30 ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-7' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
                                 {calendarItems.map((item, idx) => (
                                     <div
                                         key={idx}
-                                        className={`group bg-card/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 flex flex-col ${days === 30 ? 'aspect-square md:aspect-auto' : ''}`}
+                                        className="group saas-card p-0 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-500"
                                     >
-                                        <div className={`p-5 flex-1 ${days === 30 ? 'flex flex-col' : ''}`}>
-                                            <div className="flex items-center justify-between mb-3">
-                                                <div className="flex flex-col">
-                                                    <span className="text-xs font-bold text-primary mb-0.5">
+                                        <div className="p-6 flex-1 flex flex-col">
+                                            <div className="flex items-start justify-between mb-4">
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">
                                                         {(() => {
                                                             const d = new Date(startDate);
                                                             d.setDate(d.getDate() + (item.day - 1));
-                                                            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' });
+                                                            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                                                         })()}
                                                     </span>
-                                                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold bg-white/5 px-1.5 py-0.5 rounded w-fit">
-                                                        {item.label || 'Post'}
+                                                    <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/40 px-2 py-0.5 rounded border border-black/[0.05] dark:border-white/5 w-fit">
+                                                        {item.label || 'Tactical'}
                                                     </span>
                                                 </div>
-                                                <div className="h-8 w-8 rounded-full bg-background/50 flex items-center justify-center border border-white/5 group-hover:border-primary/50 transition-colors">
+                                                <div className="h-8 w-8 rounded-full bg-muted/30 flex items-center justify-center border border-black/[0.03] dark:border-white/5">
                                                     {platform === 'LinkedIn' ? <Linkedin className="h-4 w-4 text-blue-500" /> :
                                                         platform === 'YouTube' ? <MonitorPlay className="h-4 w-4 text-red-500" /> :
                                                             <Sparkles className="h-4 w-4 text-pink-500" />}
                                                 </div>
                                             </div>
-                                            <h3 className={`font-bold font-outfit text-foreground mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors ${days === 30 ? 'text-xs' : 'text-base'}`}>
+                                            <h3 className={`font-bold font-outfit mb-3 leading-tight group-hover:text-primary transition-colors ${days === 30 ? 'text-sm' : 'text-xl'}`}>
                                                 {item.title}
                                             </h3>
                                             {days !== 30 && (
-                                                <p className="text-muted-foreground text-xs line-clamp-3 leading-relaxed opacity-70 mb-4 font-medium">
+                                                <p className="text-muted-foreground text-xs line-clamp-4 leading-relaxed opacity-70 mb-6 font-medium">
                                                     {item.content}
                                                 </p>
                                             )}
+
+                                            <div className="mt-auto pt-4 border-t border-black/[0.03] dark:border-white/5">
+                                                <button
+                                                    onClick={() => setSelectedItem(item)}
+                                                    className="w-full h-10 rounded-xl bg-muted/50 text-[10px] font-black uppercase tracking-widest hover:bg-foreground hover:text-background dark:hover:bg-white dark:hover:text-black transition-all flex items-center justify-center gap-2"
+                                                >
+                                                    View Asset
+                                                    <ChevronRight className="h-3 w-3" />
+                                                </button>
+                                            </div>
                                         </div>
-                                        <button
-                                            onClick={() => setSelectedItem(item)}
-                                            className="w-full py-3 bg-muted/20 border-t border-white/5 text-[10px] uppercase tracking-widest font-bold hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 group/btn"
-                                        >
-                                            {days === 30 ? 'OPEN' : 'READ SCRIPT'}
-                                            <ChevronRight className="h-3 w-3 group-hover/btn:translate-x-1 transition-transform" />
-                                        </button>
                                     </div>
                                 ))}
                             </div>
@@ -412,63 +424,59 @@ export default function ContentCalendarPage() {
                 </main>
             </div>
 
-            {/* Premium Modal */}
-            {
-                selectedItem && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 perspective-1000">
-                        <div className="absolute inset-0 bg-background/80 backdrop-blur-xl transition-opacity animate-in fade-in" onClick={() => setSelectedItem(null)}></div>
-                        <div className="relative bg-card/90 border border-white/10 w-full max-w-4xl max-h-[85vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-300 ring-1 ring-white/10">
-
-                            {/* Modal Header */}
-                            <div className="p-6 md:p-8 border-b border-white/5 flex items-start justify-between bg-black/20">
-                                <div className="flex gap-4">
-                                    <div className="h-12 w-12 bg-primary/10 rounded-2xl flex items-center justify-center shrink-0 border border-primary/20">
-                                        <span className="font-outfit font-black text-primary text-sm">Day {selectedItem.day}</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-outfit font-bold text-2xl leading-tight mb-1">{selectedItem.title}</h3>
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                            <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/5">{platform}</span>
-                                            <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/5">{tone} Tone</span>
-                                        </div>
+            {/* Modal - Preview Studio */}
+            {selectedItem && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12">
+                    <div className="absolute inset-0 bg-background/60 backdrop-blur-2xl animate-in fade-in" onClick={() => setSelectedItem(null)}></div>
+                    <div className="relative bg-background border border-white/10 w-full max-w-3xl rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col animate-in zoom-in-95 duration-500">
+                        {/* Header */}
+                        <div className="p-8 md:p-10 border-b border-white/5 flex items-center justify-between">
+                            <div className="flex gap-5">
+                                <div className="h-14 w-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shrink-0">
+                                    <span className="font-outfit font-black text-primary text-base leading-none">D{selectedItem.day}</span>
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="font-outfit font-bold text-2xl tracking-tight leading-tight">{selectedItem.title}</h3>
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></div>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">{platform} • {tone}</span>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={() => handleCopy(selectedItem.content)}
-                                        className="p-2.5 rounded-xl bg-muted/50 hover:bg-primary hover:text-white transition-colors text-muted-foreground group"
-                                        title="Copy to clipboard"
-                                    >
-                                        <Copy className="h-5 w-5 group-active:scale-90 transition-transform" />
-                                    </button>
-                                    <button
-                                        onClick={() => setSelectedItem(null)}
-                                        className="p-2.5 rounded-xl bg-muted/50 hover:bg-red-500/10 hover:text-red-500 transition-colors text-muted-foreground"
-                                    >
-                                        <X className="h-5 w-5" />
-                                    </button>
-                                </div>
                             </div>
-
-                            {/* Modal Content */}
-                            <div className="p-8 md:p-10 overflow-y-auto font-mono text-sm leading-relaxed whitespace-pre-wrap selection:bg-primary/20 bg-black/10 custom-scrollbar">
-                                {selectedItem.content}
-                            </div>
-
-                            {/* Modal Footer */}
-                            <div className="p-6 border-t border-white/5 bg-black/20 flex justify-between items-center">
-                                <span className="text-xs font-mono text-muted-foreground opacity-50">AI Generated Content • {new Date().getFullYear()}</span>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => handleCopy(selectedItem.content)}
+                                    className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all group"
+                                >
+                                    <Copy className="h-5 w-5 group-active:scale-90" />
+                                </button>
                                 <button
                                     onClick={() => setSelectedItem(null)}
-                                    className="px-8 py-3 rounded-xl bg-primary text-white font-bold text-sm hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all"
+                                    className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-red-500/10 hover:text-red-500 transition-all"
                                 >
-                                    Done Reading
+                                    <X className="h-5 w-5" />
                                 </button>
                             </div>
                         </div>
+
+                        {/* Content */}
+                        <div className="p-10 md:p-12 overflow-y-auto font-sans text-lg font-medium leading-relaxed max-height-[50vh] custom-scrollbar bg-white/[0.01]">
+                            {selectedItem.content}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-8 border-t border-white/5 bg-white/[0.02] flex items-center justify-between">
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/30">System v2.45 Output</span>
+                            <button
+                                onClick={() => setSelectedItem(null)}
+                                className="h-12 px-8 bg-foreground text-background dark:bg-white dark:text-black rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-xl"
+                            >
+                                Continue
+                            </button>
+                        </div>
                     </div>
-                )
-            }
-        </div >
+                </div>
+            )}
+        </div>
     )
 }

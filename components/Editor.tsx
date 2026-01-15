@@ -130,245 +130,265 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
     }
 
     return (
-        <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-background font-sans selection:bg-primary/20">
+        <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-background font-sans selection:bg-primary/30">
             {/* Mobile Header */}
             <div className="md:hidden p-4 border-b border-border flex items-center justify-between bg-background/80 backdrop-blur-md z-40">
-                <Link href="/dashboard" className="text-muted-foreground">
+                <Link href="/dashboard" className="text-muted-foreground flex items-center gap-2">
                     <ArrowLeft className="h-5 w-5" />
                 </Link>
                 <div className="flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-primary" />
-                    <span className="font-bold text-foreground font-outfit">ScriptGo</span>
+                    <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
+                        <Sparkles className="h-4 w-4 text-white" />
+                    </div>
                 </div>
                 <button onClick={() => setShowMobileSidebar(!showMobileSidebar)} className="text-foreground">
                     {showMobileSidebar ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </button>
             </div>
 
-            {/* Left Sidebar */}
-            <div className={`${showMobileSidebar ? 'fixed inset-0 z-50 bg-background/95 backdrop-blur-xl p-6' : 'hidden md:flex w-80 bg-background/30 backdrop-blur-xl border-r border-white/5 p-6'
+            {/* Left Sidebar - Command Center */}
+            <div className={`${showMobileSidebar ? 'fixed inset-0 z-50 bg-background/95 backdrop-blur-xl p-6' : 'hidden md:flex w-[340px] bg-background border-r border-white/5 p-8'
                 } flex-col transition-all duration-300 relative z-10 custom-scrollbar`}>
 
-                <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-3">
-                        <Link href="/dashboard" className="h-10 w-10 bg-muted/50 rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors group">
-                            <ArrowLeft className="h-5 w-5" />
-                        </Link>
-                    </div>
+                <div className="mb-10">
+                    <Link href="/dashboard" className="inline-flex items-center gap-3 group text-sm font-bold text-muted-foreground hover:text-foreground transition-all">
+                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-primary/20 group-hover:text-primary group-hover:border-primary/30 transition-all">
+                            <ArrowLeft className="h-4 w-4" />
+                        </div>
+                        Back to dashboard
+                    </Link>
                 </div>
 
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="h-8 w-1 bg-gradient-to-b from-primary to-purple-500 rounded-full"></div>
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="h-10 w-10 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
+                        <Wand2 className="h-5 w-5 text-primary" />
+                    </div>
                     <div>
-                        <h2 className="text-lg font-bold text-foreground font-outfit">Configuration</h2>
-                        <p className="text-xs text-muted-foreground">Customize output</p>
+                        <h2 className="text-xl font-bold font-outfit tracking-tight">Studio</h2>
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-black">Configure Generation</p>
                     </div>
                 </div>
 
-                <form onSubmit={handleGenerate} className="space-y-6 flex-1 overflow-y-auto pb-6 scrollbar-none">
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Target Platform</label>
-                        <div className="grid grid-cols-2 gap-2">
+                <form onSubmit={handleGenerate} className="space-y-8 flex-1 overflow-y-auto pb-6 scrollbar-none">
+                    {/* Platform Selector */}
+                    <div className="space-y-4">
+                        <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center justify-between">
+                            Platform
+                            <span className="h-1 w-1 rounded-full bg-primary/40 animate-pulse"></span>
+                        </label>
+                        <div className="grid grid-cols-2 gap-3">
                             {[
-                                { name: 'LinkedIn', icon: Linkedin },
-                                { name: 'YouTube', icon: MonitorPlay },
-                                { name: 'TikTok', icon: Sparkles },
-                                { name: 'Instagram', icon: Instagram }
+                                { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-500', bg: 'hover:bg-blue-500/10' },
+                                { name: 'YouTube', icon: MonitorPlay, color: 'text-red-500', bg: 'hover:bg-red-500/10' },
+                                { name: 'TikTok', icon: Sparkles, color: 'text-pink-500', bg: 'hover:bg-pink-500/10' },
+                                { name: 'Instagram', icon: Instagram, color: 'text-purple-500', bg: 'hover:bg-purple-500/10' }
                             ].map((p) => (
                                 <button
                                     key={p.name}
                                     type="button"
                                     onClick={() => setPlatform(p.name)}
-                                    className={`px-3 py-3 rounded-xl text-[10px] font-bold transition-all duration-200 flex flex-col items-center gap-2 border ${platform === p.name
-                                        ? 'bg-primary/10 text-primary border-primary/50 shadow-sm'
-                                        : 'bg-muted/30 text-muted-foreground border-transparent hover:bg-muted/50'
+                                    className={`p-4 rounded-2xl text-[10px] font-black uppercase tracking-tight transition-all duration-300 flex flex-col items-center gap-3 border-2 ${platform === p.name
+                                        ? `bg-primary/10 border-primary text-primary shadow-xl shadow-primary/10`
+                                        : `bg-white/5 border-transparent text-muted-foreground ${p.bg}`
                                         }`}
                                 >
-                                    <p.icon className="h-4 w-4" />
+                                    <p.icon className={`h-5 w-5 ${platform === p.name ? 'text-primary' : p.color}`} />
                                     {p.name}
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div className="space-y-3">
-                        <label htmlFor="topic" className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Topic / Goal</label>
+                    {/* Topic Area */}
+                    <div className="space-y-4">
+                        <label htmlFor="topic" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Objective</label>
                         <textarea
                             id="topic"
                             value={topic}
                             onChange={(e) => setTopic(e.target.value)}
-                            placeholder="What are we creating today?..."
+                            placeholder="Describe your vision..."
                             required={!scriptId && !content}
-                            className="w-full px-4 py-3 bg-muted/30 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent h-28 resize-none placeholder:text-muted-foreground/50 font-medium text-sm transition-all focus:bg-background"
+                            className="w-full px-5 py-4 bg-white/5 border border-white/5 rounded-2xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-white/[0.02] h-32 resize-none placeholder:text-muted-foreground/30 font-medium text-sm transition-all shadow-inner"
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4">
-                        <div className="space-y-2">
-                            <label htmlFor="tone" className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Tone</label>
-                            <div className="relative">
-                                <select
-                                    id="tone"
-                                    value={tone}
-                                    onChange={(e) => setTone(e.target.value)}
-                                    className="w-full px-4 py-2.5 appearance-none bg-muted/30 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer hover:bg-muted/50 transition-colors text-xs font-medium"
-                                >
-                                    <option>Professional</option>
-                                    <option>Friendly</option>
-                                    <option>Witty</option>
-                                    <option>Persuasive</option>
-                                    <option>Edgy</option>
-                                </select>
-                            </div>
+                    {/* Tone & Language & Framework Grid */}
+                    <div className="grid grid-cols-1 gap-6">
+                        <div className="space-y-3">
+                            <label htmlFor="tone" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Aesthetic / Tone</label>
+                            <select
+                                id="tone"
+                                value={tone}
+                                onChange={(e) => setTone(e.target.value)}
+                                className="w-full h-12 px-5 bg-white/5 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer text-sm font-bold transition-all hover:bg-white/[0.08]"
+                            >
+                                <option className="bg-background">Professional</option>
+                                <option className="bg-background">Friendly</option>
+                                <option className="bg-background">Witty</option>
+                                <option className="bg-background">Persuasive</option>
+                                <option className="bg-background">Edgy</option>
+                            </select>
                         </div>
-                        <div className="space-y-2">
-                            <label htmlFor="language" className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
-                                <Languages className="h-3 w-3" /> Language
-                            </label>
-                            <div className="relative">
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-3">
+                                <label htmlFor="language" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Language</label>
                                 <select
                                     id="language"
                                     value={language}
                                     onChange={(e) => setLanguage(e.target.value)}
-                                    className="w-full px-4 py-2.5 appearance-none bg-muted/30 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer hover:bg-muted/50 transition-colors text-xs font-medium"
+                                    className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer text-[10px] font-bold transition-all"
                                 >
-                                    <option>English</option>
-                                    <option>Tamil</option>
-                                    <option>Hindi</option>
-                                    <option>Spanish</option>
-                                    <option>French</option>
-                                    <option>German</option>
+                                    <option className="bg-background">English</option>
+                                    <option className="bg-background">Tamil</option>
+                                    <option className="bg-background">Hindi</option>
+                                    <option className="bg-background">Spanish</option>
                                 </select>
                             </div>
-                        </div>
-                        <div className="space-y-2">
-                            <label htmlFor="framework" className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
-                                <Layers className="h-3 w-3" /> Framework
-                            </label>
-                            <div className="relative">
+                            <div className="space-y-3">
+                                <label htmlFor="framework" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Framework</label>
                                 <select
                                     id="framework"
                                     value={framework}
                                     onChange={(e) => setFramework(e.target.value)}
-                                    className="w-full px-4 py-2.5 appearance-none bg-muted/30 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer hover:bg-muted/50 transition-colors text-xs font-medium"
+                                    className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer text-[10px] font-bold transition-all"
                                 >
-                                    <option value="None">None</option>
-                                    <option value="AIDA">AIDA</option>
-                                    <option value="PAS">PAS</option>
+                                    <option value="None" className="bg-background">None</option>
+                                    <option value="AIDA" className="bg-background">AIDA</option>
+                                    <option value="PAS" className="bg-background">PAS</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div className="space-y-3 pt-6 border-t border-white/5">
+                    {/* Mode Toggle */}
+                    <div className="pt-4 space-y-4 border-t border-white/5">
                         <div className="flex items-center justify-between">
-                            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Calendar Mode</label>
+                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Calendar className="h-3 w-3" />
+                                Strategy Mode
+                            </label>
                             <button
                                 type="button"
                                 onClick={() => setIsCalendarMode(!isCalendarMode)}
-                                className={`w-10 h-5 rounded-full relative transition-colors ${isCalendarMode ? 'bg-primary' : 'bg-muted'}`}
+                                className={`relative w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none ${isCalendarMode ? 'bg-primary' : 'bg-white/10'}`}
                             >
-                                <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${isCalendarMode ? 'translate-x-5' : 'translate-x-0'}`}></span>
+                                <div className={`absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform duration-200 ${isCalendarMode ? 'translate-x-5' : 'translate-x-0'}`} />
                             </button>
                         </div>
 
-                        <div className={`space-y-4 transition-all duration-300 ${isCalendarMode ? 'opacity-100 h-auto' : 'opacity-20 pointer-events-none'}`}>
-                            <div className="grid grid-cols-3 gap-1.5">
-                                {[7, 15, 30].map((d) => (
-                                    <button
-                                        key={d}
-                                        type="button"
-                                        onClick={() => setCalendarDays(d)}
-                                        className={`py-2 rounded-lg text-[9px] font-black transition-all border ${calendarDays === d
-                                            ? 'bg-primary text-white border-primary shadow-sm'
-                                            : 'bg-muted/30 text-muted-foreground border-transparent hover:bg-muted'
-                                            }`}
-                                    >
-                                        {d} DAYS
-                                    </button>
-                                ))}
+                        {isCalendarMode && (
+                            <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                                <div className="flex justify-between items-center text-[10px] font-bold">
+                                    <span className="text-muted-foreground">CAMPAIGN DURATION</span>
+                                    <span className="text-primary">{calendarDays} Days</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="3"
+                                    max="30"
+                                    value={calendarDays}
+                                    onChange={(e) => setCalendarDays(parseInt(e.target.value))}
+                                    className="w-full h-1 bg-white/5 rounded-lg appearance-none cursor-pointer accent-primary"
+                                />
+                                <p className="text-[9px] text-muted-foreground leading-tight italic">
+                                    Generates a cohesive content matrix for the selected period.
+                                </p>
                             </div>
-                        </div>
+                        )}
                     </div>
 
+
+                    {/* Action Button */}
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-4 relative overflow-hidden bg-gradient-to-r from-primary to-purple-600 text-primary-foreground font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg active:scale-[0.98] ${loading ? 'animate-pulse opacity-90' : 'shadow-primary/20 hover:shadow-primary/40'}`}
+                        className={`w-full py-5 relative overflow-hidden bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all shadow-xl active:scale-[0.98] mt-4 ${loading ? 'animate-pulse opacity-90' : 'shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1'}`}
                     >
-                        <div className="flex items-center justify-center gap-2 relative z-10">
+                        <div className="flex items-center justify-center gap-3 relative z-10">
                             {loading ? (
-                                <>
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                    <span>Creating...</span>
-                                </>
+                                <Loader2 className="h-4 w-4 animate-spin" />
                             ) : (
-                                <>
-                                    <Wand2 className="h-4 w-4" />
-                                    <span>{isCalendarMode ? 'Generate Calendar' : 'Generate Script'}</span>
-                                </>
+                                <Wand2 className="h-4 w-4" />
                             )}
+                            <span className="text-xs">{isCalendarMode ? 'Build Matrix' : 'Generate'}</span>
                         </div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer"></div>
                     </button>
                 </form>
             </div>
 
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden relative">
-                {/* Background Grid */}
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
+            {/* Main Editor Surface */}
+            <div className="flex-1 flex flex-col h-full overflow-hidden relative bg-[#FAF9F6] dark:bg-[#0D0D0E]">
+                {/* Status Bar */}
+                <div className="h-20 border-b border-black/[0.03] dark:border-white/5 bg-background/50 backdrop-blur-3xl flex items-center justify-between px-10 z-10 shrink-0">
+                    <div className="flex items-center gap-4 w-full max-w-xl">
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="Untitled Masterpiece"
+                            className="bg-transparent text-xl font-bold font-outfit text-foreground focus:outline-none placeholder:text-muted-foreground/30 w-full transition-all"
+                        />
+                        <div className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${saving ? 'bg-primary/20 text-primary animate-pulse' : 'bg-muted text-muted-foreground opacity-40'}`}>
+                            {saving ? 'Syncing...' : 'Synced'}
+                        </div>
+                    </div>
 
-                {/* Toolbar */}
-                <div className="h-auto md:h-20 border-b border-white/5 bg-background/50 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between px-6 md:px-10 py-3 md:py-0 shrink-0 gap-4 md:gap-0 z-10">
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Untitled Script"
-                        className="bg-transparent text-2xl font-bold font-outfit text-foreground focus:outline-none placeholder:text-muted-foreground/50 w-full md:max-w-md order-2 md:order-1 text-center md:text-left transition-colors"
-                    />
-                    <div className="flex items-center gap-3 order-1 md:order-2 w-full md:w-auto justify-end">
+                    <div className="flex items-center gap-4">
                         <button
                             onClick={handleCopy}
                             disabled={!content}
-                            className="flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium hover:bg-muted/50 rounded-xl"
+                            className="h-10 px-4 flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all rounded-xl text-xs font-bold disabled:opacity-30"
                         >
                             <Copy className="h-4 w-4" />
-                            <span className="hidden sm:inline">Copy</span>
+                            Copy
                         </button>
-                        <div className="h-8 w-px bg-white/10 mx-1 hidden md:block"></div>
+                        <div className="h-4 w-px bg-black/[0.05] dark:bg-white/10 mx-2"></div>
                         <button
                             onClick={handleSave}
                             disabled={saving || !content}
-                            className="flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                            className="h-11 px-6 bg-foreground text-background dark:bg-white dark:text-black rounded-xl font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.05] shadow-xl active:scale-95 disabled:opacity-30"
                         >
                             {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                            <span>Save Script</span>
+                            <span className="ml-2">Deliver</span>
                         </button>
                     </div>
                 </div>
 
-                {/* Script Editor Area */}
-                <div className="flex-1 overflow-auto p-4 md:p-10 relative z-0 custom-scrollbar bg-black/5 dark:bg-black/20">
+                {/* Editor Texture Area */}
+                <div className="flex-1 overflow-auto p-12 relative z-0 custom-scrollbar flex flex-col items-center">
                     {!content ? (
-                        <div className="h-full flex flex-col items-center justify-center text-muted-foreground animate-in fade-in zoom-in-95 duration-500">
-                            <div className="relative mb-6">
-                                <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full"></div>
-                                <div className="h-24 w-24 bg-card rounded-3xl flex items-center justify-center ring-1 ring-white/10 relative z-10 glass-card">
-                                    <Wand2 className="h-10 w-10 text-primary" />
+                        <div className="h-full w-full flex flex-col items-center justify-center text-muted-foreground space-y-8 max-w-2xl text-center">
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full animate-pulse"></div>
+                                <div className="h-32 w-32 bg-background border border-white/10 rounded-[2.5rem] flex items-center justify-center shadow-2xl relative z-10 glass-card">
+                                    <Sparkles className="h-12 w-12 text-primary animate-bounce-slow" />
                                 </div>
                             </div>
-                            <h3 className="text-2xl font-bold text-foreground font-outfit mb-2">Ready to write?</h3>
-                            <p className="text-muted-foreground">Select a platform and topic on the left to start.</p>
+                            <div className="space-y-3">
+                                <h3 className="text-4xl font-black text-foreground font-outfit tracking-tighter">Your Story Starts Here</h3>
+                                <p className="text-muted-foreground/80 font-medium leading-relaxed max-w-sm mx-auto">
+                                    Configure your target and topic on the left to see the AI engine in action.
+                                </p>
+                            </div>
+                            <div className="flex gap-4 opacity-40">
+                                <Linkedin className="h-4 w-4" />
+                                <MonitorPlay className="h-4 w-4" />
+                                <Sparkles className="h-4 w-4" />
+                            </div>
                         </div>
                     ) : (
-                        <div className="max-w-4xl mx-auto h-full pb-10 animate-in fade-in slide-in-from-bottom-4">
-                            <textarea
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                className="w-full h-full min-h-[500px] p-8 md:p-12 bg-card border border-white/5 rounded-3xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/10 resize-none font-mono text-base leading-relaxed shadow-2xl transition-shadow focus:shadow-primary/5"
-                                placeholder="Your script will appear here..."
-                            />
+                        <div className="w-full max-w-4xl h-full pb-20 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                            <div className="saas-card p-0 h-full border-black/[0.03] dark:border-white/5 bg-background dark:bg-background/40 shadow-premium">
+                                <textarea
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                    className="w-full h-full p-12 bg-transparent text-foreground focus:outline-none resize-none font-sans text-lg font-medium leading-relaxed custom-scrollbar selection:bg-primary/20"
+                                    placeholder="Type your content here..."
+                                    spellCheck={false}
+                                />
+                            </div>
                         </div>
                     )}
                 </div>

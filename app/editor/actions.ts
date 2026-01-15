@@ -82,13 +82,22 @@ export async function generateScript(topic: string, tone: string, platform: stri
   }
 
   const prompt = `
+    SYSTEM: You are a Top-Tier Content Ghostwriter and Growth Strategist for Founders.
     TOPIC: ${topic}
     TONE: ${tone}
     LANGUAGE: ${language}
+    PLATFORM: ${platform}
+    
+    GUIDELINES:
+    1. THE HOOK: The first line must be an irresistible scroll-stopper (Stat, Question, Contradiction, or strong Opinion).
+    2. THE RE-HOOK: Sustain interest by identifying a pain point or providing context immediately after the hook.
+    3. THE BODY: Concise, punchy sentences. High information density. No fluff.
+    4. THE CTA: A clear, natural transition to an action or a thought-provoking question.
+    
     ${specificInstructions}
     
-    Return ONLY the raw content. Do not wrap it in JSON or markdown code blocks unless necessary for formatting.
-    IMPORTANT: The entire script MUST be written in ${language}.
+    Return ONLY the final content in a clean, professional format. 
+    IMPORTANT: The entire delivery MUST be in ${language}.
   `
 
   try {

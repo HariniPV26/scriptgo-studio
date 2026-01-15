@@ -1,101 +1,79 @@
-@import "tailwindcss";
-
-@variant dark (&:where(.dark, .dark *));
-
-/* ============================================
-   SCRIPTGO PREMIUM DESIGN SYSTEM
-   ============================================ */
-
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ============================================
    LIGHT MODE - Clean & Professional
    ============================================ */
 @layer base {
   :root {
-    /* Refined Light Palette */
-    --background: hsl(210, 20%, 98%);
-    --foreground: hsl(222, 47%, 11%);
+    /* Stoa Inspired Palette - Emerald Edition */
+    --background: hsl(220, 20%, 98%);
+    --foreground: hsl(160, 47%, 11%);
     --card: hsl(0, 0%, 100%);
-    --card-foreground: hsl(222, 47%, 11%);
-    --muted: hsl(210, 20%, 96%);
-    --muted-foreground: hsl(215, 16%, 47%);
-    --accent: hsl(210, 20%, 96%);
-    --accent-foreground: hsl(222, 47%, 11%);
+    --card-foreground: hsl(160, 47%, 11%);
+    --muted: hsl(160, 20%, 96%);
+    --muted-foreground: hsl(160, 16%, 47%);
+    --accent: hsl(160, 20%, 96%);
+    --accent-foreground: hsl(160, 47%, 11%);
     --destructive: hsl(0, 84%, 60%);
 
-    /* Brand Colors */
-    --primary: hsl(262, 83%, 58%);
+    /* Stoa Brand Emerald */
+    --primary: hsl(160, 84%, 39%);
+    /* Emerald Green */
     --primary-foreground: hsl(0, 0%, 100%);
-    --secondary: hsl(330, 81%, 60%);
+    --secondary: hsl(160, 84%, 30%);
 
     /* Borders & Inputs */
-    --border: hsl(214, 32%, 91%);
-    --input: hsl(214, 32%, 91%);
-    --ring: hsl(262, 83%, 58%);
+    --border: hsl(160, 32%, 91%);
+    --input: hsl(160, 32%, 91%);
+    --ring: hsl(160, 84%, 39%);
 
     /* Scrollbar */
-    --scroll-thumb: hsl(214, 20%, 85%);
-    --scroll-thumb-hover: hsl(214, 20%, 70%);
+    --scroll-thumb: hsl(160, 32%, 85%);
+    --scroll-thumb-hover: hsl(160, 32%, 75%);
 
-    /* Gradient Colors */
-    --gradient-1: hsl(262, 83%, 58%);
-    --gradient-2: hsl(330, 81%, 60%);
-    --gradient-3: hsl(199, 89%, 48%);
+    /* Gradient Colors - Emerald */
+    --gradient-1: hsl(160, 84%, 39%);
+    --gradient-2: hsl(180, 100%, 40%);
+    --gradient-3: hsl(140, 100%, 20%);
   }
 
-  /* ============================================
-     DARK MODE - Premium Midnight
-     ============================================ */
+  /* STOA DARK MODE - DEEP OBSIDIAN & EMERALD */
   .dark {
-    --background: hsl(224, 71%, 4%);
-    --foreground: hsl(210, 20%, 98%);
-    --card: hsl(224, 71%, 6%);
-    --card-foreground: hsl(210, 20%, 98%);
-    --muted: hsl(215, 27%, 12%);
-    --muted-foreground: hsl(217, 10%, 64%);
-    --accent: hsl(215, 27%, 12%);
-    --accent-foreground: hsl(210, 20%, 98%);
+    --background: hsl(225, 30%, 4%);
+    /* Deep Obsidian */
+    --foreground: hsl(160, 40%, 98%);
+    --card: hsl(225, 35%, 6%);
+    --card-foreground: hsl(160, 40%, 98%);
+    --muted: hsl(225, 30%, 10%);
+    --muted-foreground: hsl(160, 20%, 60%);
+    --accent: hsl(225, 30%, 10%);
+    --accent-foreground: hsl(160, 40%, 98%);
     --destructive: hsl(0, 62%, 50%);
 
-    /* Brand Colors - Vibrant for dark */
-    --primary: hsl(262, 83%, 65%);
+    /* Stoa Brand Emerald */
+    --primary: hsl(160, 84%, 45%);
+    /* Vibrant Emerald */
     --primary-foreground: hsl(0, 0%, 100%);
-    --secondary: hsl(330, 81%, 65%);
+    --secondary: hsl(160, 84%, 35%);
 
     /* Borders & Inputs */
-    --border: hsla(215, 27%, 25%, 0.5);
-    --input: hsl(215, 27%, 15%);
-    --ring: hsl(262, 83%, 65%);
+    --border: hsla(160, 100%, 45%, 0.1);
+    --input: hsl(225, 30%, 8%);
+    --ring: hsl(160, 84%, 45%);
 
     /* Scrollbar */
-    --scroll-thumb: hsl(215, 27%, 20%);
-    --scroll-thumb-hover: hsl(215, 27%, 30%);
+    --scroll-thumb: hsl(225, 30%, 15%);
+    --scroll-thumb-hover: hsl(225, 30%, 25%);
 
     /* Gradient Colors */
-    --gradient-1: hsl(262, 83%, 65%);
-    --gradient-2: hsl(330, 81%, 65%);
-    --gradient-3: hsl(199, 89%, 55%);
+    --gradient-1: hsl(160, 84%, 45%);
+    --gradient-2: hsl(180, 100%, 40%);
+    --gradient-3: hsl(225, 100%, 15%);
   }
 
-  /* ============================================
-     THEME COLOR OVERRIDES
-     ============================================ */
+  /* THEME OVERRIDES - MAINTAINING COLOR OPTIONS */
   :root.theme-violet {
     --primary: hsl(262, 83%, 58%);
     --ring: hsl(262, 83%, 58%);
@@ -221,7 +199,7 @@ body::after {
    ============================================ */
 @layer utilities {
 
-  /* Glassmorphism */
+  /* Glassmorphism Variants */
   .glass {
     background: hsla(0, 0%, 100%, 0.03);
     backdrop-filter: blur(16px);
@@ -241,14 +219,41 @@ body::after {
       inset 0 1px 0 hsla(0, 0%, 100%, 0.1);
   }
 
-  :root .glass-card {
-    background: linear-gradient(135deg,
-        hsla(0, 0%, 100%, 0.8) 0%,
-        hsla(0, 0%, 100%, 0.6) 100%);
-    border: 1px solid hsla(0, 0%, 0%, 0.06);
+  /* Premium SaaS Cards */
+  .saas-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
     box-shadow:
-      0 8px 32px hsla(0, 0%, 0%, 0.08),
-      inset 0 1px 0 hsla(0, 0%, 100%, 0.5);
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 10px 15px -3px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .saas-card:hover {
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px);
+  }
+
+  .dark .saas-card {
+    background: hsla(224, 71%, 8%, 0.8);
+    border: 1px solid hsla(215, 27%, 25%, 0.5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Advanced Shadows */
+  .shadow-premium {
+    box-shadow:
+      0 20px 40px -10px rgba(0, 0, 0, 0.15),
+      0 4px 10px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .shadow-premium {
+    box-shadow:
+      0 30px 60px -12px rgba(0, 0, 0, 0.5),
+      0 18px 36px -18px rgba(0, 0, 0, 0.5);
   }
 
   /* Gradient Text */

@@ -30,7 +30,8 @@ export async function generateCalendarContent(
     const dateInstruction = startDate ? `The calendar starts on ${startDate}. Ensure content is relevant to the dates if applicable (e.g. weekends, holidays).` : ''
 
     const prompt = `
-    TASK: Generate a ${days}-day content calendar.
+    SYSTEM: You are a World-Class Content Strategist and Copywriter.
+    TASK: Architect a high-fidelity ${days}-day Content Strategy.
     TOPIC: ${topic}
     TONE: ${tone}
     PLATFORM: ${platform}
@@ -38,24 +39,30 @@ export async function generateCalendarContent(
     FRAMEWORK: ${frameworkInstruction}
     CONTEXT: ${dateInstruction}
 
-    Deliver EXACTLY ${days} unique content pieces, one for each consecutive day.
-    
+    STRATEGY GOALS:
+    1. CONTENT ARC: The ${days} days should tell a cohesive story or build authority. Start with awareness/empathy, move to education/authority, then lead to conversion.
+    2. PSYCHOLOGICAL TRIGGERS: Incorporate subtle triggers like Social Proof, Reciprocity, Scarcity, and Authority where appropriate.
+    3. MIX: Ensure a balanced mix of:
+       - VIRAL (Empathy/Hooks/Relatable)
+       - AUTHORITY (Data/Insights/Lessons)
+       - CONNECTION (Personal Stories/Behind the Scenes)
+       - CONVERSION (Call to action/Problem-Solution)
+
     RESPONSE FORMAT: 
-    You MUST return ONLY a valid JSON object with a "calendar" key containing an array of ${days} objects.
-    Each object in the "calendar" array must have these exactly:
+    Return a JSON object with a "calendar" key containing an array of ${days} objects.
     {
-      "day": number (1 to ${days}),
-      "title": "A short, catchy title for this day's content",
-      "content": "The full script or post content following the platform and tone requirements",
-      "label": "A short 1-2 word category label (e.g. Educational, Growth, Sales, Personal, Case Study)"
+      "day": number,
+      "title": "Compelling, curiosity-gap title",
+      "content": "Professional-grade copy. Use line breaks for readability. High-impact hook.",
+      "label": "Growth, Trust, Insight, or Vision"
     }
 
-    PLATFORM SPECIFIC RULES:
-    ${platform === 'LinkedIn' ? 'Text only posts, no video scripts, NO audio cues or visual brackets. Pure engagement text.' : ''}
-    ${platform === 'YouTube' ? 'Video script format with intro, body, and outro.' : ''}
-    ${platform === 'TikTok' || platform === 'Instagram' ? 'Short-form video script with [Visual] and [Audio] cues.' : ''}
+    PLATFORM RULES:
+    - LinkedIn: Text-only, scroll-stopper hooks, whitespace for readability.
+    - YouTube: Detailed script outline (Title, Hook, 3-4 Key Points, Outro).
+    - TikTok/Instagram: Visual/Audio cues in [brackets]. Fast-paced.
 
-    Language: The entire response (titles and content) MUST be in ${language}.
+    Language: Everything MUST be in ${language}.
     `
 
     try {

@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NETLIFY_NEXT_DEBUG = "1"
+  NETLIFY_IMAGE_OPTIMIZATION_DISABLED = "true"
+  OPENNEXT_IMAGE_OPTIMIZATION_DISABLED = "true"
+  NEXT_ALLOW_SUSPENSE_OPTION_IN_CONFIG = "true"

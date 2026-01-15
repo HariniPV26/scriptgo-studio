@@ -3,7 +3,7 @@
 import { createClient } from '@/utils/supabase/client'
 import Header from '@/components/Header'
 import Link from 'next/link'
-import { Plus, FileText, Calendar, Loader2, Trash2, BarChart3, TrendingUp, Zap, Sparkles } from 'lucide-react'
+import { Plus, FileText, Calendar, Loader2, Trash2, BarChart3, TrendingUp, Zap, Sparkles, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -112,72 +112,77 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Stats Cards */}
+                {/* Stats Cards - REFINED */}
                 {scripts.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                         {/* Total Scripts */}
-                        <div className="bg-white rounded-2xl p-6 relative overflow-hidden group border border-gray-100 shadow-sm">
-                            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-                                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <FileText className="h-5 w-5 text-primary" />
+                        <div className="saas-card p-1 p-6 relative overflow-hidden group">
+                            <div className="absolute -top-4 -right-4 h-24 w-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                                    <FileText className="h-6 w-6 text-primary" />
+                                </div>
+                                <div className="space-y-0.5">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">Total Scripts</p>
+                                    <p className="font-outfit text-3xl font-bold tracking-tight">{totalScripts}</p>
                                 </div>
                             </div>
-
-                            <p className="text-sm font-medium text-gray-600">Total Scripts</p>
-                            <p className="font-outfit text-4xl font-bold mt-2 text-gray-900">{totalScripts}</p>
-                            <div className="mt-2 text-xs flex items-center gap-1 text-emerald-600 font-medium">
-                                <TrendingUp className="h-3 w-3" />
-                                <span>Lifetime output</span>
+                            <div className="h-1 w-full bg-muted/30 rounded-full overflow-hidden">
+                                <div className="h-full bg-primary w-[70%]" />
                             </div>
                         </div>
 
                         {/* This Week */}
-                        <div className="bg-white rounded-2xl p-6 relative overflow-hidden group border border-gray-100 shadow-sm">
-                            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-                                <div className="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                                    <Zap className="h-5 w-5 text-emerald-500" />
+                        <div className="saas-card p-6 relative overflow-hidden group">
+                            <div className="absolute -top-4 -right-4 h-24 w-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-colors"></div>
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                                    <Zap className="h-6 w-6 text-emerald-500" />
+                                </div>
+                                <div className="space-y-0.5">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">This Week</p>
+                                    <p className="font-outfit text-3xl font-bold tracking-tight">{thisWeek}</p>
                                 </div>
                             </div>
-
-                            <p className="text-sm font-medium text-gray-600">This Week</p>
-                            <p className="font-outfit text-4xl font-bold mt-2 text-gray-900">{thisWeek}</p>
-                            <div className="mt-2 text-xs flex items-center gap-1 text-gray-500">
-                                <span>Recent activity</span>
+                            <div className="h-1 w-full bg-muted/30 rounded-full overflow-hidden">
+                                <div className="h-full bg-emerald-500 w-[40%]" />
                             </div>
                         </div>
 
                         {/* Top Platform */}
-                        <div className="bg-white rounded-2xl p-6 relative overflow-hidden group border border-gray-100 shadow-sm">
-                            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-                                <div className="h-10 w-10 rounded-full bg-purple-500/10 flex items-center justify-center">
-                                    <BarChart3 className="h-5 w-5 text-purple-500" />
+                        <div className="saas-card p-6 relative overflow-hidden group">
+                            <div className="absolute -top-4 -right-4 h-24 w-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="h-12 w-12 rounded-2xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
+                                    <BarChart3 className="h-6 w-6 text-purple-500" />
+                                </div>
+                                <div className="space-y-0.5">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">Top Platform</p>
+                                    <p className="font-outfit text-2xl font-bold tracking-tight truncate max-w-[120px]">{Object.keys(platformCounts)[0] || 'None'}</p>
                                 </div>
                             </div>
-
-                            <p className="text-sm font-medium text-gray-600">Top Platform</p>
-                            <p className="font-outfit text-4xl font-bold mt-2 truncate max-w-[80%] text-gray-900">{Object.keys(platformCounts)[0] || 'None'}</p>
-                            <p className="mt-2 text-xs text-gray-500">
-                                {(Object.values(platformCounts)[0] as number) || 0} scripts generated
-                            </p>
+                            <div className="h-1 w-full bg-muted/30 rounded-full overflow-hidden">
+                                <div className="h-full bg-purple-500 w-[60%]" />
+                            </div>
                         </div>
                     </div>
                 )}
 
                 {/* Scripts Grid */}
                 {(!scripts || scripts.length === 0) ? (
-                    <div className="relative flex flex-col items-center justify-center py-32 rounded-3xl border border-dashed border-border bg-muted/20 overflow-hidden">
+                    <div className="relative flex flex-col items-center justify-center py-32 rounded-[2.5rem] border border-dashed border-border bg-white/[0.02] overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-50"></div>
                         <div className="relative z-10 text-center">
-                            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center mb-6 mx-auto shadow-inner border border-white/10">
-                                <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+                            <div className="h-20 w-20 rounded-[2rem] bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center mb-8 mx-auto shadow-2xl border border-white/5">
+                                <Sparkles className="h-10 w-10 text-primary animate-pulse" />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2 font-outfit">Your canvas is empty</h3>
-                            <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
-                                The world is waiting for your story. Let AI kickstart your creative process.
+                            <h3 className="text-3xl font-bold mb-4 font-outfit tracking-tight">Your workshop is ready</h3>
+                            <p className="text-muted-foreground/80 mb-10 max-w-sm mx-auto leading-relaxed">
+                                The world is waiting for your story. Let AI kickstart your creative process and scale your brand.
                             </p>
                             <Link
                                 href="/editor"
-                                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-8 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90 hover:scale-105 transition-all"
+                                className="h-14 px-10 rounded-2xl bg-primary text-white font-bold text-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.05] hover:shadow-[0_20px_40px_-10px_rgba(124,58,237,0.4)]"
                             >
                                 <Plus className="h-5 w-5" />
                                 Create Your First Script
@@ -185,51 +190,57 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {scripts.map((script, index) => (
                             <Link
                                 key={script.id}
                                 href={`/editor?id=${script.id}`}
-                                className="group relative rounded-2xl border border-white/5 bg-card/40 backdrop-blur-sm p-6 transition-all duration-300 hover:border-primary/50 hover:bg-card/60 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 animate-in fade-up fill-mode-both"
+                                className="group saas-card p-0 overflow-hidden flex flex-col"
                                 style={{ animationDelay: `${index * 50}ms` }}
                             >
-                                {/* Header */}
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className={`
-                                        inline-flex items-center rounded-lg px-2.5 py-1 text-xs font-bold border 
-                                        ${script.platform === 'LinkedIn' ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' :
-                                            script.platform === 'YouTube' ? 'bg-red-500/10 text-red-500 border-red-500/20' :
-                                                script.platform === 'TikTok' ? 'bg-pink-500/10 text-pink-500 border-pink-500/20' :
-                                                    'bg-gray-500/10 text-gray-500 border-gray-500/20'}
-                                    `}>
-                                        {script.platform || 'General'}
-                                    </div>
-                                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="p-6 flex-1 flex flex-col">
+                                    {/* Header */}
+                                    <div className="flex items-start justify-between mb-6">
+                                        <div className={`
+                                            inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-black uppercase tracking-widest border 
+                                            ${script.platform === 'LinkedIn' ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' :
+                                                script.platform === 'YouTube' ? 'bg-red-500/10 text-red-500 border-red-500/20' :
+                                                    script.platform === 'TikTok' ? 'bg-pink-500/10 text-pink-500 border-pink-500/20' :
+                                                        'bg-gray-500/10 text-gray-500 border-gray-500/20'}
+                                        `}>
+                                            {script.platform || 'General'}
+                                        </div>
                                         <button
                                             onClick={(e) => handleDelete(e, script.id)}
-                                            className="p-1.5 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-500 transition-colors"
+                                            className="p-2 rounded-xl bg-muted/50 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500/10 hover:text-red-500"
                                             title="Delete"
                                         >
                                             <Trash2 className="h-4 w-4" />
                                         </button>
                                     </div>
-                                </div>
 
-                                {/* Title */}
-                                <h3 className="font-outfit font-bold text-lg mb-2 line-clamp-1 group-hover:text-primary transition-colors">
-                                    {script.title || 'Untitled Script'}
-                                </h3>
+                                    {/* Content Preview */}
+                                    <div className="space-y-4 mb-6 flex-1">
+                                        <h3 className="font-outfit font-bold text-xl leading-tight group-hover:text-primary transition-colors">
+                                            {script.title || 'Untitled Script'}
+                                        </h3>
+                                        <div className="rounded-2xl bg-muted/30 p-4 border border-white/5 h-28 overflow-hidden relative">
+                                            <p className="text-xs text-muted-foreground leading-relaxed">
+                                                {(script.content as any)?.text?.substring(0, 180) || (script.content as any)?.visual?.[0] || 'No preview available...'}
+                                            </p>
+                                            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#161618] to-transparent group-hover:from-[#1c1c1e] transition-colors"></div>
+                                        </div>
+                                    </div>
 
-                                <span className="text-[10px] uppercase tracking-wider text-muted-foreground/60 font-semibold mb-3 block">
-                                    {new Date(script.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                                </span>
-
-                                {/* Preview */}
-                                <div className="rounded-xl bg-background/50 p-4 border border-white/5 h-24 overflow-hidden relative">
-                                    <p className="text-sm text-muted-foreground leading-relaxed">
-                                        {(script.content as any)?.text?.substring(0, 150) || (script.content as any)?.visual?.[0] || 'No preview available...'}
-                                    </p>
-                                    <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background/90 to-transparent"></div>
+                                    {/* Footer */}
+                                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
+                                            {new Date(script.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                        </span>
+                                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 opacity-0 group-hover:opacity-100 transition-all">
+                                            <ArrowRight className="h-4 w-4 text-primary" />
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>
                         ))}
