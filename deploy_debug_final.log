@@ -1,0 +1,923 @@
+[project.ts]: detectFrameworks
+[project.ts]: detectBuildSystem
+[project.ts]: detectWorkspaces
+[project.ts]: detectPackageManager
+[project.ts]: detectFrameworksInPath - undefined
+​
+❯ Initial build environment
+config: E:\ScriptGo\netlify.toml
+context: dev
+cwd: E:\ScriptGo
+featureFlags: []
+mode: cli
+repositoryRoot: E:\ScriptGo
+siteId: a476cdf0-48dd-4c65-8bcb-d1474a6a8a67
+​
+❯ UI build settings
+baseRelDir: false
+​
+❯ Resolved build environment
+branch: main
+buildDir: E:\ScriptGo
+configPath: E:\ScriptGo\netlify.toml
+context: dev
+env:
+  - NODE_VERSION
+  - NPM_FLAGS
+  - NEXT_PUBLIC_SUPABASE_ANON_KEY
+  - NEXT_PUBLIC_SUPABASE_URL
+  - OPENAI_API_KEY
+  - DEPLOY_ID
+  - BUILD_ID
+  - ACCOUNT_ID
+  - NETLIFY_LOCAL
+  - HEAD
+  - COMMIT_REF
+  - CACHED_COMMIT_REF
+  - PULL_REQUEST
+  - LANG
+  - LANGUAGE
+  - LC_ALL
+  - GATSBY_TELEMETRY_DISABLED
+  - NEXT_TELEMETRY_DISABLED
+​
+❯ Resolved config
+build:
+  environment:
+    - NODE_VERSION
+    - NPM_FLAGS
+  publish: E:\ScriptGo\.next
+  publishOrigin: config
+plugins:
+  - inputs: {}
+    origin: config
+    package: "@netlify/plugin-nextjs"
+[project.ts]: getBuildSettings
+[project.ts]: detectFrameworks
+[get-build-settings.ts] getBuildSettings for baseDirectory: 
+[96m[1m​[22m[39m
+[96m[1mNetlify Build                                                 [22m[39m
+[96m[1m────────────────────────────────────────────────────────────────[22m[39m
+[36m[1m​[22m[39m
+[36m[1m❯ Version[22m[39m
+  @netlify/build 35.5.9
+[36m[1m​[22m[39m
+[36m[1m❯ Flags[22m[39m
+  accountId: 695fc6008b743000d4cf5933
+  debug: true
+  deployId: 69689757b902edfc7aa89adc
+  edgeFunctionsBootstrapURL: https://v2-17-1--edge.netlify.com/bootstrap/index-combined.ts
+  mode: cli
+  siteId: a476cdf0-48dd-4c65-8bcb-d1474a6a8a67
+  skewProtectionToken: 8e279ba57f4ba1a95aef6dfdd6b7089f94aad5ff964072937446cc2942c7ec44363936383937353762393032656466633761613839616463
+[36m[1m​[22m[39m
+[36m[1m❯ Current directory[22m[39m
+  E:\ScriptGo
+[36m[1m​[22m[39m
+[36m[1m❯ Config file[22m[39m
+  E:\ScriptGo\netlify.toml
+[36m[1m​[22m[39m
+[36m[1m❯ Resolved config[22m[39m
+  build:
+    command: npm run build
+    commandOrigin: ui
+    environment:
+      - NODE_VERSION
+      - NPM_FLAGS
+    publish: E:\ScriptGo\.next
+    publishOrigin: config
+  plugins:
+    - inputs: {}
+      origin: config
+      package: "@netlify/plugin-nextjs"
+[36m[1m​[22m[39m
+[36m[1m❯ Context[22m[39m
+  production
+[36m[1m​[22m[39m
+[36m[1m❯ Available plugins[22m[39m
+   - @21yunbox/netlify-plugin-21yunbox-deploy-to-china-cdn@1.0.7
+   - @algolia/netlify-plugin-crawler@1.0.0
+   - @bharathvaj/netlify-plugin-airbrake@1.0.2
+   - @chiselstrike/netlify-plugin@0.1.0
+   - @commandbar/netlify-plugin-commandbar@0.0.4
+   - @helloample/netlify-plugin-replace@1.1.4
+   - @netlify/angular-runtime@3.0.1
+   - @netlify/feature-package-pilot@0.1.11
+   - @netlify/plugin-angular-universal@1.0.1
+   - @netlify/plugin-contentful-buildtime@0.0.3
+   - @netlify/plugin-emails@1.1.1
+   - @netlify/plugin-gatsby@3.8.4
+   - @netlify/plugin-lighthouse@6.0.1
+   - @netlify/plugin-nextjs@5.7.0-ipx.0
+   - @netlify/plugin-sitemap@0.8.1
+   - @newrelic/netlify-plugin@1.0.2
+   - @sentry/netlify-build-plugin@1.1.1
+   - @snaplet/netlify-preview-database-plugin@2.0.0
+   - @takeshape/netlify-plugin-takeshape@1.0.0
+   - @vgs/netlify-plugin-vgs@0.0.2
+   - netlify-build-plugin-dareboost@1.2.1
+   - netlify-build-plugin-debugbear@1.0.6
+   - netlify-build-plugin-perfbeacon@1.0.3
+   - netlify-build-plugin-speedcurve@2.0.0
+   - netlify-deployment-hours-plugin@0.0.10
+   - netlify-plugin-a11y@0.0.12
+   - netlify-plugin-add-instagram@0.2.2
+   - netlify-plugin-algolia-index@0.3.0
+   - netlify-plugin-amp-server-side-rendering@1.0.2
+   - netlify-plugin-brand-guardian@1.0.1
+   - netlify-plugin-build-logger@1.0.3
+   - netlify-plugin-bundle-env@0.2.2
+   - netlify-plugin-cache-nextjs@1.4.0
+   - netlify-plugin-cecil-cache@0.3.3
+   - netlify-plugin-checklinks@4.1.1
+   - netlify-plugin-chromium@1.1.4
+   - netlify-plugin-cloudinary@1.17.0
+   - netlify-plugin-contextual-env@0.3.0
+   - netlify-plugin-cypress@2.2.0
+   - netlify-plugin-debug-cache@1.0.4
+   - netlify-plugin-encrypted-files@0.0.5
+   - netlify-plugin-fetch-feeds@0.2.3
+   - netlify-plugin-flutter@1.1.0
+   - netlify-plugin-formspree@1.0.1
+   - netlify-plugin-gatsby-cache@0.3.0
+   - netlify-plugin-get-env-vars@1.0.0
+   - netlify-plugin-ghost-inspector@1.0.1
+   - netlify-plugin-ghost-markdown@3.1.0
+   - netlify-plugin-gmail@1.1.0
+   - netlify-plugin-gridsome-cache@1.0.3
+   - netlify-plugin-hashfiles@4.0.2
+   - netlify-plugin-html-validate@1.0.0
+   - netlify-plugin-hugo-cache-resources@0.2.1
+   - netlify-plugin-image-optim@0.4.0
+   - netlify-plugin-inline-critical-css@2.0.0
+   - netlify-plugin-inline-functions-env@1.0.8
+   - netlify-plugin-inline-source@1.0.4
+   - netlify-plugin-inngest@1.0.0
+   - netlify-plugin-is-website-vulnerable@2.0.3
+   - netlify-plugin-jekyll-cache@1.0.0
+   - netlify-plugin-js-obfuscator@1.0.20
+   - netlify-plugin-minify-html@0.3.1
+   - netlify-plugin-next-dynamic@1.0.9
+   - netlify-plugin-nimbella@2.1.0
+   - netlify-plugin-no-more-404@0.0.15
+   - netlify-plugin-nx-skip-build@0.0.7
+   - netlify-plugin-pagewatch@1.0.4
+   - netlify-plugin-playwright-cache@0.0.1
+   - netlify-plugin-prerender-spa@1.0.1
+   - netlify-plugin-prisma-provider@0.3.0
+   - netlify-plugin-pushover@0.1.1
+   - netlify-plugin-qawolf@1.2.0
+   - netlify-plugin-rss@0.0.8
+   - netlify-plugin-search-index@0.1.5
+   - netlify-plugin-snyk@1.2.0
+   - netlify-plugin-stepzen@1.0.4
+   - netlify-plugin-subfont@6.0.0
+   - netlify-plugin-submit-sitemap@0.4.0
+   - netlify-plugin-to-all-events@1.3.1
+   - netlify-plugin-use-env-in-runtime@1.2.1
+   - netlify-plugin-visual-diff@2.0.0
+   - netlify-plugin-webmentions@1.1.0
+   - netlify-purge-cloudflare-on-deploy@1.2.0
+   - strapi-plugin-netlify-deployments@2.0.1
+Used compatible version '5.15.4' for plugin '@netlify/plugin-nextjs' (pinned version is undefined)
+[36m[1m​[22m[39m
+[36m[1m❯ Using Next.js Runtime - v5.15.5[22m[39m
+Build step duration: @netlify/plugin-nextjs onPreBuild completed in 171ms
+[96m[1m​[22m[39m
+[96m[1mBuild command from Netlify app                                [22m[39m
+[96m[1m────────────────────────────────────────────────────────────────[22m[39m
+​
+[36m$ npm run build[39m
+
+> script-go@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+2026-01-15T07:29:32.727Z next:build:webpack-build using separate compiler workers
+2026-01-15T07:29:33.977Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:33.978Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:33.989Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:33.989Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:34.015Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:34.015Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:34.094Z next:build:webpack-build starting compiler server
+2026-01-15T07:29:34.095Z next:build:webpack-build starting server compiler
+2026-01-15T07:29:34.418Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.419Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.419Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.419Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.419Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.419Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.420Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.420Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.420Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-route-loader
+2026-01-15T07:29:34.440Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.441Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.444Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.444Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.445Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.445Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.445Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.445Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.445Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.445Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.448Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2026-01-15T07:29:34.451Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-route-loader
+2026-01-15T07:29:34.452Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-route-loader
+2026-01-15T07:29:34.452Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-route-loader
+2026-01-15T07:29:34.472Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:34.497Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:34.499Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:34.499Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:34.503Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.504Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.519Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.519Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.533Z next:jsconfig-paths-plugin moduleName did not match any paths pattern @opentelemetry/api
+2026-01-15T07:29:34.544Z next:jsconfig-paths-plugin moduleName did not match any paths pattern @opentelemetry/api
+2026-01-15T07:29:34.546Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next/server
+2026-01-15T07:29:34.548Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next/server
+2026-01-15T07:29:34.555Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../server/web/exports/index
+2026-01-15T07:29:34.558Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../server/web/exports/index
+2026-01-15T07:29:34.584Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.587Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.587Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.588Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.598Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.598Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.600Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.600Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.615Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.616Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.618Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.619Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.641Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.641Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.643Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.644Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.654Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.655Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.655Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.655Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.657Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.658Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.659Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.659Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-image-loader
+2026-01-15T07:29:34.673Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\theme-provider
+2026-01-15T07:29:34.677Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\theme-provider
+2026-01-15T07:29:34.680Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\theme-provider
+2026-01-15T07:29:34.681Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\theme-provider
+2026-01-15T07:29:34.709Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.709Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.709Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.709Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.710Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.711Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.719Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.720Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.727Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.728Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.733Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.734Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.735Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2026-01-15T07:29:34.765Z next:jsconfig-paths-plugin skipping request as it is a relative path ./actions
+2026-01-15T07:29:34.765Z next:jsconfig-paths-plugin skipping request as it is a relative path ./actions
+2026-01-15T07:29:34.766Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.766Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.766Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.766Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.766Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.767Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.767Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.767Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Editor
+2026-01-15T07:29:34.767Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Editor
+2026-01-15T07:29:34.767Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.778Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.778Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../client/components/navigation
+2026-01-15T07:29:34.778Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../client/link
+2026-01-15T07:29:34.778Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.781Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.782Z next:jsconfig-paths-plugin skipping request as it is a relative path ./actions
+2026-01-15T07:29:34.782Z next:jsconfig-paths-plugin skipping request as it is a relative path ./actions
+2026-01-15T07:29:34.783Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.783Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.784Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.784Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Header
+2026-01-15T07:29:34.785Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Editor
+2026-01-15T07:29:34.786Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\components\Editor
+2026-01-15T07:29:34.788Z next:jsconfig-paths-plugin moduleName did not match any paths pattern styled-jsx/style
+2026-01-15T07:29:34.788Z next:jsconfig-paths-plugin moduleName did not match any paths pattern styled-jsx/style
+2026-01-15T07:29:34.788Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../client/link
+2026-01-15T07:29:34.789Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../client/components/navigation
+2026-01-15T07:29:34.794Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.794Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.794Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.794Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.794Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.802Z next:jsconfig-paths-plugin moduleName did not match any paths pattern styled-jsx/style
+2026-01-15T07:29:34.802Z next:jsconfig-paths-plugin moduleName did not match any paths pattern styled-jsx/style
+2026-01-15T07:29:34.811Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.811Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.811Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.811Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.811Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.812Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.812Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.812Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.812Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.813Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.822Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.822Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.823Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.823Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.824Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.824Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.825Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.825Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\utils\supabase\client
+2026-01-15T07:29:34.828Z next:jsconfig-paths-plugin skipping request as it is a relative path ./theme-picker
+2026-01-15T07:29:34.829Z next:jsconfig-paths-plugin skipping request as it is a relative path ./theme-picker
+2026-01-15T07:29:34.829Z next:jsconfig-paths-plugin skipping request as it is a relative path ./mode-toggle
+2026-01-15T07:29:34.829Z next:jsconfig-paths-plugin skipping request as it is a relative path ./mode-toggle
+2026-01-15T07:29:34.839Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\app\editor\actions
+2026-01-15T07:29:34.848Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\app\editor\actions
+2026-01-15T07:29:34.848Z next:jsconfig-paths-plugin skipping request as it is a relative path ./mode-toggle
+2026-01-15T07:29:34.848Z next:jsconfig-paths-plugin skipping request as it is a relative path ./mode-toggle
+2026-01-15T07:29:34.849Z next:jsconfig-paths-plugin skipping request as it is a relative path ./theme-picker
+2026-01-15T07:29:34.849Z next:jsconfig-paths-plugin skipping request as it is a relative path ./theme-picker
+2026-01-15T07:29:34.853Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.853Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.855Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\app\editor\actions
+2026-01-15T07:29:34.855Z next:jsconfig-paths-plugin skipping request as it is an absolute path E:\ScriptGo\app\editor\actions
+2026-01-15T07:29:34.869Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.870Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.881Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./createBrowserClient
+2026-01-15T07:29:34.881Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./createServerClient
+2026-01-15T07:29:34.881Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./types
+2026-01-15T07:29:34.881Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils
+2026-01-15T07:29:34.881Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./createBrowserClient
+2026-01-15T07:29:34.881Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./types
+2026-01-15T07:29:34.882Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./createServerClient
+2026-01-15T07:29:34.882Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils
+2026-01-15T07:29:34.883Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils
+2026-01-15T07:29:34.883Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils
+2026-01-15T07:29:34.883Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.883Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./cookies
+2026-01-15T07:29:34.884Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.884Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./cookies
+2026-01-15T07:29:34.884Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils/helpers
+2026-01-15T07:29:34.884Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.885Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.885Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./cookies
+2026-01-15T07:29:34.885Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./cookies
+2026-01-15T07:29:34.886Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.886Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./constants
+2026-01-15T07:29:34.886Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./chunker
+2026-01-15T07:29:34.886Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./base64url
+2026-01-15T07:29:34.887Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils/helpers
+2026-01-15T07:29:34.887Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.887Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./constants
+2026-01-15T07:29:34.888Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./chunker
+2026-01-15T07:29:34.889Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./base64url
+2026-01-15T07:29:34.889Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils
+2026-01-15T07:29:34.889Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./utils
+2026-01-15T07:29:34.898Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./FunctionsClient
+2026-01-15T07:29:34.898Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./types
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimeClient
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimeChannel
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimePresence
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/websocket-factory
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueAdminApi
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueClient
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./AuthAdminApi
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./AuthClient
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/types
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/errors
+2026-01-15T07:29:34.899Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/locks
+2026-01-15T07:29:34.900Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./FunctionsClient
+2026-01-15T07:29:34.900Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./types
+2026-01-15T07:29:34.901Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimeClient
+2026-01-15T07:29:34.901Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimeChannel
+2026-01-15T07:29:34.902Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimePresence
+2026-01-15T07:29:34.902Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueAdminApi
+2026-01-15T07:29:34.903Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueClient
+2026-01-15T07:29:34.905Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./AuthAdminApi
+2026-01-15T07:29:34.908Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./AuthClient
+2026-01-15T07:29:34.911Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/websocket-factory
+2026-01-15T07:29:34.914Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/types
+2026-01-15T07:29:34.915Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/locks
+2026-01-15T07:29:34.915Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/errors
+2026-01-15T07:29:34.920Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./types
+2026-01-15T07:29:34.920Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/websocket-factory
+2026-01-15T07:29:34.920Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimeChannel
+2026-01-15T07:29:34.921Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./types
+2026-01-15T07:29:34.921Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimeChannel
+2026-01-15T07:29:34.921Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/websocket-factory
+2026-01-15T07:29:34.923Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helper
+2026-01-15T07:29:34.923Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/constants
+2026-01-15T07:29:34.923Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/serializer
+2026-01-15T07:29:34.923Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/timer
+2026-01-15T07:29:34.923Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/transformers
+2026-01-15T07:29:34.925Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/constants
+2026-01-15T07:29:34.927Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helper
+2026-01-15T07:29:34.928Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/serializer
+2026-01-15T07:29:34.929Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/timer
+2026-01-15T07:29:34.930Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/transformers
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/constants
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/timer
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimePresence
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/transformers
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/types
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/errors
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueAdminApi
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/errors
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/locks
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueAdminApi
+2026-01-15T07:29:34.932Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueClient
+2026-01-15T07:29:34.933Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./RealtimePresence
+2026-01-15T07:29:34.933Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueAdminApi
+2026-01-15T07:29:34.933Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueAdminApi
+2026-01-15T07:29:34.933Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./GoTrueClient
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/constants
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/timer
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/transformers
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/types
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/errors
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/errors
+2026-01-15T07:29:34.934Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/locks
+2026-01-15T07:29:34.939Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/push
+2026-01-15T07:29:34.941Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/fetch
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/fetch
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/helpers
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/helpers
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/constants
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/local-storage
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/polyfills
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/version
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/base64url
+2026-01-15T07:29:34.942Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/web3/ethereum
+2026-01-15T07:29:34.943Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/webauthn
+2026-01-15T07:29:34.944Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/push
+2026-01-15T07:29:34.946Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/fetch
+2026-01-15T07:29:34.946Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/fetch
+2026-01-15T07:29:34.949Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/helpers
+2026-01-15T07:29:34.949Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/helpers
+2026-01-15T07:29:34.949Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/constants
+2026-01-15T07:29:34.950Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/local-storage
+2026-01-15T07:29:34.950Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/polyfills
+2026-01-15T07:29:34.950Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/version
+2026-01-15T07:29:34.951Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/base64url
+2026-01-15T07:29:34.951Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/webauthn
+2026-01-15T07:29:34.952Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.952Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.952Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./lib/web3/ethereum
+2026-01-15T07:29:34.953Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.954Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.954Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.954Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.954Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./helpers
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../lib/constants
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./constants
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./constants
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./errors
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./errors
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./errors
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./base64url
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./base64url
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.955Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./webauthn.errors
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ../lib/constants
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./constants
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./constants
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./errors
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./errors
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./errors
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./base64url
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./base64url
+2026-01-15T07:29:34.956Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.962Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./version
+2026-01-15T07:29:34.963Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./webauthn.errors
+2026-01-15T07:29:34.964Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./webauthn
+2026-01-15T07:29:34.964Z next:jsconfig-paths-plugin skipping request as it is inside node_modules ./webauthn
+2026-01-15T07:29:34.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.974Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.974Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.975Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.975Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.976Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.976Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2026-01-15T07:29:34.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.980Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.980Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.981Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.981Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.981Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.981Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.981Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.982Z next:jsconfig-paths-plugin moduleName did not match any paths pattern private-next-rsc-action-encryption
+2026-01-15T07:29:34.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/server.edge
+2026-01-15T07:29:34.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern react-server-dom-webpack/client.edge
+2026-01-15T07:29:34.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern server-only
+2026-01-15T07:29:35.001Z next:jsconfig-paths-plugin moduleName did not match any paths pattern server-only
+2026-01-15T07:29:35.004Z next:jsconfig-paths-plugin moduleName did not match any paths pattern @opentelemetry/api
+2026-01-15T07:29:35.004Z next:jsconfig-paths-plugin moduleName did not match any paths pattern @opentelemetry/api
+2026-01-15T07:29:35.097Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:35.100Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:35.102Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:35.103Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-metadata-route-loader
+2026-01-15T07:29:35.617Z next:build:webpack-build server compiler finished 1522ms
+2026-01-15T07:29:36.626Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:36.627Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:36.634Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:36.634Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:36.654Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:36.654Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:36.732Z next:build:webpack-build starting compiler edge-server
+2026-01-15T07:29:36.732Z next:build:webpack-build starting edge-server compiler
+2026-01-15T07:29:37.148Z next:build:webpack-build edge-server compiler finished 416ms
+2026-01-15T07:29:38.431Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:38.433Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:38.443Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:38.443Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:38.470Z next:jsconfig-paths-plugin tsconfig.json or jsconfig.json paths: { '@/*': [ './*' ] }
+2026-01-15T07:29:38.470Z next:jsconfig-paths-plugin resolved baseUrl: { baseUrl: 'E:\\ScriptGo', isImplicit: true }
+2026-01-15T07:29:38.557Z next:build:webpack-build starting compiler client
+2026-01-15T07:29:38.557Z next:build:webpack-build starting client compiler
+2026-01-15T07:29:39.391Z next:build:webpack-build client compiler finished 834ms
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+2026-01-15T07:29:41.603Z next:build:build-traces starting build traces
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+2026-01-15T07:30:07.136Z next:build:build-traces finished build tracing 25532ms
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    5.06 kB         104 kB
+├ ○ /_not-found                          873 B          88.2 kB
+├ ○ /auth/callback                       822 B           143 kB
+├ ○ /calendar                            9.57 kB         160 kB
+├ ○ /dashboard                           7.3 kB          158 kB
+├ ○ /editor                              5.6 kB          156 kB
+└ ○ /login                               2.98 kB         157 kB
++ First Load JS shared by all            87.3 kB
+  ├ chunks/117-02575651f0e63593.js       31.7 kB
+  ├ chunks/fd9d1056-c587af98a96cdb33.js  53.6 kB
+  └ other shared chunks (total)          1.95 kB
+
+
+ƒ Middleware                             73.3 kB
+
+○  (Static)  prerendered as static content
+
+​
+[90m(build.command completed in 36.5s)[39m
+Build step duration: build.command completed in 36565ms
+Netlify configuration property "headers" value changed to [
+  {
+    for: '/_next/static/*',
+    values: { 'Cache-Control': 'public, max-age=31536000, immutable' }
+  }
+].
+Netlify configuration property "redirects" value changed to [
+  {
+    from: '/_next/image',
+    query: { url: ':url', w: ':width', q: ':quality' },
+    to: '/.netlify/images?url=:url&w=:width&q=:quality',
+    status: 200
+  },
+  {
+    from: '/_ipx/*',
+    query: { url: ':url', w: ':width', q: ':quality' },
+    to: '/.netlify/images?url=:url&w=:width&q=:quality',
+    status: 200
+  }
+].
+[96m[1m​[22m[39m
+[96m[1m@netlify/plugin-nextjs (onBuild event)                        [22m[39m
+[96m[1m────────────────────────────────────────────────────────────────[22m[39m
+​
+[36m[1m​[22m[39m
+[36m[1m❯ Updated config[22m[39m
+  build:
+    command: npm run build
+    commandOrigin: ui
+    environment:
+      - NODE_VERSION
+      - NPM_FLAGS
+    publish: E:\ScriptGo\.next
+    publishOrigin: config
+  headers:
+    - for: /_next/static/*
+      values:
+        Cache-Control: public, max-age=31536000, immutable
+  headersOrigin: inline
+  plugins:
+    - inputs: {}
+      origin: config
+      package: "@netlify/plugin-nextjs"
+  redirects:
+    - from: /_next/image
+      query:
+        q: :quality
+        url: :url
+        w: :width
+      status: 200
+      to: /.netlify/images?url=:url&w=:width&q=:quality
+    - from: /_ipx/*
+      query:
+        q: :quality
+        url: :url
+        w: :width
+      status: 200
+      to: /.netlify/images?url=:url&w=:width&q=:quality
+  redirectsOrigin: inline
+​
+[90m(@netlify/plugin-nextjs onBuild completed in 5.1s)[39m
+Build step duration: @netlify/plugin-nextjs onBuild completed in 5141ms
+[96m[1m​[22m[39m
+[96m[1mFunctions bundling                                            [22m[39m
+[96m[1m────────────────────────────────────────────────────────────────[22m[39m
+​
+Packaging Functions from [36m.netlify\functions-internal[39m directory:
+ - ___netlify-server-handler\___netlify-server-handler.mjs
+​
+​
+[90m(Functions bundling completed in 3.7s)[39m
+Build step duration: Functions bundling completed in 3760ms
+[96m[1m​[22m[39m
+[96m[1mEdge Functions bundling                                       [22m[39m
+[96m[1m────────────────────────────────────────────────────────────────[22m[39m
+​
+Packaging Edge Functions from [36m.netlify\edge-functions[39m directory:
+ - ___netlify-edge-handler-middleware
+Local version of types is up-to-date: 696118fc91addd0008969b5e
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,​
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,​
+operable program or batch file.
+    at makeError (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async DenoBridge.run (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:170:38)
+    at async bundle (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/formats/eszip.js:33:9)
+    at async bundle (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bundler.js:107:18)
+    at async coreStep (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/build/lib/plugins_core/edge_functions/index.js:74:30)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+Using cached Deno CLI from C:\Users\Admin\AppData\Roaming\netlify\Config\deno-cli\deno.exe
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,​
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,​
+operable program or batch file.
+    at makeError (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async getFunctionConfig (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/config.js:41:49)
+    at async file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bundler.js:158:28
+    at async Promise.allSettled (index 0)
+    at async getFunctionConfigs (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bundler.js:157:21)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,​
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,​
+operable program or batch file.
+    at makeError (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async DenoBridge.run (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bridge.js:170:38)
+    at async getFunctionConfig (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/config.js:46:42)
+    at async file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/edge-bundler/dist/node/bundler.js:158:28
+    at async Promise.allSettled (index 0)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+Using cached Deno CLI from C:\Users\Admin\AppData\Roaming\netlify\Config\deno-cli\deno.exe
+No in-source config found for edge function at 'E:\ScriptGo\.netlify\edge-functions\___netlify-edge-handler-middleware\___netlify-edge-handler-middleware.js'
+Edge Functions manifest: {"bundles":[{"asset":"314e14961c80de172d233764e9f93de8269cc4f1ed7ee24d7129a03ed14b5d39.eszip","format":"eszip2"}],"routes":[{"function":"___netlify-edge-handler-middleware","pattern":"^(?:/(_next/data/[^/]{1,}))?(?:/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*))(.json)?[/#\\?]?$","excluded_patterns":[]}],"post_cache_routes":[],"bundler_version":"14.9.2","layers":[],"import_map":"netlify:import-map","function_config":{"___netlify-edge-handler-middleware":{"name":"Next.js Middleware Handler","generator":"@netlify/plugin-nextjs@5.15.5"}}}
+​
+[90m(Edge Functions bundling completed in 3s)[39m
+Build step duration: Edge Functions bundling completed in 3037ms
+Build step duration: @netlify/plugin-nextjs onEnd completed in 11ms
+Build step duration: options.onEnd completed in 9ms
+[91m[1m​[22m[39m
+[91m[1mPlugin "@netlify/plugin-nextjs" failed                        [22m[39m
+[91m[1m────────────────────────────────────────────────────────────────[22m[39m
+​
+  [31m[1mError message[22m[39m
+  Error: Failed publishing static content
+​
+  [31m[1mPlugin details[22m[39m
+  Package:        @netlify/plugin-nextjs
+  Version:        5.15.5
+  Repository:     git+https://github.com/opennextjs/opennextjs-netlify.git
+  npm link:       https://www.npmjs.com/package/@netlify/plugin-nextjs
+  Report issues:  https://github.com/opennextjs/opennextjs-netlify/issues
+​
+  [31m[1mError location[22m[39m
+  In "onPostBuild" event in "@netlify/plugin-nextjs" from netlify.toml and package.json
+      at PluginContext.failBuild (file:///E:/ScriptGo/node_modules/@netlify/plugin-nextjs/dist/build/plugin-context.js:374:29)
+      at publishStaticDir (file:///E:/ScriptGo/node_modules/@netlify/plugin-nextjs/dist/build/content/static.js:106:9)
+      at async file:///E:/ScriptGo/node_modules/@netlify/plugin-nextjs/dist/index.js:99:5
+      at async onPostBuild (file:///E:/ScriptGo/node_modules/@netlify/plugin-nextjs/dist/index.js:98:3)
+      at async file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/build/lib/plugins/child/run.js:32:9
+      at async handleEvent (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/build/lib/plugins/child/main.js:28:42)
+      at async process.<anonymous> (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/node_modules/@netlify/build/lib/plugins/ipc.js:91:24)
+​
+  [31m[1mResolved config[22m[39m
+  build:
+    command: npm run build
+    commandOrigin: ui
+    environment:
+      - NODE_VERSION
+      - NPM_FLAGS
+    publish: E:\ScriptGo\.next
+    publishOrigin: config
+  headers:
+    - for: /_next/static/*
+      values:
+        Cache-Control: public, max-age=31536000, immutable
+  headersOrigin: inline
+  plugins:
+    - inputs: {}
+      origin: config
+      package: "@netlify/plugin-nextjs"
+  redirects:
+    - from: /_next/image
+      query:
+        q: :quality
+        url: :url
+        w: :width
+      status: 200
+      to: /.netlify/images?url=:url&w=:width&q=:quality
+    - from: /_ipx/*
+      query:
+        q: :quality
+        url: :url
+        w: :width
+      status: 200
+      to: /.netlify/images?url=:url&w=:width&q=:quality
+  redirectsOrigin: inline
+ »   Warning: Error: Error while running build
+ »       at toError (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/dist/utils/command-helpers.js:146:16)
+ »       at logAndThrowError (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/dist/utils/command-helpers.js:152:17)
+ »       at handleBuild (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/dist/commands/deploy/deploy.js:530:9)
+ »       at async deploy (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/dist/commands/deploy/deploy.js:829:13)
+ »       at async BaseCommand.<anonymous> (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/dist/commands/deploy/index.js:93:5)
+ »       at async BaseCommand.parseAsync (C:\Users\Admin\AppData\Roaming\npm\node_modules\netlify-cli\node_modules\commander\lib\command.js:1092:5)
+ »       at async runProgram (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/dist/utils/run-program.js:11:5)
+ »       at async main (file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/bin/run.js:55:5)
+ »       at async file:///C:/Users/Admin/AppData/Roaming/npm/node_modules/netlify-cli/bin/run.js:66:1
