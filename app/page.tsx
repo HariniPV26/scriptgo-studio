@@ -214,7 +214,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">© 2026 ScriptGo Protocol v2 // All Rights Reserved</p>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">© 2026 ScriptGo Protocol v3 // All Rights Reserved</p>
         </div>
       </footer>
 
