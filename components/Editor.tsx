@@ -7,6 +7,8 @@ import { Loader2, Save, Copy, Wand2, ArrowLeft, Menu, X, Sparkles, MonitorPlay, 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
+import { sendScriptEmail } from '@/app/actions/email'
+import { Mail as MailIcon } from 'lucide-react'
 
 interface EditorProps {
     initialData?: any
@@ -128,6 +130,28 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         navigator.clipboard.writeText(content)
         alert('Script copied to clipboard!')
     }
+
+    const [sendingEmail, setSendingEmail] = useState(false)
+    const handleEmail = async () => {
+        setSendingEmail(true)
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+
+        if (!user || !user.email) {
+            router.push('/login')
+            return
+        }
+
+        const result = await sendScriptEmail(user.email, title || 'Untitled Script', content)
+
+        if (result.success) {
+            alert('Script sent to your email!')
+        } else {
+            alert('Failed to send email. Ensure your Resend API key is configured.')
+        }
+        setSendingEmail(false)
+    }
+
 
     return (
         <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-background font-sans selection:bg-primary/30">
@@ -344,6 +368,15 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                             <Copy className="h-4 w-4" />
                             Copy
                         </button>
+                        <button
+                            onClick={handleEmail}
+                            disabled={!content || sendingEmail}
+                            className="h-10 px-4 flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all rounded-xl text-xs font-bold disabled:opacity-30"
+                        >
+                            {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <MailIcon className="h-4 w-4" />}
+                            Email
+                        </button>
+
                         <div className="h-4 w-px bg-black/[0.05] dark:bg-white/10 mx-2"></div>
                         <button
                             onClick={handleSave}

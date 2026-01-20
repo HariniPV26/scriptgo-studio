@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle, Rocket, Sparkles, Lock, Mail, User, ArrowRight, Shield } from 'lucide-react'
 import Link from 'next/link'
+import { sendWelcomeEmail, sendPasswordResetEmail } from '@/app/actions/email'
 
 function LoginContent() {
     const router = useRouter()
@@ -99,9 +100,14 @@ function LoginContent() {
                     // User created but session missing -> Email confirmation likely required
                     setError(null)
                     alert('Account created! Please check your email to confirm your account before signing in.')
+
+                    // Fire-and-forget welcome email (it might fail if Resend isn't set up yet, but we catch it in the action)
+                    sendWelcomeEmail(email, fullName)
+
                     setIsLogin(true) // Switch to login tab
                 } else {
                     // Success with session -> Redirect
+                    sendWelcomeEmail(email, fullName)
                     router.push('/dashboard')
                     router.refresh()
                 }
@@ -129,6 +135,26 @@ function LoginContent() {
         if (passwordStrength === 3) return 'Good'
         return 'Strong'
     }
+
+    const handleForgotPassword = async () => {
+        if (!email) {
+            setError('Please enter your email address first')
+            return
+        }
+        setIsLoading(true)
+        const supabase = createClient()
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: `${window.location.origin}/auth/callback?type=recovery`,
+        })
+
+        if (error) {
+            setError(error.message)
+        } else {
+            alert('Password reset link sent to your email!')
+        }
+        setIsLoading(false)
+    }
+
 
 
 
@@ -300,9 +326,13 @@ function LoginContent() {
                                         Password
                                     </label>
                                     {isLogin && (
-                                        <Link href="#" className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors">
+                                        <button
+                                            type="button"
+                                            onClick={handleForgotPassword}
+                                            className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
+                                        >
                                             Forgot password?
-                                        </Link>
+                                        </button>
                                     )}
                                 </div>
                                 <div className="relative">
