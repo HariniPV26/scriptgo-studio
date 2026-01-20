@@ -137,13 +137,19 @@ export async function generateVisuals(script: string, platform: string, topic: s
     SCRIPT: 
     ${script}
     
-    GOAL: Create a structured visual storyboard.
+    GOAL: Create a high-quality visual storyboard.
+    
+    GUIDELINES:
+    1. For each shot, create a VERY DESCRIPTIVE and UNIQUE prompt for an AI image generator.
+    2. The prompt should specify: Subject, Environment, Lighting, Camera Angle, and Style (e.g. Cinematic, 3D Render, or Realistic Photo).
+    3. Ensure the visuals are accurate to the content of the script. If the script mentions "Cinderella", the prompt MUST describe a character resembling Cinderella.
+    4. Provide different prompts for different shots to avoid repetition.
     
     FORMAT: Return a JSON object with:
-    1. "visuals": An array of objects, each with "shot", "description", and a detailed "imagePrompt" for AI generation.
-    2. "thumbnailPrompt": A highly attractive prompt for a video thumbnail or post header image.
+    1. "visuals": An array of objects, each with "shot" (e.g. "Shot 1"), "description" (what happens), and "imagePrompt" (the detailed AI generation prompt).
+    2. "thumbnailPrompt": A high-impact prompt for the overall video cover.
     
-    IMPORTANT: Return ONLY valid JSON.
+    IMPORTANT: Provide ONLY valid JSON. Make prompts vivid and specific.
   `
 
   try {
@@ -157,6 +163,6 @@ export async function generateVisuals(script: string, platform: string, topic: s
     return { text: content }
   } catch (error: any) {
     console.error('OpenAI Visuals Error:', error)
-    return { text: JSON.stringify({ error: 'Failed to generate visuals' }) }
+    return { text: JSON.stringify({ error: 'Failed' }) }
   }
 }
