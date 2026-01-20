@@ -4,8 +4,8 @@ The high-fidelity scripting environment for elite creators.
 
 ## 🚀 Deployment Status
 
-**Active Site:** `zippy-meringue-3101e8`
-**Live URL:** [https://zippy-meringue-3101e8.netlify.app](https://zippy-meringue-3101e8.netlify.app)
+**Active Site:** Vercel (Building...)
+**Live URL:** [Pending Deployment URL]
 **Repository:** [https://github.com/HariniPV26/scriptGo](https://github.com/HariniPV26/scriptGo)
 
 ### 🛠 Tech Stack
