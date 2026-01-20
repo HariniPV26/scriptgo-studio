@@ -137,33 +137,32 @@ export async function generateVisuals(script: string, platform: string, topic: s
     SCRIPT: 
     ${script}
     
-    GOAL: Create a detailed visual storyboard / shot list.
+    GOAL: Create a detailed visual storyboard / shot list that perfectly fits the TOPIC and TONE of the provided script.
     
     GUIDELINES:
     1. For each logical section of the script, describe EXACTLY what should be shown on screen.
-    2. Create a high-quality "Image Generation Prompt" for each shot.
+    2. The visuals MUST reflect the theme of "${topic}". For example, if it's tech, use high-tech visuals; if it's nature, use organic visuals.
+    3. The lighting, camera angles, and color palette MUST match the "${tone}" tone.
+    4. Make sure the visuals align with the platform best practices (e.g., fast cuts for TikTok, cinematic for YouTube).
     
-    FORMAT: Return a JSON object with a "shots" key containing an array of shot objects.
-    Each shot object must have:
-    - "shot": e.g., "Shot 1"
-    - "description": text description of the scene
-    - "visualPrompt": A descriptive prompt for an AI image generator to create this visual.
+    FORMAT:
+    - [Shot 1]: Visual Description (Angle, Lighting, Action)
+    - [Shot 2]: ...
     
-    IMPORTANT: Return ONLY valid JSON. Content must reflect topic "${topic}" and tone "${tone}".
+    Return ONLY the visual plan in a clean, professional format.
   `
 
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
-      response_format: { type: "json_object" }
     })
 
-    const content = response.choices[0].message.content || '{"shots": []}'
+    const content = response.choices[0].message.content || 'No visuals generated.'
     return { text: content }
   } catch (error: any) {
     console.error('OpenAI Visuals Error:', error)
     const errorMessage = error.message || 'Error generating visuals.'
-    return { text: JSON.stringify({ error: errorMessage }) }
+    return { text: `Error: ${errorMessage}. Please check your OpenAI API key and credits.` }
   }
 }
