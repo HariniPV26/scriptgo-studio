@@ -2,13 +2,15 @@
 
 import { useState } from 'react'
 import { generateScript, generateVisuals } from '@/app/editor/actions'
-import { generateCalendarContent } from '@/app/calendar/actions'
-import { Loader2, Save, Copy, Wand2, ArrowLeft, Menu, X, Sparkles, MonitorPlay, Linkedin, Instagram, Calendar, Image as ImageIcon } from 'lucide-react'
+import {
+    Loader2, Save, Copy, Wand2, ArrowLeft, Menu, X, Sparkles,
+    MonitorPlay, Linkedin, Instagram, Calendar,
+    Image as ImageIcon, Mail as MailIcon, Play, ChevronRight, Layout
+} from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { sendScriptEmail } from '@/app/actions/email'
-import { Mail as MailIcon } from 'lucide-react'
 
 interface EditorProps {
     initialData?: any
@@ -21,6 +23,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
     const [generatingVisuals, setGeneratingVisuals] = useState(false)
     const [saving, setSaving] = useState(false)
     const [showMobileSidebar, setShowMobileSidebar] = useState(false)
+    const [viewMode, setViewMode] = useState<'script' | 'visuals'>('script')
 
     // Calendar mode state
     const [isCalendarMode, setIsCalendarMode] = useState(false)
@@ -32,15 +35,12 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
     const [title, setTitle] = useState(initialData?.title || '')
     const [language, setLanguage] = useState('English')
     const [framework, setFramework] = useState('None')
+    const [visualData, setVisualData] = useState<any>(null)
 
-    // checking for legacy 'visual' structure or new 'text' structure
     const getInitialContent = () => {
         if (!initialData?.content) return ''
         if (typeof initialData.content === 'string') return initialData.content
         if (initialData.content.text) return initialData.content.text
-        if (initialData.content.visual) {
-            return initialData.content.visual.map((v: string, i: number) => `[Visual]: ${v}\n[Audio]: ${initialData.content.audio[i]}`).join('\n\n')
-        }
         return ''
     }
 
@@ -50,6 +50,8 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         e.preventDefault()
         setLoading(true)
         setShowMobileSidebar(false)
+        setVisualData(null)
+        setViewMode('script')
 
         try {
             if (isCalendarMode) {
@@ -90,7 +92,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
             user_id: user.id,
             title: title || 'Untitled Script',
             platform,
-            content: { text: content }
+            content: { text: content, visuals: visualData }
         }
 
         let resultId = scriptId
@@ -101,45 +103,33 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                 .update(scriptData)
                 .eq('id', scriptId)
 
-            if (error) {
-                console.error("Save error:", error)
-                alert("Failed to save")
-            }
+            if (error) alert("Failed to save")
         } else {
-            const { data, error } = await supabase
-                .from('scripts')
-                .insert(scriptData)
-                .select()
-                .single()
-
-            if (error) {
-                console.error("Save error:", error)
-                alert("Failed to save")
-            } else if (data) {
-                resultId = data.id
-            }
+            const { data, error } = await supabase.from('scripts').insert(scriptData).select().single()
+            if (error) alert("Failed to save")
+            else if (data) resultId = data.id
         }
 
         setSaving(false)
-
-        if (resultId) {
-            router.push('/dashboard')
-        }
+        if (resultId) router.push('/dashboard')
     }
 
     const handleCopy = () => {
         navigator.clipboard.writeText(content)
         alert('Script copied to clipboard!')
     }
+
     const handleGenerateVisuals = async () => {
         if (!content) {
-            alert('Please generate or write a script first.')
+            alert('Please generate a script first.')
             return
         }
         setGeneratingVisuals(true)
         try {
             const result = await generateVisuals(content, platform, topic, tone)
-            setContent(prev => prev + '\n\n--- VISUAL STORYBOARD ---\n\n' + result.text)
+            const parsed = JSON.parse(result.text)
+            setVisualData(parsed)
+            setViewMode('visuals')
         } catch (error) {
             console.error(error)
             alert('Failed to generate visuals')
@@ -160,15 +150,10 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         }
 
         const result = await sendScriptEmail(user.email, title || 'Untitled Script', content)
-
-        if (result.success) {
-            alert('Script sent to your email!')
-        } else {
-            alert('Failed to send email. Ensure your Resend API key is configured.')
-        }
+        if (result.success) alert('Script sent to your email!')
+        else alert('Failed to send email.')
         setSendingEmail(false)
     }
-
 
     return (
         <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-background font-sans selection:bg-primary/30">
@@ -193,7 +178,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
 
                 <div className="mb-10">
                     <Link href="/dashboard" className="inline-flex items-center gap-3 group text-sm font-bold text-muted-foreground hover:text-foreground transition-all">
-                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-primary/20 group-hover:text-primary group-hover:border-primary/30 transition-all">
+                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-primary/20 group-hover:text-primary transition-all">
                             <ArrowLeft className="h-4 w-4" />
                         </div>
                         Back to dashboard
@@ -213,24 +198,21 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                 <form onSubmit={handleGenerate} className="space-y-8 flex-1 overflow-y-auto pb-6 scrollbar-none">
                     {/* Platform Selector */}
                     <div className="space-y-4">
-                        <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em] flex items-center justify-between">
-                            Platform
-                            <span className="h-1 w-1 rounded-full bg-primary/40 animate-pulse"></span>
-                        </label>
+                        <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Platform</label>
                         <div className="grid grid-cols-2 gap-3">
                             {[
-                                { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-500', bg: 'hover:bg-blue-500/10' },
-                                { name: 'YouTube', icon: MonitorPlay, color: 'text-red-500', bg: 'hover:bg-red-500/10' },
-                                { name: 'TikTok', icon: Sparkles, color: 'text-pink-500', bg: 'hover:bg-pink-500/10' },
-                                { name: 'Instagram', icon: Instagram, color: 'text-purple-500', bg: 'hover:bg-purple-500/10' }
+                                { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-500' },
+                                { name: 'YouTube', icon: MonitorPlay, color: 'text-red-500' },
+                                { name: 'TikTok', icon: Sparkles, color: 'text-pink-500' },
+                                { name: 'Instagram', icon: Instagram, color: 'text-purple-500' }
                             ].map((p) => (
                                 <button
                                     key={p.name}
                                     type="button"
                                     onClick={() => setPlatform(p.name)}
-                                    className={`p-4 rounded-2xl text-[10px] font-black uppercase tracking-tight transition-all duration-300 flex flex-col items-center gap-3 border-2 ${platform === p.name
+                                    className={`p-4 rounded-2xl text-[10px] font-black uppercase transition-all duration-300 flex flex-col items-center gap-3 border-2 ${platform === p.name
                                         ? `bg-primary/10 border-primary text-primary shadow-xl shadow-primary/10`
-                                        : `bg-white/5 border-transparent text-muted-foreground ${p.bg}`
+                                        : `bg-white/5 border-transparent text-muted-foreground hover:bg-white/10`
                                         }`}
                                 >
                                     <p.icon className={`h-5 w-5 ${platform === p.name ? 'text-primary' : p.color}`} />
@@ -242,61 +224,47 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
 
                     {/* Topic Area */}
                     <div className="space-y-4">
-                        <label htmlFor="topic" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Objective</label>
+                        <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Objective</label>
                         <textarea
-                            id="topic"
                             value={topic}
                             onChange={(e) => setTopic(e.target.value)}
                             placeholder="Describe your vision..."
-                            required={!scriptId && !content}
-                            className="w-full px-5 py-4 bg-white/5 border border-white/5 rounded-2xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-white/[0.02] h-32 resize-none placeholder:text-muted-foreground/30 font-medium text-sm transition-all shadow-inner"
+                            className="w-full px-5 py-4 bg-white/5 border border-white/5 rounded-2xl text-foreground focus:ring-2 focus:ring-primary/40 h-32 resize-none placeholder:text-muted-foreground/30 font-medium text-sm transition-all shadow-inner"
                         />
                     </div>
 
-                    {/* Tone & Language & Framework Grid */}
                     <div className="grid grid-cols-1 gap-6">
                         <div className="space-y-3">
-                            <label htmlFor="tone" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Aesthetic / Tone</label>
+                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Aesthetic / Tone</label>
                             <select
-                                id="tone"
                                 value={tone}
                                 onChange={(e) => setTone(e.target.value)}
-                                className="w-full h-12 px-5 bg-white/5 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer text-sm font-bold transition-all hover:bg-white/[0.08]"
+                                className="w-full h-12 px-5 bg-white/5 border border-white/5 rounded-xl text-foreground focus:ring-2 focus:ring-primary/40 cursor-pointer text-sm font-bold transition-all"
                             >
-                                <option className="bg-background">Professional</option>
-                                <option className="bg-background">Friendly</option>
-                                <option className="bg-background">Witty</option>
-                                <option className="bg-background">Persuasive</option>
-                                <option className="bg-background">Edgy</option>
+                                <option>Professional</option>
+                                <option>Friendly</option>
+                                <option>Witty</option>
+                                <option>Persuasive</option>
+                                <option>Edgy</option>
                             </select>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-3">
-                                <label htmlFor="language" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Language</label>
-                                <select
-                                    id="language"
-                                    value={language}
-                                    onChange={(e) => setLanguage(e.target.value)}
-                                    className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer text-[10px] font-bold transition-all"
-                                >
-                                    <option className="bg-background">English</option>
-                                    <option className="bg-background">Tamil</option>
-                                    <option className="bg-background">Hindi</option>
-                                    <option className="bg-background">Spanish</option>
+                                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Language</label>
+                                <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-foreground text-[10px] font-bold">
+                                    <option>English</option>
+                                    <option>Tamil</option>
+                                    <option>Hindi</option>
+                                    <option>Spanish</option>
                                 </select>
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="framework" className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Framework</label>
-                                <select
-                                    id="framework"
-                                    value={framework}
-                                    onChange={(e) => setFramework(e.target.value)}
-                                    className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer text-[10px] font-bold transition-all"
-                                >
-                                    <option value="None" className="bg-background">None</option>
-                                    <option value="AIDA" className="bg-background">AIDA</option>
-                                    <option value="PAS" className="bg-background">PAS</option>
+                                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Framework</label>
+                                <select value={framework} onChange={(e) => setFramework(e.target.value)} className="w-full h-11 px-4 bg-white/5 border border-white/5 rounded-xl text-foreground text-[10px] font-bold">
+                                    <option value="None">None</option>
+                                    <option value="AIDA">AIDA</option>
+                                    <option value="PAS">PAS</option>
                                 </select>
                             </div>
                         </div>
@@ -312,33 +280,12 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                             <button
                                 type="button"
                                 onClick={() => setIsCalendarMode(!isCalendarMode)}
-                                className={`relative w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none ${isCalendarMode ? 'bg-primary' : 'bg-white/10'}`}
+                                className={`relative w-10 h-5 rounded-full transition-colors focus:outline-none ${isCalendarMode ? 'bg-primary' : 'bg-white/10'}`}
                             >
-                                <div className={`absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform duration-200 ${isCalendarMode ? 'translate-x-5' : 'translate-x-0'}`} />
+                                <div className={`absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${isCalendarMode ? 'translate-x-5' : 'translate-x-0'}`} />
                             </button>
                         </div>
-
-                        {isCalendarMode && (
-                            <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                                <div className="flex justify-between items-center text-[10px] font-bold">
-                                    <span className="text-muted-foreground">CAMPAIGN DURATION</span>
-                                    <span className="text-primary">{calendarDays} Days</span>
-                                </div>
-                                <input
-                                    type="range"
-                                    min="3"
-                                    max="30"
-                                    value={calendarDays}
-                                    onChange={(e) => setCalendarDays(parseInt(e.target.value))}
-                                    className="w-full h-1 bg-white/5 rounded-lg appearance-none cursor-pointer accent-primary"
-                                />
-                                <p className="text-[9px] text-muted-foreground leading-tight italic">
-                                    Generates a cohesive content matrix for the selected period.
-                                </p>
-                            </div>
-                        )}
                     </div>
-
 
                     {/* Action Buttons */}
                     <div className="flex flex-col gap-3 mt-4">
@@ -348,35 +295,25 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                             className={`w-full py-5 relative overflow-hidden bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all shadow-xl active:scale-[0.98] ${loading ? 'animate-pulse opacity-90' : 'shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1'}`}
                         >
                             <div className="flex items-center justify-center gap-3 relative z-10">
-                                {loading ? (
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                    <Wand2 className="h-4 w-4" />
-                                )}
+                                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
                                 <span className="text-xs">{isCalendarMode ? 'Build Matrix' : 'Generate Script'}</span>
                             </div>
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer"></div>
                         </button>
 
-                        {!isCalendarMode && (
+                        {!isCalendarMode && content && (
                             <button
                                 type="button"
                                 onClick={handleGenerateVisuals}
-                                disabled={loading || generatingVisuals || !content}
-                                className={`w-full py-4 relative overflow-hidden bg-white/5 border border-white/10 text-foreground font-bold uppercase tracking-[0.1em] rounded-2xl transition-all active:scale-[0.98] disabled:opacity-30 ${generatingVisuals ? 'animate-pulse' : 'hover:bg-white/10 hover:-translate-y-0.5'}`}
+                                disabled={loading || generatingVisuals}
+                                className={`w-full py-4 relative overflow-hidden bg-white/5 border border-white/10 text-foreground font-bold uppercase tracking-[0.1em] rounded-2xl transition-all active:scale-[0.98] ${generatingVisuals ? 'animate-pulse' : 'hover:bg-white/10 hover:-translate-y-0.5'}`}
                             >
                                 <div className="flex items-center justify-center gap-2 relative z-10">
-                                    {generatingVisuals ? (
-                                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                                    ) : (
-                                        <ImageIcon className="h-4 w-4 text-emerald-500" />
-                                    )}
+                                    {generatingVisuals ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <ImageIcon className="h-4 w-4 text-emerald-500" />}
                                     <span className="text-[10px]">Generate Visuals</span>
                                 </div>
                             </button>
                         )}
                     </div>
-
                 </form>
             </div>
 
@@ -390,39 +327,35 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Untitled Masterpiece"
-                            className="bg-transparent text-xl font-bold font-outfit text-foreground focus:outline-none placeholder:text-muted-foreground/30 w-full transition-all"
+                            className="bg-transparent text-xl font-bold font-outfit text-foreground focus:outline-none placeholder:text-muted-foreground/30 w-full"
                         />
-                        <div className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${saving ? 'bg-primary/20 text-primary animate-pulse' : 'bg-muted text-muted-foreground opacity-40'}`}>
-                            {saving ? 'Syncing...' : 'Synced'}
-                        </div>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button
-                            onClick={handleCopy}
-                            disabled={!content}
-                            className="h-10 px-4 flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all rounded-xl text-xs font-bold disabled:opacity-30"
-                        >
-                            <Copy className="h-4 w-4" />
-                            Copy
+                        {visualData && (
+                            <div className="flex items-center bg-black/5 dark:bg-white/5 rounded-xl p-1">
+                                <button
+                                    onClick={() => setViewMode('script')}
+                                    className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'script' ? 'bg-primary text-white shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
+                                >
+                                    Script
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('visuals')}
+                                    className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'visuals' ? 'bg-primary text-white shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
+                                >
+                                    Visuals
+                                </button>
+                            </div>
+                        )}
+                        <button onClick={handleCopy} disabled={!content} className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all rounded-xl">
+                            <Copy className="h-5 w-5" />
                         </button>
-                        <button
-                            onClick={handleEmail}
-                            disabled={!content || sendingEmail}
-                            className="h-10 px-4 flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all rounded-xl text-xs font-bold disabled:opacity-30"
-                        >
-                            {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <MailIcon className="h-4 w-4" />}
-                            Email
+                        <button onClick={handleEmail} disabled={!content || sendingEmail} className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all rounded-xl">
+                            {sendingEmail ? <Loader2 className="h-5 w-5 animate-spin text-primary" /> : <MailIcon className="h-5 w-5" />}
                         </button>
-
-                        <div className="h-4 w-px bg-black/[0.05] dark:bg-white/10 mx-2"></div>
-                        <button
-                            onClick={handleSave}
-                            disabled={saving || !content}
-                            className="h-11 px-6 bg-foreground text-background dark:bg-white dark:text-black rounded-xl font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.05] shadow-xl active:scale-95 disabled:opacity-30"
-                        >
-                            {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                            <span className="ml-2">Deliver</span>
+                        <button onClick={handleSave} disabled={saving || !content} className="h-10 px-6 bg-foreground text-background dark:bg-white dark:text-black rounded-xl font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.05] shadow-xl active:scale-95 disabled:opacity-30">
+                            {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <span className="flex items-center gap-2"><Save className="h-3.5 w-3.5" /> Deliver</span>}
                         </button>
                     </div>
                 </div>
@@ -438,28 +371,75 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <h3 className="text-4xl font-black text-foreground font-outfit tracking-tighter">Your Story Starts Here</h3>
+                                <h3 className="text-4xl font-black text-foreground font-outfit tracking-tighter">ScriptGo Studio</h3>
                                 <p className="text-muted-foreground/80 font-medium leading-relaxed max-w-sm mx-auto">
-                                    Configure your target and topic on the left to see the AI engine in action.
+                                    Transform your ideas into high-converting scripts and visuals in seconds.
                                 </p>
-                            </div>
-                            <div className="flex gap-4 opacity-40">
-                                <Linkedin className="h-4 w-4" />
-                                <MonitorPlay className="h-4 w-4" />
-                                <Sparkles className="h-4 w-4" />
                             </div>
                         </div>
                     ) : (
-                        <div className="w-full max-w-4xl h-full pb-20 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                            <div className="saas-card p-0 h-full border-black/[0.03] dark:border-white/5 bg-background dark:bg-background/40 shadow-premium">
-                                <textarea
-                                    value={content}
-                                    onChange={(e) => setContent(e.target.value)}
-                                    className="w-full h-full p-12 bg-transparent text-foreground focus:outline-none resize-none font-sans text-lg font-medium leading-relaxed custom-scrollbar selection:bg-primary/20"
-                                    placeholder="Type your content here..."
-                                    spellCheck={false}
-                                />
-                            </div>
+                        <div className="w-full max-w-5xl h-full pb-20 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                            {viewMode === 'script' ? (
+                                <div className="saas-card p-0 h-full border-black/[0.03] dark:border-white/5 bg-background dark:bg-background/40 shadow-premium">
+                                    <textarea
+                                        value={content}
+                                        onChange={(e) => setContent(e.target.value)}
+                                        className="w-full h-full p-16 bg-transparent text-foreground focus:outline-none resize-none font-sans text-xl font-medium leading-[1.8] custom-scrollbar selection:bg-primary/20"
+                                        placeholder="Generating..."
+                                        spellCheck={false}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="space-y-10 animate-in fade-in slide-in-from-right-8 duration-500">
+                                    {visualData?.thumbnailPrompt && (
+                                        <div className="relative group rounded-[2.5rem] overflow-hidden bg-black/10 aspect-[21/9] border border-white/5">
+                                            <img
+                                                src={`https://image.pollinations.ai/prompt/${encodeURIComponent(visualData.thumbnailPrompt + ", cinematic, high resolution, 8k, masterpiece")}`}
+                                                alt="Main Visual"
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                            <div className="absolute bottom-10 left-10">
+                                                <span className="px-4 py-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Primary Visual / Cover</span>
+                                                <h4 className="text-3xl font-black text-white mt-4 font-outfit tracking-tight">{title || 'Production Cover'}</h4>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                        {visualData?.visuals?.map((shot: any, idx: number) => (
+                                            <div key={idx} className="group bg-background/40 backdrop-blur-3xl border border-white/5 rounded-[2rem] overflow-hidden hover:border-primary/30 transition-all hover:shadow-2xl">
+                                                <div className="aspect-video relative overflow-hidden bg-white/5">
+                                                    <img
+                                                        src={`https://image.pollinations.ai/prompt/${encodeURIComponent(shot.imagePrompt + ", highly detailed, cinematic lighting, 4k, digital art style")}`}
+                                                        alt={shot.shot}
+                                                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                                                    />
+                                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
+                                                    <div className="absolute top-4 left-4 h-6 w-12 bg-black/50 backdrop-blur-md rounded-lg flex items-center justify-center border border-white/10">
+                                                        <span className="text-[10px] font-black text-white">{shot.shot}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="p-6">
+                                                    <p className="text-xs font-bold leading-relaxed text-foreground/70 group-hover:text-foreground transition-colors">
+                                                        {shot.description}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex justify-center pb-20">
+                                        <button
+                                            onClick={() => setViewMode('script')}
+                                            className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center gap-3"
+                                        >
+                                            <span className="h-2 w-2 rounded-full bg-primary"></span>
+                                            Edit Full Script
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>

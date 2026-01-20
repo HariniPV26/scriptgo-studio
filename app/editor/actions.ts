@@ -137,32 +137,26 @@ export async function generateVisuals(script: string, platform: string, topic: s
     SCRIPT: 
     ${script}
     
-    GOAL: Create a detailed visual storyboard / shot list that perfectly fits the TOPIC and TONE of the provided script.
+    GOAL: Create a structured visual storyboard.
     
-    GUIDELINES:
-    1. For each logical section of the script, describe EXACTLY what should be shown on screen.
-    2. The visuals MUST reflect the theme of "${topic}". For example, if it's tech, use high-tech visuals; if it's nature, use organic visuals.
-    3. The lighting, camera angles, and color palette MUST match the "${tone}" tone.
-    4. Make sure the visuals align with the platform best practices (e.g., fast cuts for TikTok, cinematic for YouTube).
+    FORMAT: Return a JSON object with:
+    1. "visuals": An array of objects, each with "shot", "description", and a detailed "imagePrompt" for AI generation.
+    2. "thumbnailPrompt": A highly attractive prompt for a video thumbnail or post header image.
     
-    FORMAT:
-    - [Shot 1]: Visual Description (Angle, Lighting, Action)
-    - [Shot 2]: ...
-    
-    Return ONLY the visual plan in a clean, professional format.
+    IMPORTANT: Return ONLY valid JSON.
   `
 
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
+      response_format: { type: "json_object" }
     })
 
-    const content = response.choices[0].message.content || 'No visuals generated.'
+    const content = response.choices[0].message.content || '{"visuals": []}'
     return { text: content }
   } catch (error: any) {
     console.error('OpenAI Visuals Error:', error)
-    const errorMessage = error.message || 'Error generating visuals.'
-    return { text: `Error: ${errorMessage}. Please check your OpenAI API key and credits.` }
+    return { text: JSON.stringify({ error: 'Failed to generate visuals' }) }
   }
 }
