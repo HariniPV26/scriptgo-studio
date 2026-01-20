@@ -130,28 +130,29 @@ export async function generateVisuals(script: string, platform: string, topic: s
   }
 
   const prompt = `
-    SYSTEM: You are a Professional Video Director and Visual Storyboard Artist.
+    SYSTEM: You are a Professional Video Director and Visual Storyboard Artist specializing in high-end CGI and Animation.
     PLATFORM: ${platform}
     TOPIC: ${topic}
     TONE: ${tone}
     SCRIPT: 
     ${script}
     
-    GOAL: Create a high-quality visual storyboard using vivid image prompts.
+    TASK: Generate a visual storyboard for this topic.
     
-    STYLE GUIDELINES (CRITICAL):
-    1. For TOPIC "${topic}", create character-driven visuals.
-    2. Use an "Animated Movie Style" (e.g., Disney/Pixar style).
-    3. PROMPT STRUCTURE: "A [Style] illustration of [Character] in [Environment], [Action], [Lighting], [Color Palette], high quality, highly detailed."
-    4. If the topic is Cinderella, specifically describe a princess girl with blonde hair, blue dress, and glass slippers.
-    5. Avoid technical words like "QR Code", "Robot", or "System" unless the TOPIC is specifically about those things.
-    6. Ensure each "imagePrompt" is at least 30 words long and extremely specific to the TOPIC.
+    CRITICAL STYLE INSTRUCTIONS:
+    1. STYLE: Use a "Vibrant 3D Animated Movie Style" (Disney/Pixar aesthetic).
+    2. SUBJECT: Every prompt MUST describe a specific human/character subject based on the topic. 
+    3. NO ROBOTS: Unless explicitly requested, do NOT use robots, computers, QR codes, or technical diagrams.
+    4. CINDERELLA EXAMPLE: If the topic involves Cinderella, every prompt must describe "A beautiful princess girl with glowing blonde hair, stunning blue silk gown, expressive big eyes, Disney Pixar 3D art style".
+    5. ENVIRONMENT: Describe lush, magical, or cinematic backgrounds.
+    
+    PROMPT FORMAT: "A high-quality 3D Disney Pixar style animation of [Character Details], [Environment Details], [Action Detail], cinematic lighting, masterpiece, 8k, vibrant colors."
     
     FORMAT: Return a JSON object with:
-    1. "visuals": An array of objects, each with "shot" (e.g. "Shot 1"), "description" (narrative), and "imagePrompt" (the detailed AI generation prompt for the animated style).
-    2. "thumbnailPrompt": A movie-poster style prompt for the cover.
+    1. "visuals": Array of { "shot", "description", "imagePrompt" }
+    2. "thumbnailPrompt": One main cinematic hero prompt.
     
-    IMPORTANT: Provide ONLY valid JSON.
+    IMPORTANT: Keep prompts descriptive (30-50 words). No technical jargon. No placeholders.
   `
 
   try {
