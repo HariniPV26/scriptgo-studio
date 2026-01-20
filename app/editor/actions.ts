@@ -137,19 +137,21 @@ export async function generateVisuals(script: string, platform: string, topic: s
     SCRIPT: 
     ${script}
     
-    GOAL: Create a high-quality visual storyboard.
+    GOAL: Create a high-quality visual storyboard using vivid image prompts.
     
-    GUIDELINES:
-    1. For each shot, create a VERY DESCRIPTIVE and UNIQUE prompt for an AI image generator.
-    2. The prompt should specify: Subject, Environment, Lighting, Camera Angle, and Style (e.g. Cinematic, 3D Render, or Realistic Photo).
-    3. Ensure the visuals are accurate to the content of the script. If the script mentions "Cinderella", the prompt MUST describe a character resembling Cinderella.
-    4. Provide different prompts for different shots to avoid repetition.
+    STYLE GUIDELINES (CRITICAL):
+    1. For TOPIC "${topic}", create character-driven visuals.
+    2. Use an "Animated Movie Style" (e.g., Disney/Pixar style).
+    3. PROMPT STRUCTURE: "A [Style] illustration of [Character] in [Environment], [Action], [Lighting], [Color Palette], high quality, highly detailed."
+    4. If the topic is Cinderella, specifically describe a princess girl with blonde hair, blue dress, and glass slippers.
+    5. Avoid technical words like "QR Code", "Robot", or "System" unless the TOPIC is specifically about those things.
+    6. Ensure each "imagePrompt" is at least 30 words long and extremely specific to the TOPIC.
     
     FORMAT: Return a JSON object with:
-    1. "visuals": An array of objects, each with "shot" (e.g. "Shot 1"), "description" (what happens), and "imagePrompt" (the detailed AI generation prompt).
-    2. "thumbnailPrompt": A high-impact prompt for the overall video cover.
+    1. "visuals": An array of objects, each with "shot" (e.g. "Shot 1"), "description" (narrative), and "imagePrompt" (the detailed AI generation prompt for the animated style).
+    2. "thumbnailPrompt": A movie-poster style prompt for the cover.
     
-    IMPORTANT: Provide ONLY valid JSON. Make prompts vivid and specific.
+    IMPORTANT: Provide ONLY valid JSON.
   `
 
   try {
