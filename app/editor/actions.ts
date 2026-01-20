@@ -113,3 +113,44 @@ export async function generateScript(topic: string, tone: string, platform: stri
     return { text: 'Error generating script. Please try again.' }
   }
 }
+
+export async function generateVisuals(script: string, platform: string) {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OpenAI API Key is missing')
+  }
+
+  const prompt = `
+    SYSTEM: You are a Professional Video Director and Visual Storyboard Artist.
+    PLATFORM: ${platform}
+    SCRIPT: 
+    ${script}
+    
+    GOAL: Create a detailed visual storyboard / shot list for this script.
+    
+    GUIDELINES:
+    1. For each logical section of the script, describe EXACTLY what should be shown on screen.
+    2. Include details about lighting, camera angles, color palette, and any text overlays.
+    3. Make sure the visuals align with the platform best practices (e.g., fast cuts for TikTok, cinematic for YouTube).
+    4. If there are specific transitions, mention them.
+    
+    FORMAT:
+    - [Shot 1]: Visual Description (Angle, Lighting, Action)
+    - [Shot 2]: ...
+    
+    Return ONLY the visual plan in a clean, professional format.
+  `
+
+  try {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: prompt }],
+    })
+
+    const content = response.choices[0].message.content || 'No visuals generated.'
+    return { text: content }
+  } catch (error) {
+    console.error('OpenAI Error:', error)
+    return { text: 'Error generating visuals. Please try again.' }
+  }
+}
+

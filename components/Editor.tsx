@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { generateScript } from '@/app/editor/actions'
+import { generateScript, generateVisuals } from '@/app/editor/actions'
 import { generateCalendarContent } from '@/app/calendar/actions'
-import { Loader2, Save, Copy, Wand2, ArrowLeft, Menu, X, Sparkles, MonitorPlay, Linkedin, Instagram, Languages, Layers, Calendar, ChevronRight } from 'lucide-react'
+import { Loader2, Save, Copy, Wand2, ArrowLeft, Menu, X, Sparkles, MonitorPlay, Linkedin, Instagram, Languages, Layers, Calendar, ChevronRight, Image as ImageIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
@@ -18,6 +18,7 @@ interface EditorProps {
 export default function Editor({ initialData, scriptId }: EditorProps) {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
+    const [generatingVisuals, setGeneratingVisuals] = useState(false)
     const [saving, setSaving] = useState(false)
     const [showMobileSidebar, setShowMobileSidebar] = useState(false)
 
@@ -130,6 +131,24 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         navigator.clipboard.writeText(content)
         alert('Script copied to clipboard!')
     }
+
+    const handleGenerateVisuals = async () => {
+        if (!content) {
+            alert('Please generate or write a script first.')
+            return
+        }
+        setGeneratingVisuals(true)
+        try {
+            const result = await generateVisuals(content, platform)
+            setContent(prev => prev + '\n\n--- VISUAL STORYBOARD ---\n\n' + result.text)
+        } catch (error) {
+            console.error(error)
+            alert('Failed to generate visuals')
+        } finally {
+            setGeneratingVisuals(false)
+        }
+    }
+
 
     const [sendingEmail, setSendingEmail] = useState(false)
     const handleEmail = async () => {
@@ -323,22 +342,43 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                     </div>
 
 
-                    {/* Action Button */}
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className={`w-full py-5 relative overflow-hidden bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all shadow-xl active:scale-[0.98] mt-4 ${loading ? 'animate-pulse opacity-90' : 'shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1'}`}
-                    >
-                        <div className="flex items-center justify-center gap-3 relative z-10">
-                            {loading ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                                <Wand2 className="h-4 w-4" />
-                            )}
-                            <span className="text-xs">{isCalendarMode ? 'Build Matrix' : 'Generate'}</span>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer"></div>
-                    </button>
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3 mt-4">
+                        <button
+                            type="submit"
+                            disabled={loading || generatingVisuals}
+                            className={`w-full py-5 relative overflow-hidden bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all shadow-xl active:scale-[0.98] ${loading ? 'animate-pulse opacity-90' : 'shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1'}`}
+                        >
+                            <div className="flex items-center justify-center gap-3 relative z-10">
+                                {loading ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    <Wand2 className="h-4 w-4" />
+                                )}
+                                <span className="text-xs">{isCalendarMode ? 'Build Matrix' : 'Generate Script'}</span>
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer"></div>
+                        </button>
+
+                        {!isCalendarMode && (
+                            <button
+                                type="button"
+                                onClick={handleGenerateVisuals}
+                                disabled={loading || generatingVisuals || !content}
+                                className={`w-full py-4 relative overflow-hidden bg-white/5 border border-white/10 text-foreground font-bold uppercase tracking-[0.1em] rounded-2xl transition-all active:scale-[0.98] disabled:opacity-30 ${generatingVisuals ? 'animate-pulse' : 'hover:bg-white/10 hover:-translate-y-0.5'}`}
+                            >
+                                <div className="flex items-center justify-center gap-2 relative z-10">
+                                    {generatingVisuals ? (
+                                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                                    ) : (
+                                        <ImageIcon className="h-4 w-4 text-emerald-500" />
+                                    )}
+                                    <span className="text-[10px]">Generate Visuals</span>
+                                </div>
+                            </button>
+                        )}
+                    </div>
+
                 </form>
             </div>
 
