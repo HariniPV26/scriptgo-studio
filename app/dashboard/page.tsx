@@ -37,14 +37,8 @@ export default function DashboardPage() {
         const fetchData = async () => {
             const supabase = createClient()
 
-            // Fetch user and scripts in parallel for maximum speed
-            const [
-                { data: { user } },
-                { data: scriptsData }
-            ] = await Promise.all([
-                supabase.auth.getUser(),
-                supabase.from('scripts').select('*').order('created_at', { ascending: false })
-            ])
+            // 1. Check user first (fastest for redirects)
+            const { data: { user } } = await supabase.auth.getUser()
 
             if (!user) {
                 router.push('/login')
@@ -52,6 +46,13 @@ export default function DashboardPage() {
             }
 
             setUser(user)
+
+            // 2. Fetch scripts second
+            const { data: scriptsData } = await supabase
+                .from('scripts')
+                .select('*')
+                .order('created_at', { ascending: false })
+
             if (scriptsData) {
                 setScripts(scriptsData)
             }

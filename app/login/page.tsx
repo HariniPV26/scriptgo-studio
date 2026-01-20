@@ -11,7 +11,6 @@ function LoginContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const [isLogin, setIsLogin] = useState(true)
-    const [isSuccess, setIsSuccess] = useState(false)
 
     useEffect(() => {
         // Prefetch the dashboard for instant navigation
@@ -97,25 +96,24 @@ function LoginContent() {
 
                 if (error) {
                     setError(error.message)
-                    setIsLoading(false)
                 } else if (!data.session) {
                     // User created but session missing -> Email confirmation likely required
-                    setIsSuccess(true)
-                    setIsLoading(false)
+                    alert('Account created! Please check your email to confirm your account.')
+                    setIsLogin(true)
 
                     // Fire-and-forget welcome email
                     sendWelcomeEmail(email, fullName)
                 } else {
                     // Success with session -> Redirect
-                    // Do not 'await' this - let it run while we redirect
                     sendWelcomeEmail(email, fullName)
-
                     router.push('/dashboard')
+                    router.refresh()
                 }
             }
         } catch (e) {
             console.error("Auth Error:", e)
             setError('An unexpected error occurred. Please try again.')
+        } finally {
             setIsLoading(false)
         }
     }
@@ -154,9 +152,6 @@ function LoginContent() {
         }
         setIsLoading(false)
     }
-
-
-
 
     return (
         <div className="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-100 font-inter overflow-hidden">
@@ -268,28 +263,6 @@ function LoginContent() {
                             </p>
                         </div>
 
-                        {/* Success Message */}
-                        {isSuccess && (
-                            <div className="flex flex-col items-center gap-4 p-6 bg-emerald-50 border border-emerald-200 rounded-3xl animate-in fade-in zoom-in-95">
-                                <div className="h-12 w-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                                    <CheckCircle2 className="h-6 w-6 text-emerald-600" />
-                                </div>
-                                <div className="text-center space-y-1">
-                                    <h3 className="font-bold text-emerald-900">Check your email</h3>
-                                    <p className="text-sm text-emerald-700">We've sent a confirmation link to <strong>{email}</strong>. Please verify your account to continue.</p>
-                                </div>
-                                <button
-                                    onClick={() => {
-                                        setIsSuccess(false)
-                                        setIsLogin(true)
-                                    }}
-                                    className="text-sm font-bold text-emerald-600 hover:text-emerald-700 pt-2"
-                                >
-                                    Back to Sign In
-                                </button>
-                            </div>
-                        )}
-
                         {/* Error Message */}
                         {error && (
                             <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl animate-in fade-in slide-in-from-top-2">
@@ -299,181 +272,177 @@ function LoginContent() {
                         )}
 
                         {/* Form */}
-                        {!isSuccess && (
-                            <form onSubmit={handleSubmit} className="space-y-5">
+                        <form onSubmit={handleSubmit} className="space-y-5">
 
-                                {/* Full Name - Signup Only */}
-                                {!isLogin && (
-                                    <div className="space-y-2">
-                                        <label htmlFor="fullName" className="text-sm font-semibold text-slate-700">
-                                            Full Name
-                                        </label>
-                                        <div className="relative">
-                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                                            <input
-                                                id="fullName"
-                                                type="text"
-                                                required={!isLogin}
-                                                value={fullName}
-                                                onChange={(e) => setFullName(e.target.value)}
-                                                className="h-12 w-full pl-12 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:bg-white outline-none transition-all"
-                                                placeholder="John Doe"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Email */}
+                            {/* Full Name - Signup Only */}
+                            {!isLogin && (
                                 <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-semibold text-slate-700">
-                                        Email Address
+                                    <label htmlFor="fullName" className="text-sm font-semibold text-slate-700">
+                                        Full Name
                                     </label>
                                     <div className="relative">
-                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                                        <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                                         <input
-                                            id="email"
-                                            type="email"
-                                            required
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
+                                            id="fullName"
+                                            type="text"
+                                            required={!isLogin}
+                                            value={fullName}
+                                            onChange={(e) => setFullName(e.target.value)}
                                             className="h-12 w-full pl-12 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:bg-white outline-none transition-all"
-                                            placeholder="you@example.com"
+                                            placeholder="John Doe"
                                         />
                                     </div>
                                 </div>
+                            )}
 
-                                {/* Password */}
-                                <div className="space-y-2">
-                                    <div className="flex justify-between items-center">
-                                        <label htmlFor="password" className="text-sm font-semibold text-slate-700">
-                                            Password
-                                        </label>
-                                        {isLogin && (
-                                            <button
-                                                type="button"
-                                                onClick={handleForgotPassword}
-                                                className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
-                                            >
-                                                Forgot password?
-                                            </button>
+                            {/* Email */}
+                            <div className="space-y-2">
+                                <label htmlFor="email" className="text-sm font-semibold text-slate-700">
+                                    Email Address
+                                </label>
+                                <div className="relative">
+                                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="h-12 w-full pl-12 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:bg-white outline-none transition-all"
+                                        placeholder="you@example.com"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Password */}
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <label htmlFor="password" className="text-sm font-semibold text-slate-700">
+                                        Password
+                                    </label>
+                                    {isLogin && (
+                                        <button
+                                            type="button"
+                                            onClick={handleForgotPassword}
+                                            className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
+                                        >
+                                            Forgot password?
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="relative">
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                                    <input
+                                        id="password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="h-12 w-full pl-12 pr-12 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:bg-white outline-none transition-all"
+                                        placeholder="••••••••"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                    >
+                                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                    </button>
+                                </div>
+
+                                {/* Password Strength - Signup Only */}
+                                {!isLogin && password && (
+                                    <div className="space-y-2">
+                                        <div className="flex gap-1">
+                                            {[1, 2, 3, 4].map((level) => (
+                                                <div
+                                                    key={level}
+                                                    className={`h-1 flex-1 rounded-full transition-all ${level <= passwordStrength ? getPasswordStrengthColor() : 'bg-slate-200'
+                                                        }`}
+                                                />
+                                            ))}
+                                        </div>
+                                        {passwordStrength > 0 && (
+                                            <p className="text-xs font-medium text-slate-600">
+                                                Password strength: {getPasswordStrengthText()}
+                                            </p>
                                         )}
                                     </div>
+                                )}
+                            </div>
+
+                            {/* Confirm Password - Signup Only */}
+                            {!isLogin && (
+                                <div className="space-y-2">
+                                    <label htmlFor="confirmPassword" className="text-sm font-semibold text-slate-700">
+                                        Confirm Password
+                                    </label>
                                     <div className="relative">
                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                                         <input
-                                            id="password"
-                                            type={showPassword ? 'text' : 'password'}
-                                            required
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                            id="confirmPassword"
+                                            type={showConfirmPassword ? 'text' : 'password'}
+                                            required={!isLogin}
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
                                             className="h-12 w-full pl-12 pr-12 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:bg-white outline-none transition-all"
                                             placeholder="••••••••"
                                         />
                                         <button
                                             type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                             className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                                         >
-                                            {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                            {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                         </button>
                                     </div>
-
-                                    {/* Password Strength - Signup Only */}
-                                    {!isLogin && password && (
-                                        <div className="space-y-2">
-                                            <div className="flex gap-1">
-                                                {[1, 2, 3, 4].map((level) => (
-                                                    <div
-                                                        key={level}
-                                                        className={`h-1 flex-1 rounded-full transition-all ${level <= passwordStrength ? getPasswordStrengthColor() : 'bg-slate-200'
-                                                            }`}
-                                                    />
-                                                ))}
-                                            </div>
-                                            {passwordStrength > 0 && (
-                                                <p className="text-xs font-medium text-slate-600">
-                                                    Password strength: {getPasswordStrengthText()}
-                                                </p>
-                                            )}
-                                        </div>
-                                    )}
                                 </div>
+                            )}
 
-                                {/* Confirm Password - Signup Only */}
-                                {!isLogin && (
-                                    <div className="space-y-2">
-                                        <label htmlFor="confirmPassword" className="text-sm font-semibold text-slate-700">
-                                            Confirm Password
-                                        </label>
-                                        <div className="relative">
-                                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                                            <input
-                                                id="confirmPassword"
-                                                type={showConfirmPassword ? 'text' : 'password'}
-                                                required={!isLogin}
-                                                value={confirmPassword}
-                                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                                className="h-12 w-full pl-12 pr-12 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:bg-white outline-none transition-all"
-                                                placeholder="••••••••"
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                                            >
-                                                {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                                            </button>
-                                        </div>
+                            {/* Terms Checkbox - Signup Only */}
+                            {!isLogin && (
+                                <div className="flex items-start gap-3">
+                                    <input
+                                        id="terms"
+                                        type="checkbox"
+                                        checked={agreedToTerms}
+                                        onChange={(e) => setAgreedToTerms(e.target.checked)}
+                                        className="mt-1 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                                    />
+                                    <label htmlFor="terms" className="text-sm text-slate-600 leading-relaxed">
+                                        I agree to the{' '}
+                                        <Link href="#" className="font-medium text-emerald-600 hover:text-emerald-700">
+                                            Terms of Service
+                                        </Link>{' '}
+                                        and{' '}
+                                        <Link href="#" className="font-medium text-emerald-600 hover:text-emerald-700">
+                                            Privacy Policy
+                                        </Link>
+                                    </label>
+                                </div>
+                            )}
+
+                            {/* Submit Button */}
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="h-12 w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-emerald-500/30 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed group"
+                            >
+                                {isLoading ? (
+                                    <div className="flex items-center gap-3">
+                                        <Loader2 className="h-5 w-5 animate-spin" />
+                                        <span className="text-sm font-medium">
+                                            {isLogin ? 'Authenticating...' : 'Creating Account...'}
+                                        </span>
                                     </div>
+                                ) : (
+                                    <>
+                                        {isLogin ? 'Sign In' : 'Create Account'}
+                                        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                                    </>
                                 )}
-
-                                {/* Terms Checkbox - Signup Only */}
-                                {!isLogin && (
-                                    <div className="flex items-start gap-3">
-                                        <input
-                                            id="terms"
-                                            type="checkbox"
-                                            checked={agreedToTerms}
-                                            onChange={(e) => setAgreedToTerms(e.target.checked)}
-                                            className="mt-1 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
-                                        />
-                                        <label htmlFor="terms" className="text-sm text-slate-600 leading-relaxed">
-                                            I agree to the{' '}
-                                            <Link href="#" className="font-medium text-emerald-600 hover:text-emerald-700">
-                                                Terms of Service
-                                            </Link>{' '}
-                                            and{' '}
-                                            <Link href="#" className="font-medium text-emerald-600 hover:text-emerald-700">
-                                                Privacy Policy
-                                            </Link>
-                                        </label>
-                                    </div>
-                                )}
-
-                                {/* Submit Button */}
-                                <button
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className="h-12 w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-emerald-500/30 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed group"
-                                >
-                                    {isLoading ? (
-                                        <div className="flex items-center gap-3">
-                                            <Loader2 className="h-5 w-5 animate-spin" />
-                                            <span className="text-sm font-medium">
-                                                {isLogin ? 'Authenticating...' : 'Creating Account...'}
-                                            </span>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            {isLogin ? 'Sign In' : 'Create Account'}
-                                            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </button>
-                            </form>
-                        )}
-
-
+                            </button>
+                        </form>
                     </div>
 
                     {/* Security Notice */}
