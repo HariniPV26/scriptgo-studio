@@ -101,11 +101,11 @@ function LoginContent() {
                     alert('Account created! Please check your email to confirm your account.')
                     setIsLogin(true)
 
-                    // Fire-and-forget welcome email
+                    // Fire-and-forget welcome email in the background
                     sendWelcomeEmail(email, fullName)
                 } else {
                     // Success with session -> Redirect
-                    sendWelcomeEmail(email, fullName)
+                    await sendWelcomeEmail(email, fullName)
                     router.push('/dashboard')
                     router.refresh()
                 }

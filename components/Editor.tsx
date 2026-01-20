@@ -213,7 +213,13 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                                 <button onClick={() => setViewMode('visuals')} className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'visuals' ? 'bg-primary text-white shadow-lg' : 'text-muted-foreground'}`}>Visuals</button>
                             </div>
                         )}
-                        <button onClick={handleSave} className="h-10 px-6 bg-white text-black rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all">Deliver</button>
+                        <button onClick={handleCopy} disabled={!content} title="Copy Content" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all"><Copy className="h-5 w-5" /></button>
+                        <button onClick={handleEmail} disabled={!content || sendingEmail} title="Email Script" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all">
+                            {sendingEmail ? <Loader2 className="h-5 w-5 animate-spin" /> : <MailIcon className="h-5 w-5" />}
+                        </button>
+                        <button onClick={handleSave} disabled={saving || !content} className="h-10 px-6 bg-white text-black rounded-xl font-black text-xs uppercase tracking-widest hover:scale-110 active:scale-95 transition-all shadow-xl shadow-white/10">
+                            {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Deliver'}
+                        </button>
                     </div>
                 </div>
 
