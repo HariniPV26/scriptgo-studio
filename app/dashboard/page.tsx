@@ -37,13 +37,14 @@ export default function DashboardPage() {
         const fetchData = async () => {
             const supabase = createClient()
 
-            // 1. Start fetching user immediately
-            const userPromise = supabase.auth.getUser()
-
-            // 2. We can try to fetch scripts optimistically if we have a session, 
-            // but for safety/RLS we usually need the user ID. 
-            // However, we can check for the session quickly first.
-            const { data: { user } } = await userPromise
+            // Fetch user and scripts in parallel for maximum speed
+            const [
+                { data: { user } },
+                { data: scriptsData }
+            ] = await Promise.all([
+                supabase.auth.getUser(),
+                supabase.from('scripts').select('*').order('created_at', { ascending: false })
+            ])
 
             if (!user) {
                 router.push('/login')
@@ -51,18 +52,6 @@ export default function DashboardPage() {
             }
 
             setUser(user)
-
-            // 3. Fetch scripts immediately after user is confirmed
-            const { data: scriptsData } = await supabase
-                .from('scripts')
-                .select('*')
-                .order('created_at', { ascending: false })
-
-            // Note: We removed .eq('user_id') explicitly because RLS (Row Level Security) 
-            // on Supabase should automatically filter for the current user. 
-            // If your RLS requires explicit filtering, we can add it back, 
-            // but usually RLS is safer and cleaner.
-
             if (scriptsData) {
                 setScripts(scriptsData)
             }

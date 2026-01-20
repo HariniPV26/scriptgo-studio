@@ -107,9 +107,10 @@ function LoginContent() {
                     sendWelcomeEmail(email, fullName)
                 } else {
                     // Success with session -> Redirect
+                    // Do not 'await' this - let it run while we redirect
                     sendWelcomeEmail(email, fullName)
+
                     router.push('/dashboard')
-                    router.refresh()
                 }
             }
         } catch (e) {
@@ -456,7 +457,12 @@ function LoginContent() {
                                     className="h-12 w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-emerald-500/30 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed group"
                                 >
                                     {isLoading ? (
-                                        <Loader2 className="h-5 w-5 animate-spin" />
+                                        <div className="flex items-center gap-3">
+                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            <span className="text-sm font-medium">
+                                                {isLogin ? 'Authenticating...' : 'Creating Account...'}
+                                            </span>
+                                        </div>
                                     ) : (
                                         <>
                                             {isLogin ? 'Sign In' : 'Create Account'}
