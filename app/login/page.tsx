@@ -102,7 +102,7 @@ function LoginContent() {
                     setIsLogin(true)
 
                     // Fire-and-forget welcome email in the background
-                    sendWelcomeEmail(email, fullName)
+                    await sendWelcomeEmail(email, fullName)
                 } else {
                     // Success with session -> Redirect
                     await sendWelcomeEmail(email, fullName)
