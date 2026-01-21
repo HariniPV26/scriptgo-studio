@@ -65,14 +65,14 @@ export async function generateCalendarContent(
     2. The Story/Insight: Space out sentences. Use "Broetry" style (short paragraphs).
     3. The Lesson: Bullet points of actionable advice.
     4. The Question: End with a question to drive comments.
-    Tone: Professional but personal. No emojis in the first 2 lines.
+    Tone: Follow the "LANGUAGE & TONE" guidelines for "${tone}" exactly. No emojis in the first 2 lines.
 
     **IF PLATFORM IS "YouTube Video" (Long Form):**
     1. The Teaser: "In this video, you will learn X..."
     2. The Intro: Quick branding (5 seconds).
     3. The Content: Step-by-step deep dive.
     4. The Conclusion: Summary and Subscribe.
-    Tone: Educational and authoritative.
+    Tone: Follow the "LANGUAGE & TONE" guidelines for "${tone}" exactly.
 
     ### RESPONSE FORMAT
     Return a JSON object with a "calendar" key containing an array of ${days} objects.

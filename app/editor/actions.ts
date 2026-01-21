@@ -119,7 +119,7 @@ export async function generateScript(topic: string, tone: string, platform: stri
     2. The Intro: Quick branding (5 seconds).
     3. The Content: Step-by-step deep dive.
     4. The Conclusion: Summary and Subscribe.
-    Tone: Educational and authoritative.
+    Tone: Follow the LANGUAGE & TONE rules for "${tone}" Tone exactly.
 
     ### GENERATE CONTENT NOW
     Write the content for the topic "${topic}" in ${language}. 
@@ -129,7 +129,7 @@ export async function generateScript(topic: string, tone: string, platform: stri
 
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o',
       messages: [{ role: 'user', content: prompt }],
     })
 
