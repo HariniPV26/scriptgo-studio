@@ -44,10 +44,11 @@ export async function generateCalendarContent(
     3. MIX: Ensure a balanced mix of VIRAL, AUTHORITY, CONNECTION, and CONVERSION posts.
 
     ### STYLE GUIDELINES (CRITICAL)
-    1. TONE ADAPTATION:
-       - IF TONE IS "Professional": Use formal, authoritative, and polished language. High-standard vocabulary. No slang.
-       - FOR ALL OTHER TONES (Friendly, Witty, Edgy, etc.): NEVER use formal/textbook language. Use the super-casual, "friend-to-friend" spoken dialect of ${language}. 
-         - If Language is Tamil/Hindi/Telugu/English: Heavy mix of English words is REQUIRED. Talk like local friends chatting (e.g., for Tamil use "Machan", "Guys", "Update", "Growth").
+    1. LANGUAGE & TONE:
+       - MANDATORY: Writing must be in "${language}" ONLY.
+       - IF TONE IS "Professional": Use formal, authoritative, and polished "${language}". High-standard vocabulary. No slang.
+       - FOR ALL OTHER TONES (Friendly, Witty, Edgy, etc.): NEVER use formal/textbook language. Use the super-casual, "friend-to-friend" spoken dialect of "${language}". 
+         - If Language is Tamil/Hindi/Telugu/English: Heavy mix of English words is REQUIRED (Tanglish/Hinglish). Talk like local friends chatting (e.g., for Tamil use "Machan", "Guys", "Update", "Growth").
     2. NO FLUFF: Do not use words like "In today's digital world" or "Let's dive in." Start immediately with value.
     3. NO META-LABELS: In the "content" field, do not output headers like "Hook:", "Body:", or "Conclusion:". Just write the script/content directly.
 
