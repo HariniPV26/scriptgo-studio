@@ -1,20 +1,22 @@
 'use server'
 
-import { resend } from '@/utils/resend'
+import { transporter } from '@/utils/nodemailer'
+
+const fromEmail = process.env.SMTP_FROM || 'ScriptGo Studio <onboarding@resend.dev>'
 
 /**
  * Sends a welcome email to a new user.
  */
 export async function sendWelcomeEmail(email: string, fullName?: string) {
-    if (!process.env.RESEND_API_KEY) {
-        console.log('Skipping welcome email: RESEND_API_KEY not configured.')
-        return { success: false, message: 'Resend API key not configured' }
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        console.log('Skipping welcome email: SMTP credentials not configured.')
+        return { success: false, message: 'SMTP credentials not configured' }
     }
 
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: [email],
+        await transporter.sendMail({
+            from: fromEmail,
+            to: email,
             subject: 'Welcome to ScriptGo! 🚀',
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
@@ -47,12 +49,7 @@ export async function sendWelcomeEmail(email: string, fullName?: string) {
             `,
         })
 
-        if (error) {
-            console.error('Resend Error:', error)
-            return { success: false, message: error.message || 'Resend error' }
-        }
-
-        return { success: true, data }
+        return { success: true }
     } catch (error: any) {
         console.error('Failed to send welcome email:', error)
         return { success: false, message: error.message || 'Unexpected error' }
@@ -63,14 +60,14 @@ export async function sendWelcomeEmail(email: string, fullName?: string) {
  * Sends a password reset email.
  */
 export async function sendPasswordResetEmail(email: string, resetLink: string) {
-    if (!process.env.RESEND_API_KEY) {
-        return { success: false, message: 'Resend API key not configured' }
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        return { success: false, message: 'SMTP credentials not configured' }
     }
 
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: [email],
+        await transporter.sendMail({
+            from: fromEmail,
+            to: email,
             subject: 'Reset your ScriptGo password',
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
@@ -92,9 +89,9 @@ export async function sendPasswordResetEmail(email: string, resetLink: string) {
             `,
         })
 
-        if (error) return { success: false, message: error.message }
-        return { success: true, data }
+        return { success: true }
     } catch (error: any) {
+        console.error('Failed to send reset email:', error)
         return { success: false, message: error.message }
     }
 }
@@ -103,15 +100,15 @@ export async function sendPasswordResetEmail(email: string, resetLink: string) {
  * Sends a generated script to the user's email.
  */
 export async function sendScriptEmail(email: string, scriptTitle: string, scriptContent: string) {
-    if (!process.env.RESEND_API_KEY) {
-        return { success: false, message: 'Resend API key not configured' }
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        return { success: false, message: 'SMTP credentials not configured' }
     }
 
     try {
-        console.log(`Attempting to send script email to: ${email}`);
-        const { data, error } = await resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: [email],
+        console.log(`Attempting to send script email via Nodemailer to: ${email}`);
+        await transporter.sendMail({
+            from: fromEmail,
+            to: email,
             subject: `Ready for Production: ${scriptTitle}`,
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
@@ -139,16 +136,10 @@ export async function sendScriptEmail(email: string, scriptTitle: string, script
             `,
         })
 
-        if (error) {
-            console.error('Resend Error Details:', error);
-            // Resend errors often have a message property, but we'll be safe
-            return { success: false, message: error.message || JSON.stringify(error) || 'Resend error' };
-        }
-
-        console.log('Script email sent successfully:', data);
-        return { success: true, data };
+        console.log('Script email sent successfully via Nodemailer');
+        return { success: true };
     } catch (error: any) {
-        console.error('Crash in sendScriptEmail:', error);
+        console.error('Crash in sendScriptEmail (Nodemailer):', error);
         return { success: false, message: error.message || 'Unexpected server error' };
     }
 }
