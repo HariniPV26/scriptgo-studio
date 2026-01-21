@@ -126,7 +126,7 @@ export async function generateScript(topic: string, tone: string, platform: stri
   `
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     const content = result.response.text() || 'No script generated.'
     return { text: content }
@@ -171,7 +171,7 @@ export async function generateVisuals(script: string, platform: string, topic: s
 
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-pro",
+      model: "gemini-1.5-flash",
       generationConfig: { responseMimeType: "application/json" }
     });
     const result = await model.generateContent(prompt);
