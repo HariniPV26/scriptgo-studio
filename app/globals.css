@@ -555,3 +555,8 @@ body::after {
     animation: marquee 25s linear infinite;
   }
 }
+/* Global Fix for Select Dropdowns in Dark Mode */
+option {
+  background-color: #161618 !important;
+  color: white !important;
+}

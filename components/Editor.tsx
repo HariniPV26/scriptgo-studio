@@ -123,7 +123,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         if (!user || !user.email) { router.push('/login'); return }
         const result = await sendScriptEmail(user.email, title || 'Untitled Script', content)
         if (result.success) alert('Script sent to your email!')
-        else alert('Failed to send email.')
+        else alert(`Failed to send email: ${result.message || 'Unknown error'}`)
         setSendingEmail(false)
     }
 
@@ -167,18 +167,35 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                         <textarea value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Describe your vision..." className="w-full px-5 py-4 bg-white/5 border border-white/5 rounded-2xl text-foreground focus:ring-2 focus:ring-primary/40 h-32 text-xs font-medium" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-4">
                         <div className="space-y-2">
                             <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Tone</label>
                             <select value={tone} onChange={(e) => setTone(e.target.value)} className="w-full h-10 px-3 bg-white/5 border border-white/5 rounded-lg text-foreground text-xs font-bold">
-                                <option>Professional</option><option>Friendly</option><option>Witty</option><option>Persuasive</option><option>Edgy</option>
+                                <option value="Professional">Professional</option>
+                                <option value="Friendly">Friendly</option>
+                                <option value="Witty">Witty</option>
+                                <option value="Persuasive">Persuasive</option>
+                                <option value="Edgy">Edgy</option>
                             </select>
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Language</label>
-                            <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full h-10 px-3 bg-white/5 border border-white/5 rounded-lg text-foreground text-xs font-bold">
-                                <option>English</option><option>Tamil</option><option>Hindi</option><option>Spanish</option>
-                            </select>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Language</label>
+                                <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full h-10 px-3 bg-white/5 border border-white/5 rounded-lg text-foreground text-xs font-bold">
+                                    <option value="English">English</option>
+                                    <option value="Tamil">Tamil</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Spanish">Spanish</option>
+                                </select>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.2em]">Framework</label>
+                                <select value={framework} onChange={(e) => setFramework(e.target.value)} className="w-full h-10 px-3 bg-white/5 border border-white/5 rounded-lg text-foreground text-xs font-bold">
+                                    <option value="None">None</option>
+                                    <option value="AIDA">AIDA</option>
+                                    <option value="PAS">PAS</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
