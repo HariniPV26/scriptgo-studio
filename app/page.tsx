@@ -79,8 +79,24 @@ export default function LandingPage() {
               </button>
             </div>
 
+            {/* 3D GRAPHIC PREVIEW */}
+            <div
+              className="relative pt-16 max-w-4xl mx-auto animate-float transition-all duration-1000"
+              style={{ transform: `translate(${mousePos.x * -20}px, ${mousePos.y * -20}px)` }}
+            >
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0A0A0B] to-transparent z-10"></div>
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-[2rem] blur-[50px] group-hover:opacity-75 transition duration-1000"></div>
+                <img
+                  src="/images/studio-mockup.png"
+                  alt="ScriptGo Studio Mockup"
+                  className="relative rounded-[2rem] border border-white/10 shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
+                />
+              </div>
+            </div>
+
             {/* Social Proof */}
-            <div className="pt-16 flex flex-col items-center gap-6 animate-in fade-in duration-1000 delay-500">
+            <div className="pt-8 flex flex-col items-center gap-6 animate-in fade-in duration-1000 delay-500">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} className={`h-10 w-10 rounded-full border-2 border-[#0A0A0B] bg-gradient-to-br transition-transform hover:scale-110 hover:z-10 ${i % 2 === 0 ? 'from-emerald-500 to-teal-600' : 'from-slate-700 to-slate-800'}`}></div>
@@ -158,17 +174,27 @@ export default function LandingPage() {
                 Ready to scale <br />
                 <span className="text-emerald-400">your influence?</span>
               </h2>
-              <p className="text-white/50 text-xl max-w-xl mx-auto">
-                Join the elite group of creators using ScriptGo to dominate their niche.
-              </p>
 
-              <Link
-                href="/login?tab=signup"
-                className="inline-flex h-16 px-12 bg-white text-black rounded-2xl text-xs font-black uppercase tracking-[0.2em] items-center justify-center gap-3 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all active:scale-95 group shadow-2xl"
-              >
-                Get Started Now
-                <ChevronRight className="h-4 w-4" />
-              </Link>
+              <div className="flex flex-col items-center gap-8 relative">
+                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 animate-float opacity-50 blur-2xl bg-emerald-500/20 rounded-full -z-10"></div>
+                <img
+                  src="/images/success-badge.png"
+                  alt="Success Badge"
+                  className="w-32 h-32 md:w-40 md:h-40 animate-float drop-shadow-[0_0_30px_rgba(16,185,129,0.2)]"
+                />
+
+                <p className="text-white/50 text-xl max-w-xl mx-auto">
+                  Join the elite group of creators using ScriptGo to dominate their niche.
+                </p>
+
+                <Link
+                  href="/login?tab=signup"
+                  className="inline-flex h-16 px-12 bg-white text-black rounded-2xl text-xs font-black uppercase tracking-[0.2em] items-center justify-center gap-3 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all active:scale-95 group shadow-2xl"
+                >
+                  Get Started Now
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
 
               <p className="text-[10px] font-black uppercase tracking-widest text-white/30">
                 No credit card required • Free forever plan available

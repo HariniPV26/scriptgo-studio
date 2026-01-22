@@ -164,15 +164,20 @@ function LoginContent() {
 
     return (
         <div className="min-h-screen flex bg-[#0A0A0B] text-white font-inter overflow-hidden relative">
-            {/* Mesh Gradients */}
+            {/* Mesh Gradients & Graphics */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+                {/* 3D Abstract Graphics */}
                 <div
-                    className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[120px] transition-transform duration-500"
-                    style={{ transform: `translate(${mousePos.x * 50}px, ${mousePos.y * 50}px)` }}
+                    className="absolute inset-0 bg-[url('/images/waves-bg.png')] bg-cover bg-center opacity-[0.15] mix-blend-overlay animate-pulse"
+                ></div>
+
+                <div
+                    className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/20 rounded-full blur-[120px] transition-transform duration-1000"
+                    style={{ transform: `translate(${mousePos.x * 60}px, ${mousePos.y * 60}px)` }}
                 ></div>
                 <div
-                    className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-teal-500/10 rounded-full blur-[120px] transition-transform duration-500"
-                    style={{ transform: `translate(${mousePos.x * -30}px, ${mousePos.y * -30}px)` }}
+                    className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-teal-500/20 rounded-full blur-[120px] transition-transform duration-1000"
+                    style={{ transform: `translate(${mousePos.x * -40}px, ${mousePos.y * -40}px)` }}
                 ></div>
             </div>
 
@@ -252,11 +257,14 @@ function LoginContent() {
                     </div>
 
                     {/* Auth Card */}
-                    <div className="bg-white/[0.03] backdrop-blur-2xl px-1 rounded-[2.5rem] border border-white/5 relative overflow-hidden transition-all duration-500 group">
+                    <div className="bg-white/[0.03] backdrop-blur-2xl px-1 rounded-[2.5rem] border border-white/10 relative overflow-hidden transition-all duration-500 group shadow-[0_0_80px_rgba(16,185,129,0.05)]">
+                        {/* Shimmer Effect Overlay */}
+                        <div className="absolute inset-0 shimmer pointer-events-none opacity-[0.4]"></div>
+
                         {/* Internal Glow */}
                         <div
-                            className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl -z-10 transition-transform duration-500"
-                            style={{ transform: `translate(${mousePos.x * 60}px, ${mousePos.y * 60}px)` }}
+                            className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl -z-10 transition-transform duration-1000"
+                            style={{ transform: `translate(${mousePos.x * 80}px, ${mousePos.y * 80}px)` }}
                         ></div>
 
                         <div className="p-8 sm:p-12 space-y-10">

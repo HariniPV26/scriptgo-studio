@@ -3,6 +3,7 @@ import { Inter, Outfit, Caveat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CursorGlow } from "@/components/CursorGlow";
+import { BackgroundDecor } from "@/components/BackgroundDecor";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
@@ -28,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CursorGlow />
+          <BackgroundDecor />
           {children}
         </ThemeProvider>
       </body>
