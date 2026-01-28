@@ -1,0 +1,163 @@
+﻿
+> script-go@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+node.exe :  ΓÜá Found 
+lockfile missing swc 
+dependencies, patching...
+At C:\Program 
+Files\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE $NPM_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ( ΓÜá Fo  
+  und lock...es, patching.   
+ ..:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+ Γ¿» Failed to patch 
+lockfile, please try 
+uninstalling and 
+reinstalling next in this 
+workspace
+TypeError: Cannot read 
+properties of undefined 
+(reading 'os')
+    at fetchPkgInfo (E:\Scrip
+tGo\node_modules\next\dist\li
+b\patch-incorrect-lockfile.js
+:73:25)
+    at process.processTicksAn
+dRejections (node:internal/pr
+ocess/task_queues:105:5)
+    at async Promise.all 
+(index 3)
+    at async 
+patchIncorrectLockfile (E:\Sc
+riptGo\node_modules\next\dist
+\lib\patch-incorrect-lockfile
+.js:162:26)
+ ΓÜá Found lockfile missing 
+swc dependencies, patching...
+ Γ¿» Failed to patch 
+lockfile, please try 
+uninstalling and 
+reinstalling next in this 
+workspace
+TypeError: Cannot read 
+properties of undefined 
+(reading 'os')
+    at fetchPkgInfo (E:\Scrip
+tGo\node_modules\next\dist\li
+b\patch-incorrect-lockfile.js
+:73:25)
+    at process.processTicksAn
+dRejections (node:internal/pr
+ocess/task_queues:105:5)
+    at async Promise.all 
+(index 3)
+    at async 
+patchIncorrectLockfile (E:\Sc
+riptGo\node_modules\next\dist
+\lib\patch-incorrect-lockfile
+.js:162:26)
+<w> [webpack.cache.PackFileCa
+cheStrategy] Serializing big 
+strings (131kiB) impacts 
+deserialization performance 
+(consider using Buffer 
+instead and decode when 
+needed)
+ ΓÜá Found lockfile missing 
+swc dependencies, patching...
+ Γ¿» Failed to patch 
+lockfile, please try 
+uninstalling and 
+reinstalling next in this 
+workspace
+TypeError: Cannot read 
+properties of undefined 
+(reading 'os')
+    at fetchPkgInfo (E:\Scrip
+tGo\node_modules\next\dist\li
+b\patch-incorrect-lockfile.js
+:73:25)
+    at process.processTicksAn
+dRejections (node:internal/pr
+ocess/task_queues:105:5)
+    at async Promise.all 
+(index 2)
+    at async 
+patchIncorrectLockfile (E:\Sc
+riptGo\node_modules\next\dist
+\lib\patch-incorrect-lockfile
+.js:162:26)
+ Γ£ô Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+ ΓÜá Found lockfile missing 
+swc dependencies, patching...
+ ΓÜá Using edge runtime on a 
+page currently disables 
+static generation for that 
+page
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ Γ£ô Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+ Γ¿» Failed to patch 
+lockfile, please try 
+uninstalling and 
+reinstalling next in this 
+workspace
+TypeError: Cannot read 
+properties of undefined 
+(reading 'os')
+    at fetchPkgInfo (E:\Scrip
+tGo\node_modules\next\dist\li
+b\patch-incorrect-lockfile.js
+:73:25)
+    at process.processTicksAn
+dRejections (node:internal/pr
+ocess/task_queues:105:5)
+    at async Promise.all 
+(index 7)
+    at async 
+patchIncorrectLockfile (E:\Sc
+riptGo\node_modules\next\dist
+\lib\patch-incorrect-lockfile
+.js:162:26)
+
+Route (app)                              Size     First Load JS
+Γöî Γùï /                                    5.34 kB         102 kB
+Γö£ Γùï /_not-found                          873 B          88.2 kB
+Γö£ ╞Æ /api/generate                        0 B                0 B
+Γö£ Γùï /auth/callback                       1.05 kB         143 kB
+Γö£ ╞Æ /calendar                            9.6 kB          160 kB
+Γö£ ╞Æ /dashboard                           6.52 kB         157 kB
+Γö£ ╞Æ /editor                              5.58 kB         156 kB
+Γöö Γùï /login                               5.36 kB         156 kB
++ First Load JS shared by all            87.3 kB
+  Γö£ chunks/117-02575651f0e63593.js       31.7 kB
+  Γö£ chunks/fd9d1056-c587af98a96cdb33.js  53.6 kB
+  Γöö other shared chunks (total)          1.95 kB
+
+
+╞Æ Middleware                             72.5 kB
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

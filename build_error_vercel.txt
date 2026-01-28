@@ -1,0 +1,276 @@
+﻿
+> script-go@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+node.exe :  ΓÜá Found 
+lockfile missing swc 
+dependencies, patching...
+At C:\Program 
+Files\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE $NPM_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ( ΓÜá Fo  
+  und lock...es, patching.   
+ ..:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+ Γ¿» Failed to patch 
+lockfile, please try 
+uninstalling and 
+reinstalling next in this 
+workspace
+TypeError: Cannot read 
+properties of undefined 
+(reading 'os')
+    at fetchPkgInfo (E:\Scrip
+tGo\node_modules\next\dist\li
+b\patch-incorrect-lockfile.js
+:73:25)
+    at process.processTicksAn
+dRejections (node:internal/pr
+ocess/task_queues:105:5)
+    at async Promise.all 
+(index 7)
+    at async 
+patchIncorrectLockfile (E:\Sc
+riptGo\node_modules\next\dist
+\lib\patch-incorrect-lockfile
+.js:162:26)
+ ΓÜá Found lockfile missing 
+swc dependencies, patching...
+Failed to compile.
+
+./node_modules/@ai-sdk/gatewa
+y/dist/index.mjs:11:1
+Module not found: Package 
+path ./v4 is not exported 
+from package 
+E:\ScriptGo\node_modules\zod 
+(see exports field in E:\Scri
+ptGo\node_modules\zod\package
+.json)
+
+https://nextjs.org/docs/messa
+ges/module-not-found
+
+Import trace for requested 
+module:
+./node_modules/ai/dist/index.
+mjs
+./app/api/generate/route.ts
+./node_modules/next/dist/buil
+d/webpack/loaders/next-edge-a
+pp-route-loader/index.js?abso
+lutePagePath=private-next-app
+-dir%2Fapi%2Fgenerate%2Froute
+.ts&page=%2Fapi%2Fgenerate%2F
+route&appDirLoader=bmV4dC1hcH
+AtbG9hZGVyP25hbWU9YXBwJTJGYXB
+pJTJGZ2VuZXJhdGUlMkZyb3V0ZSZw
+YWdlPSUyRmFwaSUyRmdlbmVyYXRlJ
+TJGcm91dGUmcGFnZVBhdGg9cHJpdm
+F0ZS1uZXh0LWFwcC1kaXIlMkZhcGk
+lMkZnZW5lcmF0ZSUyRnJvdXRlLnRz
+JmFwcERpcj1FJTNBJTVDU2NyaXB0R
+28lNUNhcHAmYXBwUGF0aHM9JTJGYX
+BpJTJGZ2VuZXJhdGUlMkZyb3V0ZSZ
+wYWdlRXh0ZW5zaW9ucz10c3gmcGFn
+ZUV4dGVuc2lvbnM9dHMmcGFnZUV4d
+GVuc2lvbnM9anN4JnBhZ2VFeHRlbn
+Npb25zPWpzJmJhc2VQYXRoPSZhc3N
+ldFByZWZpeD0mbmV4dENvbmZpZ091
+dHB1dD0mcHJlZmVycmVkUmVnaW9uP
+SZtaWRkbGV3YXJlQ29uZmlnPWUzMC
+UzRCE%3D&nextConfigOutput=&pr
+eferredRegion=&middlewareConf
+ig=e30%3D!
+
+./node_modules/@ai-sdk/openai
+/dist/index.mjs:24:1
+Module not found: Package 
+path ./v4 is not exported 
+from package 
+E:\ScriptGo\node_modules\zod 
+(see exports field in E:\Scri
+ptGo\node_modules\zod\package
+.json)
+
+https://nextjs.org/docs/messa
+ges/module-not-found
+
+Import trace for requested 
+module:
+./app/api/generate/route.ts
+./node_modules/next/dist/buil
+d/webpack/loaders/next-edge-a
+pp-route-loader/index.js?abso
+lutePagePath=private-next-app
+-dir%2Fapi%2Fgenerate%2Froute
+.ts&page=%2Fapi%2Fgenerate%2F
+route&appDirLoader=bmV4dC1hcH
+AtbG9hZGVyP25hbWU9YXBwJTJGYXB
+pJTJGZ2VuZXJhdGUlMkZyb3V0ZSZw
+YWdlPSUyRmFwaSUyRmdlbmVyYXRlJ
+TJGcm91dGUmcGFnZVBhdGg9cHJpdm
+F0ZS1uZXh0LWFwcC1kaXIlMkZhcGk
+lMkZnZW5lcmF0ZSUyRnJvdXRlLnRz
+JmFwcERpcj1FJTNBJTVDU2NyaXB0R
+28lNUNhcHAmYXBwUGF0aHM9JTJGYX
+BpJTJGZ2VuZXJhdGUlMkZyb3V0ZSZ
+wYWdlRXh0ZW5zaW9ucz10c3gmcGFn
+ZUV4dGVuc2lvbnM9dHMmcGFnZUV4d
+GVuc2lvbnM9anN4JnBhZ2VFeHRlbn
+Npb25zPWpzJmJhc2VQYXRoPSZhc3N
+ldFByZWZpeD0mbmV4dENvbmZpZ091
+dHB1dD0mcHJlZmVycmVkUmVnaW9uP
+SZtaWRkbGV3YXJlQ29uZmlnPWUzMC
+UzRCE%3D&nextConfigOutput=&pr
+eferredRegion=&middlewareConf
+ig=e30%3D!
+
+./node_modules/@ai-sdk/provid
+er-utils/dist/index.mjs:676:1
+Module not found: Package 
+path ./v4 is not exported 
+from package 
+E:\ScriptGo\node_modules\zod 
+(see exports field in E:\Scri
+ptGo\node_modules\zod\package
+.json)
+
+https://nextjs.org/docs/messa
+ges/module-not-found
+
+Import trace for requested 
+module:
+./node_modules/@ai-sdk/openai
+/dist/index.mjs
+./app/api/generate/route.ts
+./node_modules/next/dist/buil
+d/webpack/loaders/next-edge-a
+pp-route-loader/index.js?abso
+lutePagePath=private-next-app
+-dir%2Fapi%2Fgenerate%2Froute
+.ts&page=%2Fapi%2Fgenerate%2F
+route&appDirLoader=bmV4dC1hcH
+AtbG9hZGVyP25hbWU9YXBwJTJGYXB
+pJTJGZ2VuZXJhdGUlMkZyb3V0ZSZw
+YWdlPSUyRmFwaSUyRmdlbmVyYXRlJ
+TJGcm91dGUmcGFnZVBhdGg9cHJpdm
+F0ZS1uZXh0LWFwcC1kaXIlMkZhcGk
+lMkZnZW5lcmF0ZSUyRnJvdXRlLnRz
+JmFwcERpcj1FJTNBJTVDU2NyaXB0R
+28lNUNhcHAmYXBwUGF0aHM9JTJGYX
+BpJTJGZ2VuZXJhdGUlMkZyb3V0ZSZ
+wYWdlRXh0ZW5zaW9ucz10c3gmcGFn
+ZUV4dGVuc2lvbnM9dHMmcGFnZUV4d
+GVuc2lvbnM9anN4JnBhZ2VFeHRlbn
+Npb25zPWpzJmJhc2VQYXRoPSZhc3N
+ldFByZWZpeD0mbmV4dENvbmZpZ091
+dHB1dD0mcHJlZmVycmVkUmVnaW9uP
+SZtaWRkbGV3YXJlQ29uZmlnPWUzMC
+UzRCE%3D&nextConfigOutput=&pr
+eferredRegion=&middlewareConf
+ig=e30%3D!
+
+./node_modules/@ai-sdk/provid
+er-utils/dist/index.mjs:748:1
+Module not found: Package 
+path ./v3 is not exported 
+from package 
+E:\ScriptGo\node_modules\zod 
+(see exports field in E:\Scri
+ptGo\node_modules\zod\package
+.json)
+
+https://nextjs.org/docs/messa
+ges/module-not-found
+
+Import trace for requested 
+module:
+./node_modules/@ai-sdk/openai
+/dist/index.mjs
+./app/api/generate/route.ts
+./node_modules/next/dist/buil
+d/webpack/loaders/next-edge-a
+pp-route-loader/index.js?abso
+lutePagePath=private-next-app
+-dir%2Fapi%2Fgenerate%2Froute
+.ts&page=%2Fapi%2Fgenerate%2F
+route&appDirLoader=bmV4dC1hcH
+AtbG9hZGVyP25hbWU9YXBwJTJGYXB
+pJTJGZ2VuZXJhdGUlMkZyb3V0ZSZw
+YWdlPSUyRmFwaSUyRmdlbmVyYXRlJ
+TJGcm91dGUmcGFnZVBhdGg9cHJpdm
+F0ZS1uZXh0LWFwcC1kaXIlMkZhcGk
+lMkZnZW5lcmF0ZSUyRnJvdXRlLnRz
+JmFwcERpcj1FJTNBJTVDU2NyaXB0R
+28lNUNhcHAmYXBwUGF0aHM9JTJGYX
+BpJTJGZ2VuZXJhdGUlMkZyb3V0ZSZ
+wYWdlRXh0ZW5zaW9ucz10c3gmcGFn
+ZUV4dGVuc2lvbnM9dHMmcGFnZUV4d
+GVuc2lvbnM9anN4JnBhZ2VFeHRlbn
+Npb25zPWpzJmJhc2VQYXRoPSZhc3N
+ldFByZWZpeD0mbmV4dENvbmZpZ091
+dHB1dD0mcHJlZmVycmVkUmVnaW9uP
+SZtaWRkbGV3YXJlQ29uZmlnPWUzMC
+UzRCE%3D&nextConfigOutput=&pr
+eferredRegion=&middlewareConf
+ig=e30%3D!
+
+./node_modules/ai/dist/index.
+mjs:1016:1
+Module not found: Package 
+path ./v4 is not exported 
+from package 
+E:\ScriptGo\node_modules\zod 
+(see exports field in E:\Scri
+ptGo\node_modules\zod\package
+.json)
+
+https://nextjs.org/docs/messa
+ges/module-not-found
+
+Import trace for requested 
+module:
+./app/api/generate/route.ts
+./node_modules/next/dist/buil
+d/webpack/loaders/next-edge-a
+pp-route-loader/index.js?abso
+lutePagePath=private-next-app
+-dir%2Fapi%2Fgenerate%2Froute
+.ts&page=%2Fapi%2Fgenerate%2F
+route&appDirLoader=bmV4dC1hcH
+AtbG9hZGVyP25hbWU9YXBwJTJGYXB
+pJTJGZ2VuZXJhdGUlMkZyb3V0ZSZw
+YWdlPSUyRmFwaSUyRmdlbmVyYXRlJ
+TJGcm91dGUmcGFnZVBhdGg9cHJpdm
+F0ZS1uZXh0LWFwcC1kaXIlMkZhcGk
+lMkZnZW5lcmF0ZSUyRnJvdXRlLnRz
+JmFwcERpcj1FJTNBJTVDU2NyaXB0R
+28lNUNhcHAmYXBwUGF0aHM9JTJGYX
+BpJTJGZ2VuZXJhdGUlMkZyb3V0ZSZ
+wYWdlRXh0ZW5zaW9ucz10c3gmcGFn
+ZUV4dGVuc2lvbnM9dHMmcGFnZUV4d
+GVuc2lvbnM9anN4JnBhZ2VFeHRlbn
+Npb25zPWpzJmJhc2VQYXRoPSZhc3N
+ldFByZWZpeD0mbmV4dENvbmZpZ091
+dHB1dD0mcHJlZmVycmVkUmVnaW9uP
+SZtaWRkbGV3YXJlQ29uZmlnPWUzMC
+UzRCE%3D&nextConfigOutput=&pr
+eferredRegion=&middlewareConf
+ig=e30%3D!
+
+
+> Build failed because of 
+webpack errors

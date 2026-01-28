@@ -1,7 +1,7 @@
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
-import { LogOut, Sparkles, Calendar, LayoutDashboard, Settings, Menu, X } from 'lucide-react'
+import { LogOut, Rocket, Calendar, LayoutDashboard, Settings, Menu, X, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { ModeToggle } from './mode-toggle'
@@ -21,23 +21,23 @@ export default function Header() {
 
     const navLinks = [
         { href: '/dashboard', label: 'Workshop', icon: LayoutDashboard },
+        { href: '/editor', label: 'Studio', icon: Rocket },
         { href: '/calendar', label: 'Calendar', icon: Calendar },
-        { href: '/editor', label: 'Editor', icon: Settings }, // Assuming editor route exists or using Settings as placeholder
     ]
 
     return (
         <>
-            <header className="h-16 border-b border-white/5 bg-background/50 backdrop-blur-xl flex items-center justify-between px-6 sticky top-0 z-50 transition-all supports-[backdrop-filter]:bg-background/20">
-                <div className="flex items-center gap-8">
-                    <Link href="/dashboard" className="flex items-center gap-2 group">
-                        <div className="h-8 w-8 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20 transition-transform group-hover:scale-105">
-                            <Sparkles className="h-4 w-4 text-white" />
+            <header className="h-16 border-b border-white/5 bg-black/40 backdrop-blur-2xl flex items-center justify-between px-6 sticky top-0 z-50 transition-all">
+                <div className="flex items-center gap-10">
+                    <Link href="/dashboard" className="flex items-center gap-3 group">
+                        <div className="h-8 w-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20 transition-transform group-hover:scale-110">
+                            <Rocket className="h-4 w-4 text-white" />
                         </div>
-                        <span className="font-outfit font-bold text-xl tracking-tight text-foreground transition-colors">ScriptGo</span>
+                        <span className="font-outfit font-black text-xl tracking-tight text-white uppercase">ScriptGo<span className="text-emerald-400 font-light lowercase">.studio</span></span>
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-1">
+                    <nav className="hidden lg:flex items-center gap-2">
                         {navLinks.map((link) => {
                             const Icon = link.icon
                             const isActive = pathname === link.href
@@ -46,17 +46,14 @@ export default function Header() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 group
+                                    className={`relative px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 group
                                         ${isActive
-                                            ? 'text-foreground bg-white/5'
-                                            : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                                            ? 'text-white bg-white/10'
+                                            : 'text-white/40 hover:text-white hover:bg-white/5'
                                         }`}
                                 >
-                                    <Icon className={`h-4 w-4 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'}`} />
+                                    <Icon className={`h-3.5 w-3.5 transition-colors ${isActive ? 'text-emerald-400' : 'text-current/40 group-hover:text-white'}`} />
                                     {link.label}
-                                    {isActive && (
-                                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary mb-1"></span>
-                                    )}
                                 </Link>
                             )
                         })}
@@ -64,14 +61,18 @@ export default function Header() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <div className="hidden md:flex items-center gap-2 border-r border-white/10 pr-4 mr-2">
+                    <div className="hidden md:flex items-center gap-3 border-r border-white/10 pr-6 mr-2">
+                        <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                            <Sparkles className="h-3 w-3 text-emerald-400" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Pro Studio</span>
+                        </div>
                         <ThemePicker />
                         <ModeToggle />
                     </div>
 
                     <button
                         onClick={handleSignOut}
-                        className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                        className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-all border border-transparent hover:border-red-400/20"
                         title="Sign Out"
                     >
                         <span>Sign out</span>
@@ -80,7 +81,7 @@ export default function Header() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden p-2 text-muted-foreground hover:text-foreground"
+                        className="lg:hidden p-2 text-white/50 hover:text-white transition-colors"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -90,17 +91,17 @@ export default function Header() {
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="md:hidden fixed inset-0 top-16 z-40 bg-background/95 backdrop-blur-xl p-6 animate-in slide-in-from-top-4">
-                    <nav className="scan-y-4 space-y-2">
+                <div className="lg:hidden fixed inset-0 top-16 z-40 bg-black/95 backdrop-blur-3xl p-8 animate-in fade-in slide-in-from-top-8">
+                    <nav className="flex flex-col gap-4">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-lg font-medium transition-colors
+                                className={`flex items-center gap-4 px-6 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all
                                     ${pathname === link.href
-                                        ? 'bg-primary/10 text-primary'
-                                        : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
+                                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                        : 'text-white/40 hover:bg-white/5 hover:text-white border border-transparent'
                                     }`}
                             >
                                 <link.icon className="h-5 w-5" />
@@ -108,19 +109,22 @@ export default function Header() {
                             </Link>
                         ))}
                     </nav>
-                    <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <ThemePicker />
-                            <ModeToggle />
+                    <div className="mt-12 pt-8 border-t border-white/5 space-y-8">
+                        <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Studio Prefs</span>
+                            <div className="flex items-center gap-4">
+                                <ThemePicker />
+                                <ModeToggle />
+                            </div>
                         </div>
                         <button
                             onClick={() => {
                                 handleSignOut()
                                 setMobileMenuOpen(false)
                             }}
-                            className="text-sm font-medium text-red-400 hover:text-red-300"
+                            className="w-full h-14 rounded-2xl border border-red-500/20 bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-widest"
                         >
-                            Sign Out
+                            Terminate Session
                         </button>
                     </div>
                 </div>

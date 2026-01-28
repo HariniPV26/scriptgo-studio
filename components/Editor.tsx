@@ -46,12 +46,27 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
 
     const [content, setContent] = useState<string>(getInitialContent())
 
+    // Initialize states from existing data
+    useEffect(() => {
+        if (initialData?.content?.visuals) {
+            setVisualData(initialData.content.visuals)
+        }
+        if (initialData?.content?.language) {
+            setLanguage(initialData.content.language)
+        }
+        if (initialData?.content?.framework) {
+            setFramework(initialData.content.framework)
+        }
+    }, [initialData])
+
     const handleGenerate = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setShowMobileSidebar(false)
         setVisualData(null)
         setViewMode('script')
+        setContent('') // Clear existing content for new stream
+
         try {
             if (isCalendarMode) {
                 const params = new URLSearchParams({
@@ -60,8 +75,30 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                 router.push(`/calendar?${params.toString()}`)
                 return
             }
-            const result = await generateScript(topic, tone, platform, language, framework)
-            setContent(result.text)
+
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, tone, platform, language, framework })
+            })
+
+            if (!response.ok) throw new Error('Failed to generate')
+
+            const reader = response.body?.getReader()
+            const decoder = new TextDecoder()
+            let accumulatedContent = ''
+
+            if (reader) {
+                while (true) {
+                    const { done, value } = await reader.read()
+                    if (done) break
+
+                    const chunk = decoder.decode(value, { stream: true })
+                    accumulatedContent += chunk
+                    setContent(accumulatedContent)
+                }
+            }
+
             if (!title) setTitle(`${platform} Script: ${topic}`)
         } catch (error) {
             console.error(error); alert('Failed to generate')
@@ -79,7 +116,12 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
             user_id: user.id,
             title: title || 'Untitled Script',
             platform,
-            content: { text: content, visuals: visualData }
+            content: {
+                text: content,
+                visuals: visualData,
+                language: language,
+                framework: framework
+            }
         }
         let resultId = scriptId
         if (scriptId) {
