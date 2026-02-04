@@ -105,16 +105,8 @@ function LoginContent() {
 
                 if (error) {
                     setError(error.message)
-                } else if (!data.session) {
-                    // User created but session missing -> Email confirmation likely required
-                    alert('Account created! Please check your email to confirm your account.')
-                    setIsLogin(true)
-
-                    // Fire-and-forget welcome email in the background without blocking
-                    sendWelcomeEmail(email, fullName).catch(e => console.error("Welcome email failed:", e))
                 } else {
-                    // Success with session -> Redirect
-                    sendWelcomeEmail(email, fullName).catch(e => console.error("Welcome email failed:", e))
+                    // Success -> Redirect immediately since email confirmation is off
                     router.push('/dashboard')
                     router.refresh()
                 }

@@ -10,7 +10,6 @@ import {
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-import { sendScriptEmail } from '@/app/actions/email'
 
 interface EditorProps {
     initialData?: any
@@ -166,17 +165,6 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         }
     }
 
-    const [sendingEmail, setSendingEmail] = useState(false)
-    const handleEmail = async () => {
-        setSendingEmail(true)
-        const supabase = createClient()
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user || !user.email) { router.push('/login'); return }
-        const result = await sendScriptEmail(user.email, title || 'Untitled Script', content)
-        if (result.success) alert('Script sent to your email!')
-        else alert(`Failed to send email: ${result.message || 'Unknown error'}`)
-        setSendingEmail(false)
-    }
 
     const handlePublish = () => {
         if (!content) return
@@ -298,9 +286,6 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                             </div>
                         )}
                         <button onClick={handleCopy} disabled={!content} title="Copy Content" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all"><Copy className="h-5 w-5" /></button>
-                        <button onClick={handleEmail} disabled={!content || sendingEmail} title="Email Script" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all">
-                            {sendingEmail ? <Loader2 className="h-5 w-5 animate-spin" /> : <MailIcon className="h-5 w-5" />}
-                        </button>
                         <button onClick={handlePublish} disabled={!content} title={`Publish to ${platform}`} className="h-10 px-4 bg-primary/20 text-primary border border-primary/30 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-primary/30 transition-all flex items-center gap-2">
                             <Zap className="h-3 w-3" /> Publish
                         </button>
