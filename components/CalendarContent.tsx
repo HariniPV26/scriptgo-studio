@@ -133,6 +133,22 @@ export default function CalendarContent({ user }: CalendarContentProps) {
         navigator.clipboard.writeText(text)
     }
 
+    const handlePublish = (item: any) => {
+        if (!item?.content) return
+        navigator.clipboard.writeText(item.content)
+
+        const platformUrls: { [key: string]: string } = {
+            'LinkedIn': 'https://www.linkedin.com/feed/',
+            'YouTube': 'https://studio.youtube.com/',
+            'Instagram': 'https://www.instagram.com/',
+            'TikTok': 'https://www.tiktok.com/upload'
+        }
+
+        const url = platformUrls[platform] || 'https://google.com'
+        window.open(url, '_blank')
+        alert(`Content copied for ${platform}! Opening platform...`)
+    }
+
     return (
         <div className="flex-1 flex flex-col md:flex-row h-[calc(100vh-64px)] overflow-hidden">
             {/* Sidebar - Command Center */}
@@ -394,9 +410,16 @@ export default function CalendarContent({ user }: CalendarContentProps) {
                             <div className="flex gap-3">
                                 <button
                                     onClick={() => handleCopy(selectedItem.content)}
-                                    className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all group"
+                                    className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all group"
+                                    title="Copy to clipboard"
                                 >
                                     <Copy className="h-5 w-5 group-active:scale-90" />
+                                </button>
+                                <button
+                                    onClick={() => handlePublish(selectedItem)}
+                                    className="h-12 px-6 rounded-2xl bg-primary/20 text-primary border border-primary/30 flex items-center justify-center hover:bg-primary/30 transition-all font-black text-[10px] uppercase tracking-widest gap-2"
+                                >
+                                    <Sparkles className="h-4 w-4" /> Publish
                                 </button>
                                 <button
                                     onClick={() => setSelectedItem(null)}

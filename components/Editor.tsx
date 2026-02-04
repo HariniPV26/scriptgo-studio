@@ -65,7 +65,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         setShowMobileSidebar(false)
         setVisualData(null)
         setViewMode('script')
-        setContent('') // Clear existing content for new stream
+        setContent('')
 
         try {
             if (isCalendarMode) {
@@ -76,13 +76,19 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                 return
             }
 
+            // Set title early if not present, so the user sees something happening
+            if (!title) setTitle(`${platform} Script: ${topic}`)
+
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ topic, tone, platform, language, framework })
             })
 
-            if (!response.ok) throw new Error('Failed to generate')
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Failed to generate');
+            }
 
             const reader = response.body?.getReader()
             const decoder = new TextDecoder()
@@ -99,9 +105,12 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                 }
             }
 
-            if (!title) setTitle(`${platform} Script: ${topic}`)
-        } catch (error) {
-            console.error(error); alert('Failed to generate')
+            if (!accumulatedContent) {
+                throw new Error('The AI returned an empty response. Please check your OpenAI quota and API key.');
+            }
+        } catch (error: any) {
+            console.error(error);
+            alert(`Generation Error: ${error.message || 'Unknown error'}`)
         } finally {
             setLoading(false)
         }
@@ -167,6 +176,22 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         if (result.success) alert('Script sent to your email!')
         else alert(`Failed to send email: ${result.message || 'Unknown error'}`)
         setSendingEmail(false)
+    }
+
+    const handlePublish = () => {
+        if (!content) return
+        navigator.clipboard.writeText(content)
+
+        const platformUrls: { [key: string]: string } = {
+            'LinkedIn': 'https://www.linkedin.com/feed/',
+            'YouTube': 'https://studio.youtube.com/',
+            'Instagram': 'https://www.instagram.com/',
+            'TikTok': 'https://www.tiktok.com/upload'
+        }
+
+        const url = platformUrls[platform] || 'https://google.com'
+        window.open(url, '_blank')
+        alert(`Content copied for ${platform}! Opening platform...`)
     }
 
     return (
@@ -275,6 +300,9 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                         <button onClick={handleCopy} disabled={!content} title="Copy Content" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all"><Copy className="h-5 w-5" /></button>
                         <button onClick={handleEmail} disabled={!content || sendingEmail} title="Email Script" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all">
                             {sendingEmail ? <Loader2 className="h-5 w-5 animate-spin" /> : <MailIcon className="h-5 w-5" />}
+                        </button>
+                        <button onClick={handlePublish} disabled={!content} title={`Publish to ${platform}`} className="h-10 px-4 bg-primary/20 text-primary border border-primary/30 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-primary/30 transition-all flex items-center gap-2">
+                            <Zap className="h-3 w-3" /> Publish
                         </button>
                         <button onClick={handleSave} disabled={saving || !content} className="h-10 px-6 bg-white text-black rounded-xl font-black text-xs uppercase tracking-widest hover:scale-110 active:scale-95 transition-all shadow-xl shadow-white/10">
                             {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Deliver'}

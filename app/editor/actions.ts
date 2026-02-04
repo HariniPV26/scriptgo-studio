@@ -1,23 +1,21 @@
 'use server'
 
-import OpenAI from 'openai'
+import { openai } from '@ai-sdk/openai'
+import { google } from '@ai-sdk/google'
+import { generateText, generateObject } from 'ai'
+import { z } from 'zod'
 
-// Initialize OpenAI
-function getOpenAIClient() {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    console.error('CRITICAL: OPENAI_API_KEY is undefined in environment');
+// Helper to get the preferred model
+function getModel(jsonFormat = false) {
+  if (process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+    return google('gemini-2.5-flash')
   }
-  return new OpenAI({
-    apiKey: apiKey || '',
-  });
+  return openai('gpt-4o-mini')
 }
 
-const openai = getOpenAIClient();
-
 export async function generateScript(topic: string, tone: string, platform: string, language: string = 'English', framework: string = 'None') {
-  if (!process.env.OPENAI_API_KEY) {
-    return { text: 'OpenAI API Key is missing. Please check your configuration.' };
+  if (!process.env.OPENAI_API_KEY && !process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+    return { text: 'API Key is missing. Please check your configuration.' };
   }
 
   let specificInstructions = ''
@@ -103,9 +101,9 @@ export async function generateScript(topic: string, tone: string, platform: stri
     ### STYLE GUIDELINES (CRITICAL)
     1. LANGUAGE & TONE:
        - MANDATORY: Writing must be in "${language}" ONLY.
-       - IF TONE IS "Professional": Use formal, authoritative, and polished "${language}". High-standard vocabulary. No slang.
-       - FOR ALL OTHER TONES (Friendly, Witty, Edgy, etc.): NEVER use formal/textbook language. Use the super-casual, "friend-to-friend" spoken dialect of "${language}". 
-         - If Language is Tamil/Hindi/Telugu/English: Heavy mix of English words is REQUIRED (Tanglish/Hinglish). Talk like local friends chatting (e.g., for Tamil use "Machan", "Guys", "Update", "Growth").
+       - IF LANGUAGE IS "Tamil": You MUST use TANGLISH (Tamil words written in English/Roman script). Talk like local friends chatting (e.g., use "Machan", "Guys", "Update", "Growth"). NEVER use Tamil script.
+       - IF TONE IS "Professional" AND LANGUAGE IS NOT "Tamil": Use formal, authoritative, and polished "${language}".
+       - FOR ALL OTHER TONES: Use the super-casual, "friend-to-friend" spoken dialect. If Language is Hindi/Telugu: Heavy mix of English words is REQUIRED (Hinglish, etc.).
 
     2. NO FLUFF: Do not use words like "In today's digital world" or "Let's dive in." Start immediately with value.
     3. NO META-LABELS: Do not output headers like "Hook:", "Body:", or "Conclusion:". Just write the script/content directly.
@@ -128,23 +126,22 @@ export async function generateScript(topic: string, tone: string, platform: stri
   `
 
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: prompt }],
+    const { text } = await generateText({
+      model: getModel(),
+      prompt: prompt,
     })
 
-    const content = response.choices[0].message.content || 'No script generated.'
-    return { text: content }
+    return { text: text || 'No script generated.' }
   } catch (error: any) {
-    console.error('OpenAI Generation Error:', error)
+    console.error('Generation Error:', error)
     const errorMessage = error.message || 'Error generating script.'
-    return { text: `Error: ${errorMessage}. Please check your OpenAI API key and credits.` }
+    return { text: `Error: ${errorMessage}. Please check your API key and quota.` }
   }
 }
 
 export async function generateVisuals(script: string, platform: string, topic: string, tone: string) {
-  if (!process.env.OPENAI_API_KEY) {
-    return { text: 'OpenAI API Key is missing. Please check your configuration.' };
+  if (!process.env.OPENAI_API_KEY && !process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+    return { text: 'API Key is missing. Please check your configuration.' };
   }
 
   const prompt = `
@@ -155,7 +152,7 @@ export async function generateVisuals(script: string, platform: string, topic: s
     SCRIPT: 
     ${script}
     
-    TASK: Generate a visual storyboard for this topic. Return only JSON.
+    TASK: Generate a visual storyboard for this topic.
     
     CRITICAL STYLE INSTRUCTIONS:
     1. STYLE: Use a "Vibrant 3D Animated Movie Style" (Disney/Pixar aesthetic).
@@ -165,26 +162,26 @@ export async function generateVisuals(script: string, platform: string, topic: s
     5. ENVIRONMENT: Describe lush, magical, or cinematic backgrounds.
     
     PROMPT FORMAT: "A high-quality 3D Disney Pixar style animation of [Character Details], [Environment Details], [Action Detail], cinematic lighting, masterpiece, 8k, vibrant colors."
-    
-    FORMAT: Return a JSON object with:
-    1. "visuals": Array of { "shot", "description", "imagePrompt" }
-    2. "thumbnailPrompt": One main cinematic hero prompt.
-    
-    IMPORTANT: Keep prompts descriptive (30-50 words). No technical jargon. No placeholders.
-    Return ONLY valid JSON.
   `
 
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: prompt }],
-      response_format: { type: "json_object" }
+    const { object } = await generateObject({
+      model: getModel(),
+      schema: z.object({
+        visuals: z.array(z.object({
+          shot: z.string(),
+          description: z.string(),
+          imagePrompt: z.string()
+        })),
+        thumbnailPrompt: z.string()
+      }),
+      prompt: prompt,
     })
 
-    const content = response.choices[0].message.content || '{"visuals": []}'
-    return { text: content }
+    return { text: JSON.stringify(object) }
   } catch (error: any) {
-    console.error('OpenAI Visuals Error:', error)
-    return { text: JSON.stringify({ error: 'Failed' }) }
+    console.error('Visuals Error:', error)
+    return { text: JSON.stringify({ error: 'Failed to generate visuals. Please check your API quota.' }) }
   }
 }
+

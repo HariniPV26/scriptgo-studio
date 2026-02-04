@@ -46,9 +46,9 @@ export async function generateCalendarContent(
     ### STYLE GUIDELINES (CRITICAL)
     1. LANGUAGE & TONE:
        - MANDATORY: Writing must be in "${language}" ONLY.
-       - IF TONE IS "Professional": Use formal, authoritative, and polished "${language}". High-standard vocabulary. No slang.
-       - FOR ALL OTHER TONES (Friendly, Witty, Edgy, etc.): NEVER use formal/textbook language. Use the super-casual, "friend-to-friend" spoken dialect of "${language}". 
-         - If Language is Tamil/Hindi/Telugu/English: Heavy mix of English words is REQUIRED (Tanglish/Hinglish). Talk like local friends chatting (e.g., for Tamil use "Machan", "Guys", "Update", "Growth").
+       - IF LANGUAGE IS "Tamil": You MUST use TANGLISH (Tamil words written in English/Roman script). Talk like local friends chatting (e.g., use "Machan", "Guys", "Update", "Growth"). NEVER use Tamil script.
+       - IF TONE IS "Professional" AND LANGUAGE IS NOT "Tamil": Use formal, authoritative, and polished "${language}".
+       - FOR ALL OTHER TONES: Use the super-casual, "friend-to-friend" spoken dialect. If Language is Hindi/Telugu: Heavy mix of English words is REQUIRED (Hinglish, etc.).
     2. NO FLUFF: Do not use words like "In today's digital world" or "Let's dive in." Start immediately with value.
     3. NO META-LABELS: In the "content" field, do not output headers like "Hook:", "Body:", or "Conclusion:". Just write the script/content directly.
 
