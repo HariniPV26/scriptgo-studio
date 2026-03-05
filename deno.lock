@@ -11,24 +11,34 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@netlify/plugin-nextjs@^4.41.3",
+        "npm:@ai-sdk/google@^3.0.20",
+        "npm:@ai-sdk/openai@^3.0.17",
+        "npm:@google/generative-ai@~0.24.1",
+        "npm:@netlify/plugin-nextjs@^5.15.5",
         "npm:@supabase/ssr@0.8",
         "npm:@supabase/supabase-js@^2.90.0",
-        "npm:@tailwindcss/postcss@4",
+        "npm:@types/dotenv@^6.1.1",
         "npm:@types/node@20",
-        "npm:@types/react-dom@19",
-        "npm:@types/react@19",
-        "npm:eslint-config-next@16.1.1",
-        "npm:eslint@9",
+        "npm:@types/nodemailer@^7.0.5",
+        "npm:@types/react-dom@^18.3.7",
+        "npm:@types/react@^18.3.27",
+        "npm:ai@^6.0.47",
+        "npm:autoprefixer@^10.4.23",
+        "npm:dotenv@^17.2.3",
+        "npm:eslint-config-next@^14.2.35",
+        "npm:eslint@^8.57.1",
         "npm:lucide-react@0.562",
         "npm:next-themes@~0.4.6",
-        "npm:next@^15.1.4",
+        "npm:next@^14.2.35",
+        "npm:nodemailer@^7.0.12",
         "npm:openai@^6.15.0",
-        "npm:react-dom@19",
-        "npm:react@19",
-        "npm:sharp@~0.34.5",
-        "npm:tailwindcss@4",
-        "npm:typescript@5"
+        "npm:postcss@^8.5.6",
+        "npm:react-dom@^18.3.1",
+        "npm:react@^18.3.1",
+        "npm:resend@^6.8.0",
+        "npm:tailwindcss@^3.4.19",
+        "npm:typescript@5",
+        "npm:zod@^4.3.6"
       ]
     }
   }

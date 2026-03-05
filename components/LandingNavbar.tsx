@@ -20,7 +20,7 @@ export function LandingNavbar() {
                     <div className="h-9 w-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-all">
                         <Rocket className="h-5 w-5 text-white" />
                     </div>
-                    <span className="font-outfit font-black text-xl tracking-tight bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">ScriptGo</span>
+                    <span className="font-outfit font-black text-xl tracking-tight bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Inscribe AI</span>
                 </Link>
 
                 <div className="hidden md:flex items-center gap-8">

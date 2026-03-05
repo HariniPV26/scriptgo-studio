@@ -299,7 +299,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                     {!content ? (
                         <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
                             <div className="h-24 w-24 bg-primary/10 rounded-3xl flex items-center justify-center border border-primary/20"><Sparkles className="h-10 w-10 text-primary" /></div>
-                            <h2 className="text-4xl font-black font-outfit uppercase tracking-tighter">ScriptGo Studio</h2>
+                            <h2 className="text-4xl font-black font-outfit uppercase tracking-tighter">Inscribe AI Studio</h2>
                             <p className="text-muted-foreground max-w-sm">Enter your topic and platform to start building your production.</p>
                         </div>
                     ) : (

@@ -6,6 +6,7 @@ import { createClient } from '@/utils/supabase/client'
 import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle, Rocket, Sparkles, Lock, Mail, User, ArrowRight, Shield } from 'lucide-react'
 import Link from 'next/link'
 import { sendWelcomeEmail, sendPasswordResetEmail } from '@/app/actions/email'
+import EnvDebug from '@/components/EnvDebug'
 
 function LoginContent() {
     const router = useRouter()
@@ -181,7 +182,7 @@ function LoginContent() {
                         <div className="h-10 w-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
                             <Rocket className="h-5 w-5 text-white" />
                         </div>
-                        <span className="font-outfit font-black text-2xl tracking-tight text-white">ScriptGo</span>
+                        <span className="font-outfit font-black text-2xl tracking-tight text-white">Inscribe AI</span>
                     </Link>
                 </div>
 
@@ -244,7 +245,7 @@ function LoginContent() {
                             <div className="h-10 w-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
                                 <Rocket className="h-5 w-5 text-white" />
                             </div>
-                            <span className="font-outfit font-black text-2xl text-white">ScriptGo</span>
+                            <span className="font-outfit font-black text-2xl text-white">Inscribe AI</span>
                         </Link>
                     </div>
 
@@ -457,6 +458,7 @@ function LoginContent() {
                     </div>
                 </div>
             </div>
+            <EnvDebug />
         </div>
     )
 }

@@ -2,7 +2,7 @@
 
 import { transporter } from '@/utils/nodemailer'
 
-const fromEmail = process.env.SMTP_FROM || 'ScriptGo Studio <onboarding@resend.dev>'
+const fromEmail = process.env.SMTP_FROM || 'Inscribe AI Studio <onboarding@resend.dev>'
 
 /**
  * Sends a welcome email to a new user.
@@ -22,14 +22,14 @@ export async function sendWelcomeEmail(email: string, fullName?: string) {
         await transporter.sendMail({
             from: fromEmail,
             to: email,
-            subject: 'Welcome to ScriptGo! 🚀',
+            subject: 'Welcome to Inscribe AI! 🚀',
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
                     <div style="text-align: center; margin-bottom: 30px;">
                         <span style="font-size: 40px;">🚀</span>
                     </div>
                     <h1 style="color: #0f172a; text-align: center; font-size: 24px; font-weight: 800; margin-bottom: 20px;">Welcome to the Future of Content, ${fullName || 'Creator'}!</h1>
-                    <p style="color: #475569; line-height: 1.6; font-size: 16px;">We're thrilled to have you on board. ScriptGo is your new secret weapon for creating high-fidelity, viral content in seconds.</p>
+                    <p style="color: #475569; line-height: 1.6; font-size: 16px;">We're thrilled to have you on board. Inscribe AI is your new secret weapon for creating high-fidelity, viral content in seconds.</p>
                     
                     <div style="margin: 32px 0; padding: 24px; background-color: #f8fafc; border-radius: 16px;">
                         <h3 style="margin-top: 0; color: #0f172a;">What's next?</h3>
@@ -48,7 +48,7 @@ export async function sendWelcomeEmail(email: string, fullName?: string) {
                     </div>
                     
                     <p style="margin-top: 40px; color: #94a3b8; font-size: 12px; text-align: center; border-top: 1px solid #e2e8f0; pt-20">
-                        © 2026 ScriptGo. If you have any questions, just reply to this email!
+                        © 2026 Inscribe AI. If you have any questions, just reply to this email!
                     </p>
                 </div>
             `,
@@ -77,11 +77,11 @@ export async function sendPasswordResetEmail(email: string, resetLink: string) {
         await transporter.sendMail({
             from: fromEmail,
             to: email,
-            subject: 'Reset your ScriptGo password',
+            subject: 'Reset your Inscribe AI password',
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
                     <h1 style="color: #0f172a; font-size: 24px; font-weight: 800; margin-bottom: 20px;">Reset Password</h1>
-                    <p style="color: #475569; line-height: 1.6;">You requested a password reset for your ScriptGo account.</p>
+                    <p style="color: #475569; line-height: 1.6;">You requested a password reset for your Inscribe AI account.</p>
                     <p style="color: #475569; line-height: 1.6;">Click the button below to set a new password. This link will expire shortly.</p>
                     
                     <div style="margin: 32px 0; text-align: center;">
@@ -143,7 +143,7 @@ export async function sendScriptEmail(email: string, scriptTitle: string, script
                     </div>
                     
                     <p style="margin-top: 40px; color: #94a3b8; font-size: 11px; text-align: center;">
-                        Sent from ScriptGo Studio. Keep creating!
+                        Sent from Inscribe AI Studio. Keep creating!
                     </p>
                 </div>
             `,

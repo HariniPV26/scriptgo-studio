@@ -1,4 +1,4 @@
-# ScriptGo
+# Inscribe AI
 
 The high-fidelity scripting environment for elite creators.
 

@@ -89,7 +89,7 @@ export default function LandingPage() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-[2rem] blur-[50px] group-hover:opacity-75 transition duration-1000"></div>
                 <img
                   src="/images/studio-mockup.png"
-                  alt="ScriptGo Studio Mockup"
+                  alt="Inscribe AI Studio Mockup"
                   className="relative rounded-[2rem] border border-white/10 shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
                 />
               </div>
@@ -184,7 +184,7 @@ export default function LandingPage() {
                 />
 
                 <p className="text-white/50 text-xl max-w-xl mx-auto">
-                  Join the elite group of creators using ScriptGo to dominate their niche.
+                  Join the elite group of creators using Inscribe AI to dominate their niche.
                 </p>
 
                 <Link
@@ -213,7 +213,7 @@ export default function LandingPage() {
                 <div className="h-10 w-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
                   <Rocket className="h-6 w-6 text-white" />
                 </div>
-                <span className="font-outfit font-black text-2xl tracking-tight">ScriptGo</span>
+                <span className="font-outfit font-black text-2xl tracking-tight">Inscribe AI</span>
               </Link>
               <p className="text-white/40 text-sm leading-relaxed">
                 The world's most advanced AI studio for modern content creators and viral educators.
@@ -233,7 +233,7 @@ export default function LandingPage() {
           </div>
 
           <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/20">© 2026 ScriptGo Studio. Built for creators.</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-white/20">© 2026 Inscribe AI Studio. Built for creators.</p>
             <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/20">
               <Link href="#" className="hover:text-white">Twitter</Link>
               <Link href="#" className="hover:text-white">LinkedIn</Link>

@@ -10,7 +10,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 
 export const metadata: Metadata = {
-  title: "ScriptGo | AI Data-Driven Content Generation",
+  title: "Inscribe AI | AI Data-Driven Content Generation",
   description: "Generate viral scripts for LinkedIn, YouTube, and TikTok in seconds with advanced AI frameworks.",
 };
 

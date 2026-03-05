@@ -33,7 +33,7 @@ export default function Header() {
                         <div className="h-8 w-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20 transition-transform group-hover:scale-110">
                             <Rocket className="h-4 w-4 text-white" />
                         </div>
-                        <span className="font-outfit font-black text-xl tracking-tight text-white uppercase">ScriptGo<span className="text-emerald-400 font-light lowercase">.studio</span></span>
+                        <span className="font-outfit font-black text-xl tracking-tight text-white uppercase">Inscribe AI<span className="text-emerald-400 font-light lowercase">.studio</span></span>
                     </Link>
 
                     {/* Desktop Nav */}
