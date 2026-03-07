@@ -105,7 +105,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
             }
 
             if (!accumulatedContent) {
-                throw new Error('The AI returned an empty response. Please check your OpenAI quota and API key.');
+                throw new Error('The AI returned an empty response. The service may be temporarily unavailable, please try again.');
             }
         } catch (error: any) {
             console.error(error);
