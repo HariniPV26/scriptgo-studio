@@ -22,12 +22,10 @@ export async function sendWelcomeEmail(email: string, fullName?: string) {
         await transporter.sendMail({
             from: fromEmail,
             to: email,
-            subject: 'Welcome to Inscribe AI! 🚀',
+            subject: 'Welcome to Inscribe AI!',
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <span style="font-size: 40px;">🚀</span>
-                    </div>
+                        <span style="font-size: 40px;">Ready</span>
                     <h1 style="color: #0f172a; text-align: center; font-size: 24px; font-weight: 800; margin-bottom: 20px;">Welcome to the Future of Content, ${fullName || 'Creator'}!</h1>
                     <p style="color: #475569; line-height: 1.6; font-size: 16px;">We're thrilled to have you on board. Inscribe AI is your new secret weapon for creating high-fidelity, viral content in seconds.</p>
                     
@@ -126,7 +124,7 @@ export async function sendScriptEmail(email: string, scriptTitle: string, script
             html: `
                 <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0;">
                     <div style="margin-bottom: 30px;">
-                        <span style="font-size: 32px;">🎬</span>
+                        <span style="font-size: 32px;">Script</span>
                     </div>
                     <h2 style="color: #0f172a; font-size: 20px; font-weight: 800; margin-bottom: 10px;">Your Script is Ready!</h2>
                     <p style="color: #64748b; font-size: 14px; margin-bottom: 24px;">Production content for: <strong>${scriptTitle}</strong></p>

@@ -50,14 +50,16 @@ export async function POST(req: Request) {
       })
 
       console.log('Stream initialized successfully')
-      return result.toTextStreamResponse()
+      const response = result.toTextStreamResponse()
+      response.headers.set('x-debug-key', useGemini ? 'present' : 'missing')
+      return response
     } catch (streamError: any) {
       console.error('streamText error:', streamError);
       throw streamError;
     }
   } catch (error: any) {
     console.error('Generation Error detail:', error)
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: error.message, key_status: process.env.GOOGLE_GENERATIVE_AI_API_KEY ? 'present' : 'missing' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     })
