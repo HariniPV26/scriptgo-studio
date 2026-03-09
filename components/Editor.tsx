@@ -134,10 +134,10 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         let resultId = scriptId
         if (scriptId) {
             const { error } = await supabase.from('scripts').update(scriptData).eq('id', scriptId)
-            if (error) alert("Failed to save")
+            if (error) { console.error('Update error:', error); alert("Failed to save: " + error.message); }
         } else {
             const { data, error } = await supabase.from('scripts').insert(scriptData).select().single()
-            if (error) alert("Failed to save")
+            if (error) { console.error('Insert error:', error); alert("Failed to save: " + error.message); }
             else if (data) resultId = data.id
         }
         setSaving(false)
