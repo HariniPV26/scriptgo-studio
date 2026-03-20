@@ -22,12 +22,15 @@ export async function POST(req: Request) {
         FRAMEWORK: ${framework}
 
         ### MANDATORY RULES:
-        1. ${language === 'Tamil' ? 'LANGUAGE: You MUST use TANGLISH (Tamil words written in English/Roman script). Example: "Nalla irukkengala?" instead of Tamil script.' : `LANGUAGE: Use ${language}.`}
+        1. LANGUAGE & TONE:
+           - MANDATORY: Writing must be in "${language}" ONLY.
+           - IF LANGUAGE IS "Tamil": You MUST use TANGLISH (Tamil words written in English/Roman script, like "Nalla irukkengala?"). Talk like local friends chatting (e.g., use "Machan", "Guys", "Update", "Growth"). NEVER use Tamil script.
+           - IF TONE IS "Professional" AND LANGUAGE IS NOT "Tamil": Use formal, authoritative, and polished "${language}".
+           - FOR ALL OTHER TONES: Use the super-casual, "friend-to-friend" spoken dialect. If Language is Hindi/Telugu or any other Indian language: Heavy mix of English words is REQUIRED (Hinglish, Spanglish, etc. depending on language).
         2. START IMMEDIATELY with the content. 
         3. NO headers like "Hook:", "Intro:", or "Script:".
         4. NO meta-talk. Just the final content.
         5. For ${platform}, ensure the format is perfect (e.g. hashtags for LinkedIn/Instagram).
-        6. TONE: ${tone === 'Professional' ? 'Use polished, formal language.' : 'Use casual, enthusiastic, conversational language.'}
 
         Write the content now:`
 
