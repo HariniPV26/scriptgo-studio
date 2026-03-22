@@ -5,8 +5,8 @@
 [build.environment]
   NODE_VERSION = "20"
   NEXT_USE_NETLIFY_EDGE = "true"
-  NEXT_PUBLIC_SUPABASE_URL = "https://eftqogkwqjlgvmdbfwvu.supabase.co"
-  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmdHFvZ2t3cWpsZ3ZtZGJmd3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NjA1MzcsImV4cCI6MjA4ODMzNjUzN30.BTE7dKMTKHwn7MyNgcCKY8ySILnvlgN9h0CakvcGE6Y"
+  NEXT_PUBLIC_SUPABASE_URL = "https://rzsaxzjwhsheldoifpmu.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6c2F4emp3aHNoZWxkb2lmcG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwNjI3MTUsImV4cCI6MjA4NDYzODcxNX0.uZwVdTrEtt06ea2rRWXdGogOgxk_yIksgkvqgRFO8yo"
 
 
 [[plugins]]
