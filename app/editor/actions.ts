@@ -1,5 +1,8 @@
 'use server'
 
+export const maxDuration = 60;
+export const runtime = 'edge';
+
 import { openai } from '@ai-sdk/openai'
 import { google } from '@ai-sdk/google'
 import { generateText, generateObject } from 'ai'

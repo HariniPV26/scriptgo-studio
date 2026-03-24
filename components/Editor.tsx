@@ -156,6 +156,10 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         try {
             const result = await generateVisuals(content, platform, topic, tone)
             const parsed = JSON.parse(result.text)
+            if (parsed.error) {
+                alert(`Generation Error: ${parsed.error}`)
+                return;
+            }
             setVisualData(parsed)
             setViewMode('visuals')
         } catch (error) {
