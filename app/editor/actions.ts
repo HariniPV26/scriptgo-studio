@@ -145,7 +145,7 @@ export async function generateVisuals(script: string, platform: string, topic: s
   }
 
   const prompt = `
-    SYSTEM: You are a Professional Video Director and Visual Storyboard Artist specializing in high-end CGI and Animation.
+    SYSTEM: You are a Professional Video Director and Visual Storyboard Artist.
     PLATFORM: ${platform}
     TOPIC: ${topic}
     TONE: ${tone}
@@ -155,13 +155,13 @@ export async function generateVisuals(script: string, platform: string, topic: s
     TASK: Generate a visual storyboard for this topic.
     
     CRITICAL STYLE INSTRUCTIONS:
-    1. STYLE: Use a "Vibrant 3D Animated Movie Style" (Disney/Pixar aesthetic).
-    2. SUBJECT: Every prompt MUST describe a specific human/character subject based on the topic. 
-    3. NO ROBOTS: Unless explicitly requested, do NOT use robots, computers, QR codes, or technical diagrams.
-    4. CINDERELLA EXAMPLE: If the topic involves Cinderella, every prompt must describe "A beautiful princess girl with glowing blonde hair, stunning blue silk gown, expressive big eyes, Disney Pixar 3D art style".
-    5. ENVIRONMENT: Describe lush, magical, or cinematic backgrounds.
-    
-    PROMPT FORMAT: "A high-quality 3D Disney Pixar style animation of [Character Details], [Environment Details], [Action Detail], cinematic lighting, masterpiece, 8k, vibrant colors."
+    1. STYLE: Determine the most appropriate visual style based on the Topic and Tone. Choose between styles like: Cinematic Photorealistic, Modern Isometric, Corporate Minimalist, Documentary Style, Abstract Art, or 3D Animation. Do NOT use 3D Animation for serious or corporate topics.
+    2. SUBJECT: Every prompt MUST clearly describe the main subject, setting, lighting, and camera angle.
+    3. RELEVANCE: Ensure the visuals accurately represent the context of the Script. If the topic is serious, use a realistic, somber, or professional aesthetic. 
+    4. ENGLISH PROMPTS: Write the image prompts strictly in English, regardless of the script's language, using high-quality image generation keywords (e.g., "cinematic lighting, 8k resolution, highly detailed").
+    5. NO TEXT/TYPOGRAPHY: Pollinations AI struggles with rendering text. Do NOT ask for words, labels, or typography to be included in the image.
+
+    PROMPT FORMAT: "[Chosen Style], [Subject Details], [Environment Details], [Action/Pose], [Lighting/Atmosphere], highly detailed, masterpiece, 8k."
   `
 
   try {

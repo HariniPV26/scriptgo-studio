@@ -312,7 +312,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                                 <div className="space-y-12 pb-32">
                                     {visualData?.thumbnailPrompt && (
                                         <div className="relative group rounded-[3rem] overflow-hidden aspect-[21/9] border border-white/5 shadow-2xl">
-                                            <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(visualData.thumbnailPrompt + ", Disney Pixar style, masterpiece, 8k")}?width=1920&height=820&seed=${seed}&nologo=true`} className="w-full h-full object-cover" />
+                                            <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(visualData.thumbnailPrompt)}?width=1920&height=820&seed=${seed}&nologo=true`} className="w-full h-full object-cover" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
                                             <div className="absolute bottom-12 left-12">
                                                 <h4 className="text-5xl font-black text-white font-outfit uppercase tracking-tighter leading-none">{title || 'Storyboard'}</h4>
@@ -324,7 +324,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                                         {visualData?.visuals?.map((shot: any, idx: number) => (
                                             <div key={`${idx}-${seed}`} className="group bg-background/50 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-primary/40 transition-all hover:bg-white/[0.04]">
                                                 <div className="aspect-video relative overflow-hidden bg-black/40">
-                                                    <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(shot.imagePrompt + ", Disney Pixar style, vibrant, high quality")}?width=1080&height=608&seed=${seed + idx}&nologo=true`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                                    <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(shot.imagePrompt)}?width=1080&height=608&seed=${seed + idx}&nologo=true`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                                                     <div className="absolute top-4 left-4 h-6 px-3 bg-black/70 backdrop-blur-md rounded-lg flex items-center border border-white/10"><span className="text-[10px] font-black text-white uppercase">{shot.shot}</span></div>
                                                 </div>
                                                 <div className="p-8 space-y-4">
