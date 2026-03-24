@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { generateScript, generateVisuals } from '@/app/editor/actions'
+import { generateScript } from '@/app/editor/actions'
 import {
     Loader2, Save, Copy, Wand2, ArrowLeft, Menu, X, Sparkles,
     MonitorPlay, Linkedin, Instagram, Calendar,
@@ -19,10 +19,10 @@ interface EditorProps {
 export default function Editor({ initialData, scriptId }: EditorProps) {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const [generatingVisuals, setGeneratingVisuals] = useState(false)
+
     const [saving, setSaving] = useState(false)
     const [showMobileSidebar, setShowMobileSidebar] = useState(false)
-    const [viewMode, setViewMode] = useState<'script' | 'visuals'>('script')
+
 
     const [isCalendarMode, setIsCalendarMode] = useState(false)
     const [calendarDays, setCalendarDays] = useState(7)
@@ -33,8 +33,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
     const [title, setTitle] = useState(initialData?.title || '')
     const [language, setLanguage] = useState('English')
     const [framework, setFramework] = useState('None')
-    const [visualData, setVisualData] = useState<any>(null)
-    const [seed, setSeed] = useState(Date.now())
+
 
     const getInitialContent = () => {
         if (!initialData?.content) return ''
@@ -47,9 +46,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
 
     // Initialize states from existing data
     useEffect(() => {
-        if (initialData?.content?.visuals) {
-            setVisualData(initialData.content.visuals)
-        }
+
         if (initialData?.content?.language) {
             setLanguage(initialData.content.language)
         }
@@ -62,8 +59,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         e.preventDefault()
         setLoading(true)
         setShowMobileSidebar(false)
-        setVisualData(null)
-        setViewMode('script')
+
         setContent('')
 
         try {
@@ -126,7 +122,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
             platform,
             content: {
                 text: content,
-                visuals: visualData,
+                visuals: null,
                 language: language,
                 framework: framework
             }
@@ -149,25 +145,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
         alert('Script copied to clipboard!')
     }
 
-    const handleGenerateVisuals = async () => {
-        if (!content) { alert('Please generate a script first.'); return }
-        setGeneratingVisuals(true)
-        setSeed(Date.now())
-        try {
-            const result = await generateVisuals(content, platform, topic, tone)
-            const parsed = JSON.parse(result.text)
-            if (parsed.error) {
-                alert(`Generation Error: ${parsed.error}`)
-                return;
-            }
-            setVisualData(parsed)
-            setViewMode('visuals')
-        } catch (error) {
-            console.error(error); alert('Failed to generate visuals')
-        } finally {
-            setGeneratingVisuals(false)
-        }
-    }
+
 
 
     const handlePublish = () => {
@@ -268,11 +246,8 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                     </div>
 
                     <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
-                        <button type="submit" disabled={loading || generatingVisuals} className={`w-full py-4 bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl transition-all ${loading ? 'opacity-80' : 'hover:-translate-y-1'}`}>
+                        <button type="submit" disabled={loading} className={`w-full py-4 bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl transition-all ${loading ? 'opacity-80' : 'hover:-translate-y-1'}`}>
                             {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Generate Script'}
-                        </button>
-                        <button type="button" onClick={handleGenerateVisuals} disabled={loading || generatingVisuals || !content} className={`w-full py-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-bold uppercase tracking-[0.1em] rounded-2xl transition-all ${generatingVisuals ? 'animate-pulse' : 'hover:bg-emerald-500/20'}`}>
-                            {generatingVisuals ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Generate Visuals'}
                         </button>
                     </div>
                 </form>
@@ -283,12 +258,7 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                 <div className="h-20 border-b border-white/5 bg-background/50 backdrop-blur-xl flex items-center justify-between px-10 shrink-0 z-20">
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-transparent text-xl font-bold font-outfit text-foreground focus:outline-none w-full" />
                     <div className="flex items-center gap-4">
-                        {visualData && (
-                            <div className="flex bg-white/5 p-1 rounded-xl mr-4">
-                                <button onClick={() => setViewMode('script')} className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'script' ? 'bg-primary text-white shadow-lg' : 'text-muted-foreground'}`}>Script</button>
-                                <button onClick={() => setViewMode('visuals')} className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === 'visuals' ? 'bg-primary text-white shadow-lg' : 'text-muted-foreground'}`}>Visuals</button>
-                            </div>
-                        )}
+
                         <button onClick={handleCopy} disabled={!content} title="Copy Content" className="p-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all"><Copy className="h-5 w-5" /></button>
                         <button onClick={handlePublish} disabled={!content} title={`Publish to ${platform}`} className="h-10 px-4 bg-primary/20 text-primary border border-primary/30 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-primary/30 transition-all flex items-center gap-2">
                             <Zap className="h-3 w-3" /> Publish
@@ -308,37 +278,9 @@ export default function Editor({ initialData, scriptId }: EditorProps) {
                         </div>
                     ) : (
                         <div className="w-full max-w-6xl mx-auto h-full">
-                            {viewMode === 'script' ? (
                                 <div className="bg-white/5 border border-white/5 rounded-[2.5rem] p-12 h-full">
                                     <textarea value={content} onChange={(e) => setContent(e.target.value)} className="w-full h-full bg-transparent text-foreground text-xl leading-relaxed outline-none resize-none font-medium" />
                                 </div>
-                            ) : (
-                                <div className="space-y-12 pb-32">
-                                    {visualData?.thumbnailPrompt && (
-                                        <div className="relative group rounded-[3rem] overflow-hidden aspect-[21/9] border border-white/5 shadow-2xl">
-                                            <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(visualData.thumbnailPrompt)}?width=1920&height=820&seed=${seed}&nologo=true`} className="w-full h-full object-cover" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
-                                            <div className="absolute bottom-12 left-12">
-                                                <h4 className="text-5xl font-black text-white font-outfit uppercase tracking-tighter leading-none">{title || 'Storyboard'}</h4>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-32">
-                                        {visualData?.visuals?.map((shot: any, idx: number) => (
-                                            <div key={`${idx}-${seed}`} className="group bg-background/50 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-primary/40 transition-all hover:bg-white/[0.04]">
-                                                <div className="aspect-video relative overflow-hidden bg-black/40">
-                                                    <img src={`https://image.pollinations.ai/prompt/${encodeURIComponent(shot.imagePrompt)}?width=1080&height=608&seed=${seed + idx}&nologo=true`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                                                    <div className="absolute top-4 left-4 h-6 px-3 bg-black/70 backdrop-blur-md rounded-lg flex items-center border border-white/10"><span className="text-[10px] font-black text-white uppercase">{shot.shot}</span></div>
-                                                </div>
-                                                <div className="p-8 space-y-4">
-                                                    <p className="text-sm font-bold leading-relaxed text-foreground/80">{shot.description}</p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     )}
                 </div>
